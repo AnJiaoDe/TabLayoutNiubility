@@ -61,8 +61,7 @@ public class IndicatorTriangleView extends View implements IIndicatorView {
     }
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
-        super.dispatchDraw(canvas);
+    protected void onDraw(Canvas canvas) {
         path.reset();
         path.moveTo(indicator.getProgress(), height);// 此点为多边形的起点
         path.lineTo(indicator.getProgress() + indicator.getWidth_indicator() * 1f / 2, height - indicator.getHeight_indicator());

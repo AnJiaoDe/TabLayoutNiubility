@@ -23,7 +23,11 @@ public class Indicator {
         paint_indicator=new Paint();
     }
 
-
+    /**
+     * 设置indicator进度
+     * @param progress
+     * @return
+     */
     public Indicator setProgress(int progress) {
         this.progress = progress;
         viewIndicator.invalidate();
@@ -38,16 +42,31 @@ public class Indicator {
         return width_indicator_max;
     }
 
+    /**
+     * 设置indicator最大长度
+     * @param width_indicator_max
+     * @return
+     */
     public Indicator setWidth_indicator_max(int width_indicator_max) {
         this.width_indicator_max = width_indicator_max;
         return  this;
     }
 
+    /**
+     * 设置indicator颜色
+     * @param color_indicator
+     * @return
+     */
     public Indicator setColor_indicator(int color_indicator) {
         paint_indicator.setColor(color_indicator);
         return  this;
     }
 
+    /**
+     * 设置indicator高度
+     * @param height_indicator
+     * @return
+     */
     public Indicator setHeight_indicator(int height_indicator) {
         this.height_indicator = height_indicator;
         return  this;
@@ -61,6 +80,11 @@ public class Indicator {
         return paint_indicator;
     }
 
+    /**
+     * 设置indicator选中时的长度
+     * @param width_indicator_selected
+     * @return
+     */
     public Indicator setWidth_indicator_selected(int width_indicator_selected) {
         this.width_indicator_selected = width_indicator_selected;
         return  this;
@@ -74,6 +98,11 @@ public class Indicator {
         return width_indicator;
     }
 
+    /**
+     * 设置indicator当前长度
+     * @param width_indicator
+     * @return
+     */
     public Indicator setWidth_indicator(int width_indicator) {
         this.width_indicator = Math.min(width_indicator_max, width_indicator);
         return  this;

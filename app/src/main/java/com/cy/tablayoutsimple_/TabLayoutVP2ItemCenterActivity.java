@@ -30,17 +30,12 @@ public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_layout_v_p2_item_center);
         viewPager2 = findViewById(R.id.view_pager);
         tabLayoutLine = findViewById(R.id.tablayout);
-
-
-
 //        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
         FragmentPageAdapterVp2NoScroll<String> fragmentPageAdapter = new FragmentPageAdapterVp2NoScroll<String>(this) {
-
             @Override
             public Fragment createFragment(String bean, int position) {
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
-
             @Override
             public void bindDataToTabInner(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
@@ -67,18 +62,8 @@ public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
         list.add("推荐");
         list.add("上课");
         list.add("抗疫");
-//        list.add("深圳");
-//        list.add("热榜");
-//        list.add("小视频");
-//        list.add("软件");
-//        list.add("探索");
-//        list.add("在家上课");
-//        list.add("手机");
-//        list.add("动漫");
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
-
-
     }
 
     /**

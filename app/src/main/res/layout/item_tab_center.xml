@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--<com.cy.tablayoutniubility.TabCenterFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="wrap_content"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    app:itemCount="4"-->
-<!--    android:layout_height="wrap_content">-->
+<?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tv"
     android:layout_width="wrap_content"
@@ -10,4 +6,4 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:textColor="#444444"
-    android:textSize="16sp" /><!--</com.cy.tablayoutniubility.TabCenterFrameLayout>-->
+    android:textSize="16sp" />

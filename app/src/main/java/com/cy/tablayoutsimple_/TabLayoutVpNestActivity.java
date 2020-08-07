@@ -31,8 +31,6 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         viewPager.requestDisallowInterceptTouchEvent(true);
         tabLayoutLine = findViewById(R.id.tablayout);
 
-
-
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
         FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
