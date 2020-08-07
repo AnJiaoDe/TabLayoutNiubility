@@ -1,0 +1,3 @@
+rootProject.name='TabLayoutSimple'
+include ':app'
+include ':tablayoutniubility'

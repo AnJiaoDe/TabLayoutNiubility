@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="height_indicator" format="dimension|reference" />
+    <attr name="width_indicator_selected" format="dimension|reference"/>
+    <attr name="width_indicator_max" format="dimension|reference"/>
+    <attr name="color_indicator" format="color|reference"/>
+
+    <declare-styleable name="TabGradientTextView">
+        <attr name="textColorNormal" format="color|reference" />
+        <attr name="textColorSelected" format="color|reference"/>
+    </declare-styleable>
+    <declare-styleable name="TabLayoutNiubility">
+        <attr name="space_vertical" format="dimension|reference"/>
+        <attr name="space_horizontal" format="dimension|reference"/>
+    </declare-styleable>
+    <declare-styleable name="IndicatorLineView">
+        <attr name="height_indicator" />
+        <attr name="width_indicator_selected"/>
+        <attr name="width_indicator_max"/>
+        <attr name="radius_indicator" format="dimension|reference"/>
+        <attr name="color_indicator" />
+    </declare-styleable>
+    <declare-styleable name="IndicatorTriangleView">
+        <attr name="height_indicator" />
+        <attr name="width_indicator_selected"/>
+        <attr name="width_indicator_max"/>
+        <attr name="color_indicator" />
+    </declare-styleable>
+</resources>
