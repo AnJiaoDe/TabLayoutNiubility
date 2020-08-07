@@ -55,6 +55,7 @@ public class FragmentTab1 extends Fragment {
         view = inflater.inflate(R.layout.fragment_tab1, container, false);
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
+        LogUtils.log("onCreateView");
         FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
@@ -66,9 +67,11 @@ public class FragmentTab1 extends Fragment {
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
+                    LogUtils.log("bindDataToTabisSelected",position);
                     textView.setTextColor(0xffe45540);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 } else {
+                    LogUtils.log("bindDataToTab",position);
                     textView.setTextColor(0xff444444);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 }
@@ -102,5 +105,12 @@ public class FragmentTab1 extends Fragment {
             tabAdapter.add(list);
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LogUtils.log("onResume");
+
     }
 }

@@ -40,10 +40,6 @@ public class TabFixedOuter extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ViewGroup parent = (ViewGroup) getParent();
         TabLayoutNiubility tabLayoutNiubility = (TabLayoutNiubility) parent.getParent();
-        LogUtils.log("width", (tabLayoutNiubility.getWidth()
-                - tabLayoutNiubility.getPaddingLeft()
-                - tabLayoutNiubility.getPaddingRight()
-                - (itemCount + 1) * tabLayoutNiubility.getSpace_horizontal()));
         setMeasuredDimension(MeasureSpec.makeMeasureSpec
                         ((int) ((tabLayoutNiubility.getWidth()
                                 - tabLayoutNiubility.getPaddingLeft()

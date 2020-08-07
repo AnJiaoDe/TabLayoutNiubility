@@ -29,11 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tablayout_triangle_vp2" />
-    <Button
-        android:id="@+id/btn_tab_vp_nest2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="tablayout_nest_vp2" />
+<!--    <Button-->
+<!--        android:id="@+id/btn_tab_vp_nest2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="tablayout_nest_vp2" />-->
     <Button
         android:id="@+id/btn_tab_vp_nest"
         android:layout_width="match_parent"

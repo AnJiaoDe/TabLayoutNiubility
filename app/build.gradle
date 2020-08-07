@@ -34,5 +34,5 @@ dependencies {
     api project(path: ':tablayoutniubility')
     api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'androidx.viewpager2:viewpager2:1.0.0'
-    api 'androidx.viewpager:viewpager:1.0.0'
+//    api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.1'
 }

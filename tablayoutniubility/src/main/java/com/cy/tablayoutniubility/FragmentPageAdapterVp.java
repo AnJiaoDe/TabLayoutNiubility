@@ -17,7 +17,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class FragmentPageAdapterVp<T> extends FragmentStatePagerAdapter {
+public abstract class FragmentPageAdapterVp<T> extends FragmentStatePagerAdapter implements IFragmentPageAdapter<T,FragmentPageAdapterVp>{
     private List<T> list_bean = new ArrayList<>();
 
     public FragmentPageAdapterVp(@NonNull FragmentManager fm, int behavior) {
@@ -37,15 +37,15 @@ public abstract class FragmentPageAdapterVp<T> extends FragmentStatePagerAdapter
         return list_bean.size();
     }
 
-    public abstract Fragment createFragment(T bean, int position);
-
-    public abstract void bindDataToTab(TabViewHolder holder, int position, T bean, boolean isSelected);
-
-    public abstract int getTabLayoutID(int position, T bean);
-
-    public void onTabClick(TabViewHolder holder, int position, T bean) {
+    @Override
+    public FragmentPageAdapterVp getFragmentPageAdapter() {
+        return this;
     }
 
+    @Override
+    public void onTabClick(TabViewHolder holder, int position, T bean) {
+    }
+    @Override
     public void onTabScrolled(TabViewHolder holderCurrent, int positionCurrent,
                               boolean fromLeft2RightCurrent, float positionOffsetCurrent,
                               TabViewHolder holder2, int position2,

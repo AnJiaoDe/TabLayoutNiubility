@@ -19,7 +19,7 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
 
     private List<T> list_bean = new ArrayList<>();//数据源
     private int positionSelectedLast = 0;
-    private int positionSelected = 0;
+    private int positionSelected =0;
 
     @NonNull
     @Override
@@ -92,6 +92,7 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
     }
 
     public void setPositionSelected(int positionSelected) {
+
         if (positionSelectedLast != positionSelected) {
             this.positionSelected = positionSelected;
             notifyItemChanged(positionSelected);

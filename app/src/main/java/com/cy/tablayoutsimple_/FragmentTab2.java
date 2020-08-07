@@ -45,6 +45,7 @@ public class FragmentTab2 extends Fragment {
         view = inflater.inflate(R.layout.fragment_tab2, parent, false);
 
 
+//        LogUtils.log("onCreateView");
 
         final LinearLayout rootView = view.findViewById(R.id.rootView);
         String tab_name2 = "";
@@ -55,5 +56,12 @@ public class FragmentTab2 extends Fragment {
         TextView textView = view.findViewById(R.id.tv);
         textView.setText(tab_name2);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        LogUtils.log("onResume");
+
     }
 }
