@@ -12,9 +12,8 @@ import android.widget.TextView;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp2NoScroll;
 import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
 import com.cy.tablayoutniubility.TabLayoutNoScroll;
-import com.cy.tablayoutniubility.TabNoScrollAdapter;
+import com.cy.tablayoutniubility.TabAdapterNoScroll;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
-import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
 public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
     public ViewPager2 viewPager2;
     private TabLayoutNoScroll tabLayoutLine;
-    private TabNoScrollAdapter<String> tabAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,7 @@ public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
             }
         };
 
-        tabAdapter = new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+         TabAdapterNoScroll<String> tabAdapter=new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");

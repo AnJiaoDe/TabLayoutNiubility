@@ -8,11 +8,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
-import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp2NoScroll;
 import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
 import com.cy.tablayoutniubility.TabLayoutNoScroll;
-import com.cy.tablayoutniubility.TabNoScrollAdapter;
+import com.cy.tablayoutniubility.TabAdapterNoScroll;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
 
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class TabLayoutMainActivity extends AppCompatActivity {
             }
         };
 
-        TabNoScrollAdapter<TabBean> tabAdapter = new TabMediatorVp2NoScroll<TabBean>(tabLayoutNoScroll, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapterNoScroll<TabBean> tabAdapter = new TabMediatorVp2NoScroll<TabBean>(tabLayoutNoScroll, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<TabBean> list = new ArrayList<>();
         list.add(new TabBean("消息",R.drawable.msg,R.drawable.msg_selected));

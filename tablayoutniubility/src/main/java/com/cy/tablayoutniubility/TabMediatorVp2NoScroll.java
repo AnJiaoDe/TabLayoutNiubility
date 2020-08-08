@@ -1,7 +1,5 @@
 package com.cy.tablayoutniubility;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
@@ -18,7 +16,7 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
 public class TabMediatorVp2NoScroll<T> {
     private TabLayoutNoScroll tabLayout;
     private ViewPager2 viewPager2;
-    private TabNoScrollAdapter<T> tabAdapter;
+    private TabAdapterNoScroll<T> tabAdapter;
     private int position_scroll_last = 0;
     private int diff = 0;
     private int diff_click = 0;
@@ -32,8 +30,8 @@ public class TabMediatorVp2NoScroll<T> {
         this.viewPager2 = viewPager2;
     }
 
-    public TabNoScrollAdapter<T> setAdapter(final FragmentPageAdapterVp2NoScroll<T> fragmentPageAdapter) {
-        tabAdapter = new TabNoScrollAdapter<T>() {
+    public TabAdapterNoScroll<T> setAdapter(final FragmentPageAdapterVp2NoScroll<T> fragmentPageAdapter) {
+        tabAdapter = new TabAdapterNoScroll<T>() {
             @Override
             public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {
                 fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);

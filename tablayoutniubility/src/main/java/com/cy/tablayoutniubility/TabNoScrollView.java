@@ -3,15 +3,10 @@ package com.cy.tablayoutniubility;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:
@@ -23,7 +18,7 @@ import java.util.List;
  * @Version:
  */
 class TabNoScrollView extends LinearLayout {
-    private TabNoScrollAdapter tabNoScrollAdapter;
+    private TabAdapterNoScroll tabNoScrollAdapter;
     private SparseArray<TabNoScrollViewHolder> sparseArrayViewHolder;
 
     public TabNoScrollView(Context context) {
@@ -36,7 +31,7 @@ class TabNoScrollView extends LinearLayout {
         sparseArrayViewHolder = new SparseArray<>();
     }
 
-    public void setAdapter(final TabNoScrollAdapter tabNoScrollAdapter) {
+    public void setAdapter(final TabAdapterNoScroll tabNoScrollAdapter) {
         this.tabNoScrollAdapter = tabNoScrollAdapter;
         tabNoScrollAdapter.setTabNoScrollViewCallback(new TabNoScrollViewCallback() {
             @Override
@@ -67,7 +62,7 @@ class TabNoScrollView extends LinearLayout {
         tabNoScrollAdapter.onBindViewHolder(tabNoScrollViewHolder,position);
     }
 
-    public TabNoScrollAdapter getAdapter() {
+    public TabAdapterNoScroll getAdapter() {
         return tabNoScrollAdapter;
     }
     public TabNoScrollViewHolder getViewHolder(int position){

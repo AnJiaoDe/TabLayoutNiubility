@@ -1,13 +1,8 @@
 package com.cy.tablayoutniubility;
 
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +11,7 @@ import java.util.List;
  * @param <T>
  */
 
-public abstract class TabNoScrollAdapter<T> {
+public abstract class TabAdapterNoScroll<T> {
 
     private List<T> list_bean = new ArrayList<>();//数据源
     private int positionSelectedLast = 0;
@@ -111,7 +106,7 @@ public abstract class TabNoScrollAdapter<T> {
     /**
      * @param list_bean
      */
-    public TabNoScrollAdapter<T> setList_bean(List<T> list_bean) {
+    public TabAdapterNoScroll<T> setList_bean(List<T> list_bean) {
         this.list_bean = list_bean;
         notifyDataSetChanged();
         return this;
@@ -124,7 +119,7 @@ public abstract class TabNoScrollAdapter<T> {
     /**
      * 添加List,并且notify
      */
-    public TabNoScrollAdapter<T> add(List<T> beans) {
+    public TabAdapterNoScroll<T> add(List<T> beans) {
         list_bean.addAll(beans);
         notifyDataSetChanged();
         return this;

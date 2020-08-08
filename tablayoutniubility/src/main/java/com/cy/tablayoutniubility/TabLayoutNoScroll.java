@@ -1,7 +1,6 @@
 package com.cy.tablayoutniubility;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
@@ -48,7 +47,7 @@ public class TabLayoutNoScroll extends FrameLayout {
         return tabNoScrollView;
     }
 
-    public TabLayoutNoScroll setAdapter(TabNoScrollAdapter tabAdapter) {
+    public TabLayoutNoScroll setAdapter(TabAdapterNoScroll tabAdapter) {
         tabNoScrollView.setAdapter(tabAdapter);
         return this;
     }
