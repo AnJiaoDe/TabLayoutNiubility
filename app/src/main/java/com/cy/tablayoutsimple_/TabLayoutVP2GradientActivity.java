@@ -11,7 +11,7 @@ import android.util.DisplayMetrics;
 import com.cy.tablayoutniubility.TabViewHolder;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutMediatorVp2;
+import com.cy.tablayoutniubility.TabMediatorVp2;
 import com.cy.tablayoutniubility.TabLayoutNiubility;
 import com.cy.tablayoutniubility.TabGradientTextView;
 
@@ -30,7 +30,7 @@ public class TabLayoutVP2GradientActivity extends AppCompatActivity {
         tabLayoutLine = findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+        FragmentPageAdapterVp2<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<String,TabViewHolder>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -76,7 +76,7 @@ public class TabLayoutVP2GradientActivity extends AppCompatActivity {
             }
         };
 
-        TabAdapter<String> tabAdapter = new TabLayoutMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapter<String> tabAdapter = new TabMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");

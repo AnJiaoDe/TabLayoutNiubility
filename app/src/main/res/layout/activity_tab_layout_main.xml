@@ -5,24 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.cy.tablayoutniubility.TabLayoutNoScroll
-        android:id="@+id/tablayout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:space_horizontal="0dp"
-        android:background="#fff">
-
-        <com.cy.tablayoutniubility.IndicatorLineView
-            android:layout_width="match_parent"
-            app:width_indicator_max="80dp"
-            app:width_indicator_selected="30dp"
-            android:layout_height="wrap_content" />
-    </com.cy.tablayoutniubility.TabLayoutNoScroll>
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:overScrollMode="never" />
+
+    <com.cy.tablayoutniubility.TabLayoutNoScroll
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fff">
+        <com.cy.tablayoutniubility.IndicatorNullView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.cy.tablayoutniubility.TabLayoutNoScroll>
+
+
 </LinearLayout>
 

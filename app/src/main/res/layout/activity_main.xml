@@ -39,6 +39,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="tablayout_nest_vp" />
+    <Button
+        android:id="@+id/btn_tab_vp2_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tablayout_main_vp2" />
 
 <!--    <Button-->
 <!--        android:id="@+id/btn_tab_vp_custom"-->

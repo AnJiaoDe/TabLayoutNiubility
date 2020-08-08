@@ -10,13 +10,23 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolder {
+public class TabNoScrollViewHolder implements IViewHolder {
     private SparseArray<View> array_view;
+    protected View itemView;
+    private int adapterPosition;
 
-    public TabViewHolder(View itemView) {
-        super(itemView);
+    public TabNoScrollViewHolder(View itemView) {
+        this.itemView = itemView;
         array_view = new SparseArray<View>();
 
+    }
+
+    void setPositionAdapter(int adapterPosition) {
+        this.adapterPosition = adapterPosition;
+    }
+
+    public int getAdapterPosition() {
+        return adapterPosition;
     }
 
     //获取View
@@ -29,7 +39,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
         return (T) view;
     }
 
-    public TabViewHolder putView(int viewId, View view) {
+    public TabNoScrollViewHolder putView(int viewId, View view) {
         array_view.put(viewId, view);
         return this;
     }
@@ -39,13 +49,13 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
 
     //设置View显示
-    public TabViewHolder setVisible(int res_id) {
+    public TabNoScrollViewHolder setVisible(int res_id) {
         getView(res_id).setVisibility(View.VISIBLE);
         return this;
     }
     //设置View隐藏
 
-    public TabViewHolder setInVisible(int res_id) {
+    public TabNoScrollViewHolder setInVisible(int res_id) {
         getView(res_id).setVisibility(View.INVISIBLE);
         return this;
     }
@@ -65,7 +75,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
     //设置TextView 的Text
 
-    public TabViewHolder setText(int tv_id, Object text) {
+    public TabNoScrollViewHolder setText(int tv_id, Object text) {
         TextView tv = getView(tv_id);
         tv.setText(nullToString(text));
         return this;
@@ -73,7 +83,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
 
     //设置TextView 前面+¥
-    public TabViewHolder setPriceText(int tv_id, Object text) {
+    public TabNoScrollViewHolder setPriceText(int tv_id, Object text) {
         TextView tv = getView(tv_id);
         tv.setText("¥" + String.valueOf(text));
         return this;
@@ -81,7 +91,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
 
     //设置TextView或者EditText的TextColor
-    public TabViewHolder setTextColor(int tv_id, int color) {
+    public TabNoScrollViewHolder setTextColor(int tv_id, int color) {
         TextView tv = getView(tv_id);
         tv.setTextColor(color);
         return this;
@@ -104,14 +114,14 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
     //设置View的BackgroundResource
 
-    public TabViewHolder setBackgroundResource(int v_id, int resid) {
+    public TabNoScrollViewHolder setBackgroundResource(int v_id, int resid) {
         View view = getView(v_id);
         view.setBackgroundResource(resid);
         return this;
     }
 
     //设置ImageView的ImageBitmap
-    public TabViewHolder setImageBitmap(int iv_id, Bitmap bitmap) {
+    public TabNoScrollViewHolder setImageBitmap(int iv_id, Bitmap bitmap) {
         ImageView view = getView(iv_id);
         view.setImageBitmap(bitmap);
         return this;
@@ -119,7 +129,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
 
     //设置ImageView的ImageResource
 
-    public TabViewHolder setImageResource(int iv_id, int resID) {
+    public TabNoScrollViewHolder setImageResource(int iv_id, int resID) {
         ImageView view = getView(iv_id);
         view.setImageResource(resID);
         return this;

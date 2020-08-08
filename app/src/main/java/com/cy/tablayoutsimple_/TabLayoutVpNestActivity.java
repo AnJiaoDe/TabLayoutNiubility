@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
+import com.cy.tablayoutniubility.TabMediatorVp;
 import com.cy.tablayoutniubility.TabViewHolder;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutMediatorVp;
 import com.cy.tablayoutniubility.TabLayoutNiubility;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         tabLayoutLine = findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getSupportFragmentManager(),
+        FragmentPageAdapterVp<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp<String,TabViewHolder>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
@@ -62,7 +62,7 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
             }
         };
 
-        TabAdapter<String> tabAdapter = new TabLayoutMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");

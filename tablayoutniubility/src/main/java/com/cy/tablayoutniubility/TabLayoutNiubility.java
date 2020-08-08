@@ -22,7 +22,6 @@ public class TabLayoutNiubility extends FrameLayout {
     protected HorizontalRecyclerView horizontalRecyclerView;
     protected int space_vertical, space_horizontal;
     protected IIndicatorView indicatorView;
-    protected TabAdapter tabAdapter;
 
     public TabLayoutNiubility(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -53,6 +52,7 @@ public class TabLayoutNiubility extends FrameLayout {
         return indicatorView;
     }
 
+
     public TabLayoutNiubility setSpace_vertical(int space_vertical) {
         this.space_vertical = space_vertical;
         return this;
@@ -76,7 +76,6 @@ public class TabLayoutNiubility extends FrameLayout {
     }
 
     public TabLayoutNiubility setAdapter(TabAdapter tabAdapter) {
-        this.tabAdapter = tabAdapter;
         //tab间距
         horizontalRecyclerView.addItemDecoration(new LinearItemDecoration(tabAdapter)
                 .setSpace_horizontal(space_horizontal).setSpace_vertical(space_vertical));

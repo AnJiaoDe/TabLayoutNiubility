@@ -11,10 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.cy.tablayoutniubility.TabMediatorVp;
 import com.cy.tablayoutniubility.TabViewHolder;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutMediatorVp;
 import com.cy.tablayoutniubility.TabLayoutNiubility;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class FragmentTab1 extends Fragment {
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
         LogUtils.log("onCreateView");
-        FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getChildFragmentManager(),
+        FragmentPageAdapterVp<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp<String,TabViewHolder>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -83,7 +83,7 @@ public class FragmentTab1 extends Fragment {
                 return R.layout.item_tab;
             }
         };
-        TabAdapter<String> tabAdapter = new TabLayoutMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
         if (getArguments() != null) {
             String tab_name1 = getArguments().getString(TAB_NAME1);
             List<String> list = new ArrayList<>();

@@ -4,63 +4,64 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.widget.TextView;
 
+import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
 import com.cy.tablayoutniubility.TabLayoutNoScroll;
 import com.cy.tablayoutniubility.TabNoScrollAdapter;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
-import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
+public class TabLayoutMainActivity extends AppCompatActivity {
     public ViewPager2 viewPager2;
-    private TabLayoutNoScroll tabLayoutLine;
-    private TabNoScrollAdapter<String> tabAdapter;
-
+    private TabLayoutNoScroll tabLayoutNoScroll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_v_p2_item_center);
+        setContentView(R.layout.activity_tab_layout_main);
         viewPager2 = findViewById(R.id.view_pager);
-        tabLayoutLine = findViewById(R.id.tablayout);
-//        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
-        FragmentPageAdapterVp2<String, TabNoScrollViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<String,TabNoScrollViewHolder>(this) {
+        tabLayoutNoScroll = findViewById(R.id.tablayout);
+        FragmentPageAdapterVp2<TabBean, TabNoScrollViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<TabBean,TabNoScrollViewHolder>(this) {
+
             @Override
-            public Fragment createFragment(String bean, int position) {
-                return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
-            }
-            @Override
-            public void bindDataToTab(TabNoScrollViewHolder holder, int position, String bean, boolean isSelected) {
-                TextView textView = holder.getView(R.id.tv);
-                if (isSelected) {
-                    textView.setTextColor(0xffe45540);
-                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                } else {
-                    textView.setTextColor(0xff444444);
-                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                }
-                textView.setText(bean);
+            public Fragment createFragment(TabBean bean, int position) {
+                return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position).getText());
             }
 
             @Override
-            public int getTabLayoutID(int position, String bean) {
-                return R.layout.item_tab_center;
+            public void bindDataToTab(TabNoScrollViewHolder holder, int position, TabBean bean, boolean isSelected) {
+                TextView textView = holder.getView(R.id.tv);
+                if (isSelected) {
+                    textView.setTextColor(0xff00ff00);
+                    holder.setImageResource(R.id.iv,bean.getResID_selected());
+                } else {
+                    textView.setTextColor(0xff444444);
+                    holder.setImageResource(R.id.iv,bean.getResID_normal());
+                }
+                textView.setText(bean.getText());
+            }
+
+            @Override
+            public int getTabLayoutID(int position, TabBean bean) {
+                if (position == 2) {
+                    return R.layout.item_tab_main_circle;
+                }
+                return R.layout.item_tab_main;
             }
         };
 
-        tabAdapter = new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabNoScrollAdapter<TabBean> tabAdapter = new TabMediatorVp2NoScroll<TabBean>(tabLayoutNoScroll, viewPager2).setAdapter(fragmentPageAdapter);
 
-        List<String> list = new ArrayList<>();
-        list.add("关注");
-        list.add("推荐");
-        list.add("上课");
-        list.add("抗疫");
+        List<TabBean> list = new ArrayList<>();
+        list.add(new TabBean("消息",R.drawable.msg,R.drawable.msg_selected));
+        list.add(new TabBean("通讯录",R.drawable.friends,R.drawable.friends_selected));
+        list.add(new TabBean("朋友圈",R.drawable.circle,R.drawable.circle_selected));
+        list.add(new TabBean("我",R.drawable.my,R.drawable.my_selected));
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
     }

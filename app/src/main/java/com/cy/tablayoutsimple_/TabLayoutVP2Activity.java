@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.cy.tablayoutniubility.TabViewHolder;
 import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutMediatorVp2;
+import com.cy.tablayoutniubility.TabMediatorVp2;
 import com.cy.tablayoutniubility.TabLayoutNiubility;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class TabLayoutVP2Activity extends AppCompatActivity {
         viewPager2 = findViewById(R.id.view_pager);
         tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+        FragmentPageAdapterVp2<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<String,TabViewHolder>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -57,8 +57,7 @@ public class TabLayoutVP2Activity extends AppCompatActivity {
                 return R.layout.item_tab;
             }
         };
-
-        TabAdapter<String> tabAdapter = new TabLayoutMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapter<String> tabAdapter = new TabMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");

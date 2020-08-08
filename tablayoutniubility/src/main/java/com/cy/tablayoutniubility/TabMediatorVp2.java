@@ -15,7 +15,7 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
  * @UpdateRemark:
  * @Version:
  */
-public class TabLayoutMediatorVp2<T> {
+public class TabMediatorVp2<T> {
     private TabLayoutNiubility tabLayout;
     private ViewPager2 viewPager2;
     private TabAdapter<T> tabAdapter;
@@ -33,12 +33,12 @@ public class TabLayoutMediatorVp2<T> {
     private boolean op_click_last = false;
     private int click_position_last = -1;
 
-    public TabLayoutMediatorVp2(TabLayoutNiubility tabLayout, final ViewPager2 viewPager2) {
+    public TabMediatorVp2(TabLayoutNiubility tabLayout, final ViewPager2 viewPager2) {
         this.tabLayout = tabLayout;
         this.viewPager2 = viewPager2;
     }
 
-    public TabAdapter<T> setAdapter(final FragmentPageAdapterVp2<T> fragmentPageAdapter) {
+    public TabAdapter<T> setAdapter(final FragmentPageAdapterVp2<T,TabViewHolder> fragmentPageAdapter) {
         tabAdapter = new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {

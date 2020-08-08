@@ -4,7 +4,6 @@
     <attr name="width_indicator_selected" format="dimension|reference"/>
     <attr name="width_indicator_max" format="dimension|reference"/>
     <attr name="color_indicator" format="color|reference"/>
-
     <declare-styleable name="TabGradientTextView">
         <attr name="textColorNormal" format="color|reference" />
         <attr name="textColorSelected" format="color|reference"/>

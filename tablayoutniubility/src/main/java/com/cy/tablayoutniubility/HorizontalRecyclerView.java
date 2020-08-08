@@ -2,6 +2,8 @@ package com.cy.tablayoutniubility;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,6 +38,7 @@ public class HorizontalRecyclerView extends RecyclerView {
         if (simpleItemAnimator != null) simpleItemAnimator.setSupportsChangeAnimations(false);
 
     }
+
 
     /**
      * x为正，表示手指往左滑,x为负，表示手指往右滑
