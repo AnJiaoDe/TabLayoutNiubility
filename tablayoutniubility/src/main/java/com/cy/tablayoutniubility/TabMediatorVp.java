@@ -38,7 +38,7 @@ public class TabMediatorVp<T> {
         this.viewPager = viewPager;
     }
 
-    public TabAdapter<T> setAdapter(final FragmentPageAdapterVp<T,TabViewHolder> fragmentPageAdapter) {
+    public TabAdapter<T> setAdapter(final FragmentPageAdapterVp<T> fragmentPageAdapter) {
         tabAdapter = new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {

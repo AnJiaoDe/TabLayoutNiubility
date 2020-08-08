@@ -9,6 +9,7 @@ import android.util.DisplayMetrics;
 import android.widget.TextView;
 
 import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
+import com.cy.tablayoutniubility.FragmentPageAdapterVp2NoScroll;
 import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
 import com.cy.tablayoutniubility.TabLayoutNoScroll;
 import com.cy.tablayoutniubility.TabNoScrollAdapter;
@@ -26,7 +27,7 @@ public class TabLayoutMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_layout_main);
         viewPager2 = findViewById(R.id.view_pager);
         tabLayoutNoScroll = findViewById(R.id.tablayout);
-        FragmentPageAdapterVp2<TabBean, TabNoScrollViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<TabBean,TabNoScrollViewHolder>(this) {
+        FragmentPageAdapterVp2NoScroll<TabBean> fragmentPageAdapter = new FragmentPageAdapterVp2NoScroll<TabBean>(this) {
 
             @Override
             public Fragment createFragment(TabBean bean, int position) {

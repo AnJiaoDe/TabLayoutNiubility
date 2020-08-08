@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
  * @UpdateRemark:
  * @Version:
  */
-public interface IFragmentPageAdapter<T,V,W> {
+public interface IFragmentPageAdapter<T,V extends IViewHolder> {
 
     public Fragment createFragment(T bean, int position);
 
@@ -25,7 +25,5 @@ public interface IFragmentPageAdapter<T,V,W> {
                               boolean fromLeft2RightCurrent, float positionOffsetCurrent,
                               V holder2, int position2,
                               boolean fromLeft2Right2, float positionOffset2);
-
-    public W getFragmentPageAdapter();
 
 }

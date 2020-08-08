@@ -31,7 +31,7 @@ public class TabMediatorVpNoScroll<T> {
         this.viewPager = viewPager;
     }
 
-    public TabNoScrollAdapter<T> setAdapter(final FragmentPageAdapterVp<T, TabNoScrollViewHolder> fragmentPageAdapter) {
+    public TabNoScrollAdapter<T> setAdapter(final FragmentPageAdapterVpNoScroll<T> fragmentPageAdapter) {
         tabAdapter = new TabNoScrollAdapter<T>() {
             @Override
             public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {

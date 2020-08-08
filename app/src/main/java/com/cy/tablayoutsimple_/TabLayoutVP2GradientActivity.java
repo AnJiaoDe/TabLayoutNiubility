@@ -30,7 +30,7 @@ public class TabLayoutVP2GradientActivity extends AppCompatActivity {
         tabLayoutLine = findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp2<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<String,TabViewHolder>(this) {
+        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {

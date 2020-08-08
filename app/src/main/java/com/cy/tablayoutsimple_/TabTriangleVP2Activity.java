@@ -29,7 +29,7 @@ public class TabTriangleVP2Activity extends AppCompatActivity {
         tabLayoutNiubility = findViewById(R.id.tablayout);
 
 //        tabLayoutTriangle.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp2<String,TabViewHolder> fragmentPageAdapter = new FragmentPageAdapterVp2<String,TabViewHolder>(this) {
+        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
