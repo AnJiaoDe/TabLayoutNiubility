@@ -1,31 +1,59 @@
 文章目录
+
 GitHub:https://github.com/AnJiaoDe/TabLayoutNiubility
+
 该轮子特异功能如下：
+
 使用方法
+
 注意：该轮子适用于androidx中的ViewPager2和ViewPager
+
 详细使用如下
+
 Tab均分不滑动(ViewPager、ViewPager2均支持)
+
 Tab滑动、 indicator蠕动、多布局(ViewPager、ViewPager2均支持)
+
 Tab文字颜色渐变(ViewPager、ViewPager2均支持)
+
 自定义Indicator如三角形(ViewPager、ViewPager2均支持)
+
 ViewPager双层嵌套(建议不要使用ViewPager2进行双层嵌套，ViewPager2嵌套滑动冲突几乎无法处理，贼鸡儿坑)
+
 仿微信主页Tab
+
 相关API
+
 TabMediator
+
 FragmentPageAdapter
+
 TabAdapter
+
 TabLayoutNiubility 、TabLayoutNoScroll、IndicatorLineView 、 IndicatorTriangleView
+
 TabLayoutNiubility和 indicator style设置
+
 自定义indicator
+
 实现原理剖析
+
 说真的，这自定义控件还真不简单
+
 涉及到的难点场景
+
 搞清楚ViewPager监听的onPageSelected、onPageScrolled和onPageScrollStateChanged回调执行特点
+
 自定义HorizontalRecyclerView实现TabLayout
+
 源码如下
+
 TabLayout的item宽度均分
+
 UML类图如下
+
 面向接口编程（面向多态编程）的思想
+
 欢迎联系、指正、批评
 
 ## [GitHub:https://github.com/AnJiaoDe/TabLayoutNiubility](https://github.com/AnJiaoDe/TabLayoutNiubility)
