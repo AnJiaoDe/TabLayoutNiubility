@@ -9,7 +9,7 @@ package com.cy.tablayoutniubility;
  * @UpdateRemark:
  * @Version:
  */
-public interface TabNoScrollViewCallback {
+public interface TabNoScrollCallback {
 
     public void notifyDataSetChanged();
 

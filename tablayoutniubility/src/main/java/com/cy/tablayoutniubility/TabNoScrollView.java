@@ -33,7 +33,7 @@ class TabNoScrollView extends LinearLayout {
 
     public void setAdapter(final TabAdapterNoScroll tabNoScrollAdapter) {
         this.tabNoScrollAdapter = tabNoScrollAdapter;
-        tabNoScrollAdapter.setTabNoScrollViewCallback(new TabNoScrollViewCallback() {
+        tabNoScrollAdapter.setTabNoScrollViewCallback(new TabNoScrollCallback() {
             @Override
             public void notifyDataSetChanged() {
                 dataSetChanged();

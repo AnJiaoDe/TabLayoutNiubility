@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 import com.cy.tablayoutniubility.TabViewHolder;
-import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
+import com.cy.tablayoutniubility.FragPageAdapterVp2;
 import com.cy.tablayoutniubility.TabAdapter;
 import com.cy.tablayoutniubility.TabMediatorVp2;
-import com.cy.tablayoutniubility.TabLayoutNiubility;
+import com.cy.tablayoutniubility.TabLayoutScroll;
 import com.cy.tablayoutniubility.TabGradientTextView;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class TabLayoutVP2GradientActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
-    private TabLayoutNiubility tabLayoutLine;
+    private TabLayoutScroll tabLayoutLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class TabLayoutVP2GradientActivity extends AppCompatActivity {
         tabLayoutLine = findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {

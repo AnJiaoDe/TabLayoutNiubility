@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TabLayoutMainActivity.class));
             }
         });
+        findViewById(R.id.btn_tab_vp2_multi).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TabLayoutMultiActivity.class));
+            }
+        });
 //        findViewById(R.id.btn_tab_vp_nest2).setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

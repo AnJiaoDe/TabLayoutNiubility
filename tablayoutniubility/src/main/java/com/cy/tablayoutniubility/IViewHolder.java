@@ -1,5 +1,7 @@
 package com.cy.tablayoutniubility;
 
+import android.view.View;
+
 /**
  * @Description:
  * @Author: cy
@@ -10,4 +12,6 @@ package com.cy.tablayoutniubility;
  * @Version:
  */
 public interface IViewHolder {
+
+    public <T extends View> T getView(int viewId);
 }

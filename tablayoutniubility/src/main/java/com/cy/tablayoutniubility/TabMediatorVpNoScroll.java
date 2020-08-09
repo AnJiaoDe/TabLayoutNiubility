@@ -13,7 +13,7 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
  * @UpdateRemark:
  * @Version:
  */
-public class TabMediatorVpNoScroll<T> {
+public class TabMediatorVpNoScroll<T> implements ITabMediator {
     private TabLayoutNoScroll tabLayout;
     private ViewPager viewPager;
     private TabAdapterNoScroll<T> tabAdapter;
@@ -30,7 +30,7 @@ public class TabMediatorVpNoScroll<T> {
         this.viewPager = viewPager;
     }
 
-    public TabAdapterNoScroll<T> setAdapter(final FragmentPageAdapterVpNoScroll<T> fragmentPageAdapter) {
+    public TabAdapterNoScroll<T> setAdapter(final FragPageAdapterVpNoScroll<T> fragmentPageAdapter) {
         tabAdapter = new TabAdapterNoScroll<T>() {
             @Override
             public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {

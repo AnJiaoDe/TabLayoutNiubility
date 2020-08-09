@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
  * @UpdateRemark:
  * @Version:
  */
-public interface IFragmentPageAdapter<T,V extends IViewHolder> {
+public interface IFragPageAdapter<T,V extends IViewHolder> {
 
     public Fragment createFragment(T bean, int position);
 

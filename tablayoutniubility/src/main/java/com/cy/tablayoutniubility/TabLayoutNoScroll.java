@@ -1,9 +1,12 @@
 package com.cy.tablayoutniubility;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
@@ -16,13 +19,18 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class TabLayoutNoScroll extends FrameLayout {
+public class TabLayoutNoScroll extends FrameLayout implements ITabLayout {
     protected TabNoScrollView tabNoScrollView;
     protected IIndicatorView indicatorView;
+
+    public TabLayoutNoScroll(@NonNull Context context) {
+        this(context, null);
+    }
 
     public TabLayoutNoScroll(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         tabNoScrollView = new TabNoScrollView(context);
+        if (attrs == null) addTab();
     }
 
     @Override
@@ -36,11 +44,29 @@ public class TabLayoutNoScroll extends FrameLayout {
         } catch (Exception e) {
             throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
         }
+        addTab();
+    }
+
+    private void addTab() {
         addView(tabNoScrollView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
+    @Override
+    public <T extends View> T getView() {
+        return (T) this;
     }
 
     public IIndicatorView getIndicatorView() {
         return indicatorView;
+    }
+
+    @Override
+    public <T extends ITabLayout> T setIndicatorView(IIndicatorView indicatorView) {
+        if (this.indicatorView != null) removeView(this.indicatorView.getView());
+        removeView(indicatorView.getView());
+        this.indicatorView = indicatorView;
+        addView(indicatorView.getView());
+        return (T) this;
     }
 
     public TabNoScrollView getTabNoScrollView() {
@@ -51,5 +77,4 @@ public class TabLayoutNoScroll extends FrameLayout {
         tabNoScrollView.setAdapter(tabAdapter);
         return this;
     }
-
 }

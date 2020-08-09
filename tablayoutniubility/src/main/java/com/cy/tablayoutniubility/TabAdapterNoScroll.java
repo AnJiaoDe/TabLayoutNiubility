@@ -11,12 +11,17 @@ import java.util.List;
  * @param <T>
  */
 
-public abstract class TabAdapterNoScroll<T> {
+public abstract class TabAdapterNoScroll<T> implements ITabAdapter<T> {
 
     private List<T> list_bean = new ArrayList<>();//数据源
     private int positionSelectedLast = 0;
     private int positionSelected = 0;
-    private TabNoScrollViewCallback tabNoScrollViewCallback;
+    private TabNoScrollCallback tabNoScrollViewCallback;
+
+    @Override
+    public <W extends ITabAdapter> W getAdapter() {
+        return (W) this;
+    }
 
     TabNoScrollViewHolder onCreateViewHolder(int position, T bean, ViewGroup parent) {
         return new TabNoScrollViewHolder(LayoutInflater.from(parent.getContext()).inflate(getItemLayoutID(position, bean), parent, false));
@@ -41,7 +46,7 @@ public abstract class TabAdapterNoScroll<T> {
         bindDataToView(holder, position, list_bean.get(position), position == positionSelected);
     }
 
-    void setTabNoScrollViewCallback(TabNoScrollViewCallback tabNoScrollViewCallback) {
+    void setTabNoScrollViewCallback(TabNoScrollCallback tabNoScrollViewCallback) {
         this.tabNoScrollViewCallback = tabNoScrollViewCallback;
     }
 
@@ -119,9 +124,11 @@ public abstract class TabAdapterNoScroll<T> {
     /**
      * 添加List,并且notify
      */
-    public TabAdapterNoScroll<T> add(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W add(List<T> beans) {
         list_bean.addAll(beans);
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
+
 }

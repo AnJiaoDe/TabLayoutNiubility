@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="#fff"
     android:layout_height="match_parent" >
-    <com.cy.tablayoutniubility.TabLayoutNiubility
+    <com.cy.tablayoutniubility.TabLayoutScroll
         android:layout_width="match_parent"
         android:background="#fff"
         android:layout_height="40dp"
@@ -13,7 +13,7 @@
         <com.cy.tablayoutniubility.IndicatorTriangleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </com.cy.tablayoutniubility.TabLayoutNiubility>
+    </com.cy.tablayoutniubility.TabLayoutScroll>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

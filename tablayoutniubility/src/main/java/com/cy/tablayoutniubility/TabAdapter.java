@@ -15,11 +15,16 @@ import java.util.List;
  * @param <T>
  */
 
-public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder>  {
+public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> implements ITabAdapter<T> {
 
     private List<T> list_bean = new ArrayList<>();//数据源
     private int positionSelectedLast = 0;
-    private int positionSelected =0;
+    private int positionSelected = 0;
+
+    @Override
+    public <W extends ITabAdapter> W getAdapter() {
+        return (W) this;
+    }
 
     @NonNull
     @Override
@@ -69,6 +74,7 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
             }
         });
     }
+
     public abstract void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected);
 
     public abstract int getItemLayoutID(int position, T bean);
@@ -170,6 +176,7 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         return this;
     }
 
+
     /**
      * 添加一条数据item,并且notify
      */
@@ -204,15 +211,16 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         list_bean.addAll(beans);
         return this;
     }
-
     /**
      * 添加List,并且notify
      */
-    public TabAdapter<T> add(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W add(List<T> beans) {
         addNoNotify(beans);
         notifyItemRangeInserted(list_bean.size() - beans.size(), beans.size());
-        return this;
+        return (W) this;
     }
+
 
     /**
      * 先清空后添加List

@@ -1,12 +1,16 @@
 package com.cy.tablayoutniubility;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.function.LongUnaryOperator;
 
 
 /**
@@ -18,20 +22,30 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class TabLayoutNiubility extends FrameLayout {
+public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     protected HorizontalRecyclerView horizontalRecyclerView;
     protected int space_vertical, space_horizontal;
     protected IIndicatorView indicatorView;
 
-    public TabLayoutNiubility(Context context, @Nullable AttributeSet attrs) {
+    public TabLayoutScroll(@NonNull Context context) {
+        this(context, null);
+    }
+
+    public TabLayoutScroll(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         horizontalRecyclerView = new HorizontalRecyclerView(context);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabLayoutNiubility);
-        setSpace_horizontal(typedArray.getDimensionPixelSize(R.styleable.TabLayoutNiubility_space_horizontal,
-                ScreenUtils.dpAdapt(context, 20)));
-        setSpace_vertical(typedArray.getDimensionPixelSize(R.styleable.TabLayoutNiubility_space_vertical,
-                ScreenUtils.dpAdapt(context, 8)));
-        typedArray.recycle();
+        if (attrs != null) {
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabLayoutScroll);
+            setSpace_horizontal(typedArray.getDimensionPixelSize(R.styleable.TabLayoutScroll_space_horizontal,
+                    ScreenUtils.dpAdapt(context, 20)));
+            setSpace_vertical(typedArray.getDimensionPixelSize(R.styleable.TabLayoutScroll_space_vertical,
+                    ScreenUtils.dpAdapt(context, 8)));
+            typedArray.recycle();
+        } else {
+            setSpace_horizontal(ScreenUtils.dpAdapt(context, 20));
+            setSpace_vertical(ScreenUtils.dpAdapt(context, 8));
+            addTab();
+        }
     }
 
     @Override
@@ -45,20 +59,35 @@ public class TabLayoutNiubility extends FrameLayout {
         } catch (Exception e) {
             throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
         }
+        addTab();
+    }
+
+    private void addTab(){
         addView(horizontalRecyclerView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+    @Override
+    public <T extends View> T getView() {
+        return (T) this;
     }
 
     public IIndicatorView getIndicatorView() {
         return indicatorView;
     }
+    @Override
+    public <T extends ITabLayout> T setIndicatorView(IIndicatorView indicatorView) {
+        if (this.indicatorView != null) removeView(this.indicatorView.getView());
+        removeView(indicatorView.getView());
+        this.indicatorView = indicatorView;
+        addView(indicatorView.getView());
+        return (T) this;
+    }
 
-
-    public TabLayoutNiubility setSpace_vertical(int space_vertical) {
+    public TabLayoutScroll setSpace_vertical(int space_vertical) {
         this.space_vertical = space_vertical;
         return this;
     }
 
-    public TabLayoutNiubility setSpace_horizontal(int space_horizontal) {
+    public TabLayoutScroll setSpace_horizontal(int space_horizontal) {
         this.space_horizontal = space_horizontal;
         return this;
     }
@@ -75,12 +104,12 @@ public class TabLayoutNiubility extends FrameLayout {
         return horizontalRecyclerView;
     }
 
-    public TabLayoutNiubility setAdapter(TabAdapter tabAdapter) {
+    public TabLayoutScroll  setAdapter(TabAdapter tabAdapter) {
         //tab间距
         horizontalRecyclerView.addItemDecoration(new LinearItemDecoration(tabAdapter)
                 .setSpace_horizontal(space_horizontal).setSpace_vertical(space_vertical));
         horizontalRecyclerView.setAdapter(tabAdapter);
-        return this;
+        return  this;
     }
 
 }

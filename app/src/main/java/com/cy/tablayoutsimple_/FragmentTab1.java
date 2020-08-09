@@ -13,9 +13,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.cy.tablayoutniubility.TabMediatorVp;
 import com.cy.tablayoutniubility.TabViewHolder;
-import com.cy.tablayoutniubility.FragmentPageAdapterVp;
+import com.cy.tablayoutniubility.FragPageAdapterVp;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutNiubility;
+import com.cy.tablayoutniubility.TabLayoutScroll;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class FragmentTab1 extends Fragment {
     public ViewPager viewPager;
     public static final String TAB_NAME1 = "TAB_NAME1";
     private View view;
-    private TabLayoutNiubility tabLayoutLine;
+    private TabLayoutScroll tabLayoutLine;
 
     public FragmentTab1() {
     }
@@ -56,7 +56,7 @@ public class FragmentTab1 extends Fragment {
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
         LogUtils.log("onCreateView");
-        FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getChildFragmentManager(),
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {

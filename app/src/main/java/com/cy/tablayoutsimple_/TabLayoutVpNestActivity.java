@@ -12,16 +12,16 @@ import android.widget.TextView;
 
 import com.cy.tablayoutniubility.TabMediatorVp;
 import com.cy.tablayoutniubility.TabViewHolder;
-import com.cy.tablayoutniubility.FragmentPageAdapterVp;
+import com.cy.tablayoutniubility.FragPageAdapterVp;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabLayoutNiubility;
+import com.cy.tablayoutniubility.TabLayoutScroll;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutVpNestActivity extends AppCompatActivity {
     public ViewPager viewPager;
-    private TabLayoutNiubility tabLayoutLine;
+    private TabLayoutScroll tabLayoutLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         tabLayoutLine = findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getSupportFragmentManager(),
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {

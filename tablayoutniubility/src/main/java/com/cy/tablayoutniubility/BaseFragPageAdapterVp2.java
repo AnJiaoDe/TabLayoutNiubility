@@ -19,18 +19,18 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAdapter implements IFragmentPageAdapter<T,TabNoScrollViewHolder> {
+public abstract class BaseFragPageAdapterVp2<T,V extends IViewHolder> extends FragmentStateAdapter implements IFragPageAdapter<T,V> {
     private List<T> list_bean = new ArrayList<>();
 
-    public FragmentPageAdapterVp2NoScroll(@NonNull FragmentActivity fragmentActivity) {
+    public BaseFragPageAdapterVp2(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
 
-    public FragmentPageAdapterVp2NoScroll(@NonNull Fragment fragment) {
+    public BaseFragPageAdapterVp2(@NonNull Fragment fragment) {
         super(fragment);
     }
 
-    public FragmentPageAdapterVp2NoScroll(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public BaseFragPageAdapterVp2(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
@@ -47,11 +47,11 @@ public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAda
 
 
     @Override
-    public  void onTabClick(TabNoScrollViewHolder holder, int position, T bean){}
+    public  void onTabClick(V holder, int position, T bean){}
     @Override
-    public  void onTabScrolled(TabNoScrollViewHolder holderCurrent,int positionCurrent,
+    public  void onTabScrolled(V holderCurrent,int positionCurrent,
                                        boolean fromLeft2RightCurrent,float positionOffsetCurrent,
-                               TabNoScrollViewHolder holder2,int position2,
+                               V holder2,int position2,
                                        boolean fromLeft2Right2,float positionOffset2){}
     /**
      * ----------------------------------------------------------------------------------------------------
@@ -59,10 +59,10 @@ public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAda
     /**
      * @param list_bean
      */
-    public FragmentPageAdapterVp2NoScroll<T> setList_bean(List<T> list_bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W setList_bean(List<T> list_bean) {
         this.list_bean = list_bean;
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     public List<T> getList_bean() {
@@ -72,15 +72,15 @@ public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAda
     /**
      * 删除相应position的数据Item
      */
-    public FragmentPageAdapterVp2NoScroll<T> removeNoNotify(int position) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W removeNoNotify(int position) {
         list_bean.remove(position);
-        return this;
+        return (W) this;
     }
 
     /**
      * 删除相应position的数据Item ,并且notify,
      */
-    public FragmentPageAdapterVp2NoScroll<T> remove(int position) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W remove(int position) {
         removeNoNotify(position);
         /**
          onBindViewHolder回调的position永远是最后一个可见的item的position,
@@ -88,87 +88,87 @@ public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAda
          onBindViewHolder回调的position永远是4
          */
         notifyItemRemoved(position);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item
      */
-    public FragmentPageAdapterVp2NoScroll<T> addNoNotify(int position, T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addNoNotify(int position, T bean) {
         list_bean.add(position, bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item,并且notify
      */
-    public FragmentPageAdapterVp2NoScroll<T> add(int position, T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W add(int position, T bean) {
         addNoNotify(position, bean);
         notifyItemInserted(position);
-        return this;
+        return (W) this;
     }
 
 
     /**
      * 添加一条数据item
      */
-    public FragmentPageAdapterVp2NoScroll<T> addNoNotify(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addNoNotify(T bean) {
         list_bean.add(bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item,并且notify
      */
-    public FragmentPageAdapterVp2NoScroll<T> add(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W add(T bean) {
         addNoNotify(bean);
         notifyItemInserted(list_bean.size() - 1);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item到position 0
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> addToTopNoNotify(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addToTopNoNotify(T bean) {
         list_bean.add(0, bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item到position 0,并且notify
      */
-    public FragmentPageAdapterVp2NoScroll<T> addToTop(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addToTop(T bean) {
         addToTopNoNotify(bean);
         notifyItemInserted(0);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List
      */
-    public FragmentPageAdapterVp2NoScroll<T> addNoNotify(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addNoNotify(List<T> beans) {
         list_bean.addAll(beans);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List,并且notify
      */
-    public FragmentPageAdapterVp2NoScroll<T> add(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W add(List<T> beans) {
         addNoNotify(beans);
         notifyItemRangeInserted(list_bean.size() - beans.size(), beans.size());
-        return this;
+        return (W) this;
     }
 
     /**
      * 先清空后添加List
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> clearAddNoNotify(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clearAddNoNotify(List<T> beans) {
         list_bean.clear();
         list_bean.addAll(beans);
-        return this;
+        return (W) this;
     }
 
 
@@ -176,79 +176,79 @@ public abstract class FragmentPageAdapterVp2NoScroll<T> extends FragmentStateAda
      * 先清空后添加
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> clearAddNoNotify(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clearAddNoNotify(T bean) {
         clearAdd(bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 先清空后添加,并且notify
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> clearAdd(T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clearAdd(T bean) {
         clearNoNotify();
         add(bean);
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 先清空后添加List,并且notify
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> clearAdd(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clearAdd(List<T> beans) {
         clearAddNoNotify(beans);
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List到position 0
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> addToTopNoNotify(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addToTopNoNotify(List<T> beans) {
         list_bean.addAll(0, beans);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List到position 0,并且notify
      */
 
-    public FragmentPageAdapterVp2NoScroll<T> addToTop(List<T> beans) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W addToTop(List<T> beans) {
         addToTopNoNotify(beans);
         //没有刷新的作用
 //        notifyItemRangeInserted(0, beans.size());
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 清空list
      */
-    public FragmentPageAdapterVp2NoScroll<T> clearNoNotify() {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clearNoNotify() {
         list_bean.clear();
-        return this;
+        return (W) this;
     }
 
     /**
      * 清空list
      */
-    public FragmentPageAdapterVp2NoScroll<T> clear() {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W clear() {
         list_bean.clear();
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
 
-    public FragmentPageAdapterVp2NoScroll<T> setNoNotify(int index, T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W setNoNotify(int index, T bean) {
         list_bean.set(index, bean);
-        return this;
+        return (W) this;
     }
 
-    public FragmentPageAdapterVp2NoScroll<T> set(int index, T bean) {
+    public <W extends BaseFragPageAdapterVp2<T,V>> W set(int index, T bean) {
         setNoNotify(index, bean);
         notifyItemChanged(index);
-        return this;
+        return (W) this;
     }
 }

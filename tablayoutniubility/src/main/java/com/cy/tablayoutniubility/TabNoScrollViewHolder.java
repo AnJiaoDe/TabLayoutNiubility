@@ -30,6 +30,7 @@ public class TabNoScrollViewHolder implements IViewHolder {
     }
 
     //获取View
+    @Override
     public <T extends View> T getView(int viewId) {
         View view = array_view.get(viewId);
         if (view == null) {
