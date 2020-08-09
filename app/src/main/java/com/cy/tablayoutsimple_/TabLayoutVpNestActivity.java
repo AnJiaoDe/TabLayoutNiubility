@@ -20,16 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutVpNestActivity extends AppCompatActivity {
-    public ViewPager viewPager;
-    private TabLayoutScroll tabLayoutLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_vp);
-        viewPager = findViewById(R.id.view_pager);
-        viewPager.requestDisallowInterceptTouchEvent(true);
-        tabLayoutLine = findViewById(R.id.tablayout);
+        ViewPager viewPager= findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine= findViewById(R.id.tablayout);
 
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
         FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),

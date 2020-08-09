@@ -55,7 +55,6 @@ public class FragmentTab1 extends Fragment {
         view = inflater.inflate(R.layout.fragment_tab1, container, false);
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
-        LogUtils.log("onCreateView");
         FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override

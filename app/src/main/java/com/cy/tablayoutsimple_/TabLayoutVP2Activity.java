@@ -19,15 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutVP2Activity extends AppCompatActivity {
-    public ViewPager2 viewPager2;
-    private TabLayoutScroll tabLayoutLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_r_v);
-        viewPager2 = findViewById(R.id.view_pager);
-        tabLayoutLine = findViewById(R.id.tablayout);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
         FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 

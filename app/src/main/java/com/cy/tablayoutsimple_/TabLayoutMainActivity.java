@@ -18,14 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutMainActivity extends AppCompatActivity {
-    public ViewPager2 viewPager2;
-    private TabLayoutNoScroll tabLayoutNoScroll;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_main);
-        viewPager2 = findViewById(R.id.view_pager);
-        tabLayoutNoScroll = findViewById(R.id.tablayout);
+        ViewPager2 viewPager2= findViewById(R.id.view_pager);
+        TabLayoutNoScroll tabLayoutNoScroll= findViewById(R.id.tablayout);
         FragPageAdapterVp2NoScroll<TabBean> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<TabBean>(this) {
 
             @Override

@@ -20,21 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
-    public ViewPager2 viewPager2;
-    private TabLayoutNoScroll tabLayoutLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_v_p2_item_center);
-        viewPager2 = findViewById(R.id.view_pager);
-        tabLayoutLine = findViewById(R.id.tablayout);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        TabLayoutNoScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
         FragPageAdapterVp2NoScroll<String> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
             @Override
             public Fragment createFragment(String bean, int position) {
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
+
             @Override
             public void bindDataToTab(TabNoScrollViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
@@ -54,7 +53,7 @@ public class TabLayoutVP2ItemCenterActivity extends AppCompatActivity {
             }
         };
 
-         TabAdapterNoScroll<String> tabAdapter=new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapterNoScroll<String> tabAdapter = new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");

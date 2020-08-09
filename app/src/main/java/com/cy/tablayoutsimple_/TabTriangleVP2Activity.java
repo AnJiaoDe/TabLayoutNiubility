@@ -19,14 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabTriangleVP2Activity extends AppCompatActivity {
-    private ViewPager2 viewPager2;
-    private TabLayoutScroll tabLayoutNiubility;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_triangle);
-        viewPager2 = findViewById(R.id.view_pager);
-        tabLayoutNiubility = findViewById(R.id.tablayout);
+        ViewPager2 viewPager2= findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutNiubility= findViewById(R.id.tablayout);
 
 //        tabLayoutTriangle.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
         FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
