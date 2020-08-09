@@ -14,6 +14,8 @@ Tab均分不滑动(ViewPager、ViewPager2均支持)
 
 Tab滑动、 indicator蠕动、多布局(ViewPager、ViewPager2均支持)
 
+根据item个数动态设置Tab均分还是滑动
+
 Tab文字颜色渐变(ViewPager、ViewPager2均支持)
 
 自定义Indicator如三角形(ViewPager、ViewPager2均支持)
@@ -30,9 +32,9 @@ FragmentPageAdapter
 
 TabAdapter
 
-TabLayoutNiubility 、TabLayoutNoScroll、IndicatorLineView 、 IndicatorTriangleView
+TabLayoutScroll、TabLayoutNoScroll、TabLayoutMulti、IndicatorLineView 、 IndicatorTriangleView
 
-TabLayoutNiubility和 indicator style设置
+TabLayoutScroll和 indicator style设置
 
 自定义indicator
 
@@ -50,6 +52,8 @@ TabLayoutNiubility和 indicator style设置
 
 TabLayout的item宽度均分
 
+RecyclerView的item刷新如何做到不闪烁
+
 UML类图如下
 
 面向接口编程（面向多态编程）的思想
@@ -63,6 +67,8 @@ UML类图如下
 Tab均分不滑动(ViewPager、ViewPager2均支持)
 
 Tab滑动、 indicator蠕动、多布局(ViewPager、ViewPager2均支持)
+
+根据item个数动态设置Tab均分还是滑动
 
 Tab文字颜色渐变(ViewPager、ViewPager2均支持)
 
@@ -88,7 +94,7 @@ allprojects {
 2.直接在需要使用的模块的`build.gradle`中添加代码：
 
 ```groovy
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.3'//版本必须>=1.0.3
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.4'//版本必须>=1.0.4
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 ```
 3.如果你想使用`ViewPager2`,那么添加代码：
@@ -111,7 +117,7 @@ api 'androidx.viewpager2:viewpager2:1.0.0'//版本必须>=1.0.0
 
 ## Tab均分不滑动(ViewPager、ViewPager2均支持)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172358952.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172358952.gif)
 activity布局：
 
 
@@ -161,11 +167,15 @@ tab_item布局：
 JAVA代码：
 
 ```java
-     FragmentPageAdapterVp2NoScroll<String> fragmentPageAdapter = new FragmentPageAdapterVp2NoScroll<String>(this) {
+     ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        TabLayoutNoScroll tabLayoutLine = findViewById(R.id.tablayout);
+//        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
+        FragPageAdapterVp2NoScroll<String> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
             @Override
             public Fragment createFragment(String bean, int position) {
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
+
             @Override
             public void bindDataToTab(TabNoScrollViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
@@ -185,7 +195,7 @@ JAVA代码：
             }
         };
 
-         TabAdapterNoScroll<String> tabAdapter=new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapterNoScroll<String> tabAdapter = new TabMediatorVp2NoScroll<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");
@@ -209,7 +219,7 @@ JAVA代码：
             }
 ```
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172711239.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172711239.gif)
 activity布局：
 
 ```xml
@@ -220,7 +230,7 @@ activity布局：
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.cy.tablayoutniubility.TabLayoutNiubility
+    <com.cy.tablayoutniubility.TabLayoutScroll
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -229,7 +239,7 @@ activity布局：
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </com.cy.tablayoutniubility.TabLayoutNiubility>
+    </com.cy.tablayoutniubility.TabLayoutScroll>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -256,7 +266,10 @@ tab item布局：
 JAVA代码：
 
 ```java
-   FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+   ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
+//        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -291,34 +304,6 @@ JAVA代码：
         list.add("推荐");
         list.add("视频");
         list.add("抗疫");
-        list.add("深圳");
-        list.add("热榜");
-        list.add("小视频");
-        list.add("软件");
-        list.add("探索");
-        list.add("在家上课");
-        list.add("手机");
-        list.add("动漫");
-        list.add("通信");
-        list.add("影视");
-        list.add("互联网");
-        list.add("设计");
-        list.add("家电");
-        list.add("平板");
-        list.add("网球");
-        list.add("军事");
-        list.add("羽毛球");
-        list.add("奢侈品");
-        list.add("美食");
-        list.add("瘦身");
-        list.add("幸福里");
-        list.add("棋牌");
-        list.add("奇闻");
-        list.add("艺术");
-        list.add("减肥");
-        list.add("电玩");
-        list.add("台球");
-        list.add("八卦");
         list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
@@ -326,9 +311,129 @@ JAVA代码：
         tabAdapter.add(list);
 ```
 
+## 根据item个数动态设置Tab均分还是滑动
+使用`TabLayoutMulti`
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.cy.tablayoutniubility.TabLayoutMulti
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:space_horizontal="0dp"
+        android:background="#fff">
+
+        <com.cy.tablayoutniubility.IndicatorLineView
+            android:layout_width="match_parent"
+            app:width_indicator_max="80dp"
+            app:width_indicator_selected="30dp"
+            android:layout_height="wrap_content" />
+    </com.cy.tablayoutniubility.TabLayoutMulti>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
+</LinearLayout>
+
+
+```
+JAVA代码：
+
+```java
+ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        TabLayoutMulti tabLayoutMulti = findViewById(R.id.tablayout);
+//        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
+        List<String> list = new ArrayList<>();
+        list.add("关注");
+        list.add("推荐");
+        list.add("上课");
+        list.add("抗疫");
+        list.add("文化");
+//        list.add("经济");
+//        list.add("幸福里");
+
+        //根据item个数设置是否需要滚动
+        if (list.size() > 6) tabLayoutMulti.setScrollable(true);
+
+        BaseFragPageAdapterVp2 fragmentPageAdapter;
+
+        if (tabLayoutMulti.isScrollable()) {
+            fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
+                @Override
+                public Fragment createFragment(String bean, int position) {
+                    return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
+                }
+
+                @Override
+                public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
+                    TextView textView = holder.getView(R.id.tv);
+                    if (isSelected) {
+                        textView.setTextColor(0xffe45540);
+                        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    } else {
+                        textView.setTextColor(0xff444444);
+                        textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    }
+                    textView.setText(bean);
+                }
+
+                @Override
+                public int getTabLayoutID(int position, String bean) {
+                    return R.layout.item_tab_center;
+                }
+            };
+        }else {
+            fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
+                @Override
+                public Fragment createFragment(String bean, int position) {
+                    return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
+                }
+
+                @Override
+                public void bindDataToTab(TabNoScrollViewHolder holder, int position, String bean, boolean isSelected) {
+                    LogUtils.log("bindDataToTab");
+                    TextView textView = holder.getView(R.id.tv);
+                    if (isSelected) {
+                        textView.setTextColor(0xffe45540);
+                        textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                    } else {
+                        textView.setTextColor(0xff444444);
+                        textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                    }
+                    textView.setText(bean);
+                }
+
+                @Override
+                public int getTabLayoutID(int position, String bean) {
+                    return R.layout.item_tab_center;
+                }
+            };
+        }
+
+
+        ITabAdapter tabAdapter = new TabMediatorMulti<String>(tabLayoutMulti).setAdapter(viewPager2, fragmentPageAdapter);
+        fragmentPageAdapter.add(list);
+        tabAdapter.add(list);
+        //或者
+//        if(tabLayoutMulti.isScrollable()){
+//            TabAdapter tabAdapt= (TabAdapter) tabAdapter.getAdapter();
+//            tabAdapt.add(list);
+//        }else {
+//            TabAdapterNoScroll tabAdapt= (TabAdapterNoScroll) tabAdapter.getAdapter();
+//            tabAdapt.add(list);
+//        }
+```
+
 ## Tab文字颜色渐变(ViewPager、ViewPager2均支持)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172901680.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807172901680.gif)
 activity代码：
 
 ```xml
@@ -339,7 +444,7 @@ activity代码：
     android:layout_width="match_parent"
     android:background="#fff"
     android:layout_height="match_parent" >
-    <com.cy.tablayoutniubility.TabLayoutNiubility
+    <com.cy.tablayoutniubility.TabLayoutScroll
         android:layout_width="match_parent"
         android:background="#fff"
         android:layout_height="40dp"
@@ -347,7 +452,7 @@ activity代码：
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </com.cy.tablayoutniubility.TabLayoutNiubility>
+    </com.cy.tablayoutniubility.TabLayoutScroll>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -358,7 +463,6 @@ activity代码：
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>
-
 ```
 tab item布局：
 
@@ -379,7 +483,11 @@ tab item布局：
 JAVA代码：
 
 ```java
-      FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+     ViewPager2 viewPager2= findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine= findViewById(R.id.tablayout);
+
+//        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -432,35 +540,6 @@ JAVA代码：
         list.add("推荐");
         list.add("视频");
         list.add("抗疫");
-        list.add("深圳");
-        list.add("热榜");
-        list.add("小视频");
-        list.add("软件");
-        list.add("探索");
-        list.add("在家上课");
-        list.add("手机");
-        list.add("动漫");
-        list.add("通信");
-        list.add("影视");
-        list.add("互联网");
-        list.add("设计");
-        list.add("家电");
-        list.add("平板");
-        list.add("网球");
-        list.add("军事");
-        list.add("羽毛球");
-        list.add("奢侈品");
-        list.add("美食");
-        list.add("瘦身");
-        list.add("幸福里");
-        list.add("棋牌");
-        list.add("奇闻");
-        list.add("艺术");
-        list.add("减肥");
-        list.add("电玩");
-        list.add("台球");
-        list.add("八卦");
-        list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
         fragmentPageAdapter.add(list);
@@ -470,7 +549,7 @@ JAVA代码：
 ## 自定义Indicator如三角形(ViewPager、ViewPager2均支持)
 可以在布局或者代码中设置三角形的选中宽度和最大宽度，使三角形宽度不改变
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807173012659.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807173012659.gif)
 activity代码：
 
 ```xml
@@ -481,7 +560,7 @@ activity代码：
     android:layout_width="match_parent"
     android:background="#fff"
     android:layout_height="match_parent" >
-    <com.cy.tablayoutniubility.TabLayoutNiubility
+    <com.cy.tablayoutniubility.TabLayoutScroll
         android:layout_width="match_parent"
         android:background="#fff"
         android:layout_height="40dp"
@@ -489,7 +568,7 @@ activity代码：
         <com.cy.tablayoutniubility.IndicatorTriangleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    </com.cy.tablayoutniubility.TabLayoutNiubility>
+    </com.cy.tablayoutniubility.TabLayoutScroll>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -519,7 +598,11 @@ tab item布局：
 JAVA代码：
 
 ```java
-   FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+   ViewPager2 viewPager2= findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutNiubility= findViewById(R.id.tablayout);
+
+//        tabLayoutTriangle.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -550,37 +633,6 @@ JAVA代码：
         List<String> list = new ArrayList<>();
         list.add("关注");
         list.add("推荐");
-        list.add("视频");
-        list.add("抗疫");
-        list.add("深圳");
-        list.add("热榜");
-        list.add("小视频");
-        list.add("软件");
-        list.add("探索");
-        list.add("在家上课");
-        list.add("手机");
-        list.add("动漫");
-        list.add("通信");
-        list.add("影视");
-        list.add("互联网");
-        list.add("设计");
-        list.add("家电");
-        list.add("平板");
-        list.add("网球");
-        list.add("军事");
-        list.add("羽毛球");
-        list.add("奢侈品");
-        list.add("美食");
-        list.add("瘦身");
-        list.add("幸福里");
-        list.add("棋牌");
-        list.add("奇闻");
-        list.add("艺术");
-        list.add("减肥");
-        list.add("电玩");
-        list.add("台球");
-        list.add("八卦");
-        list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
         fragmentPageAdapter.add(list);
@@ -589,7 +641,7 @@ JAVA代码：
 
 ## ViewPager双层嵌套(建议不要使用ViewPager2进行双层嵌套，ViewPager2嵌套滑动冲突几乎无法处理，贼鸡儿坑)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807173114131.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807173114131.gif)
 activity布局：
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -599,7 +651,7 @@ activity布局：
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.cy.tablayoutniubility.TabLayoutNiubility
+    <com.cy.tablayoutniubility.TabLayoutScroll
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -608,7 +660,7 @@ activity布局：
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </com.cy.tablayoutniubility.TabLayoutNiubility>
+    </com.cy.tablayoutniubility.TabLayoutScroll>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
@@ -622,7 +674,11 @@ activity布局：
 activity代码：
 
 ```java
-  FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getSupportFragmentManager(),
+  ViewPager viewPager= findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine= findViewById(R.id.tablayout);
+
+//        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -656,36 +712,6 @@ activity代码：
         List<String> list = new ArrayList<>();
         list.add("关注");
         list.add("推荐");
-        list.add("视频");
-        list.add("抗疫");
-        list.add("深圳");
-        list.add("热榜");
-        list.add("小视频");
-        list.add("软件");
-        list.add("探索");
-        list.add("在家上课");
-        list.add("手机");
-        list.add("动漫");
-        list.add("通信");
-        list.add("影视");
-        list.add("互联网");
-        list.add("设计");
-        list.add("家电");
-        list.add("平板");
-        list.add("网球");
-        list.add("军事");
-        list.add("羽毛球");
-        list.add("奢侈品");
-        list.add("美食");
-        list.add("瘦身");
-        list.add("幸福里");
-        list.add("棋牌");
-        list.add("奇闻");
-        list.add("艺术");
-        list.add("减肥");
-        list.add("电玩");
-        list.add("台球");
-        list.add("八卦");
         list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
@@ -694,7 +720,9 @@ activity代码：
 ```
 Fragment代码：
 ```java
-      FragmentPageAdapterVp<String> fragmentPageAdapter = new FragmentPageAdapterVp<String>(getChildFragmentManager(),
+     viewPager = view.findViewById(R.id.view_pager);
+        tabLayoutLine = view.findViewById(R.id.tablayout);
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -745,7 +773,7 @@ Fragment代码：
 ```
 
 ## 仿微信主页Tab
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200808223718351.gif#pic_center)
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200808223718351.gif)
 
 activity布局：
 
@@ -773,7 +801,11 @@ activity布局：
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.cy.tablayoutniubility.TabLayoutNoScroll>
+
+
 </LinearLayout>
+
+
 ```
 item布局：
 
@@ -806,7 +838,9 @@ item布局：
 JAVA代码：
 
 ```java
- FragmentPageAdapterVp2NoScroll<TabBean> fragmentPageAdapter = new FragmentPageAdapterVp2NoScroll<TabBean>(this) {
+ ViewPager2 viewPager2= findViewById(R.id.view_pager);
+        TabLayoutNoScroll tabLayoutNoScroll= findViewById(R.id.tablayout);
+        FragPageAdapterVp2NoScroll<TabBean> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<TabBean>(this) {
 
             @Override
             public Fragment createFragment(TabBean bean, int position) {
@@ -856,6 +890,8 @@ TabMediatorVp2
 TabMediatorVp2NoScroll(不可滚动)
 
 TabMediatorVpNoScroll(不可滚动)
+
+TabMediatorMulti(可用于ViewPager和ViewPager2,可根据item个数动态设置是否滚动)
 ## FragmentPageAdapter
 拥有一系列`add`、`remove`函数
 
@@ -873,9 +909,9 @@ TabAdapter(Tab的Adapter，继承自RecyclerView的Adapter)
 拥有一系列`add`、`remove`函数
 
 TabAdapterNoScroll(Tab的Adapter，不能滚动)
-## TabLayoutNiubility 、TabLayoutNoScroll、IndicatorLineView 、 IndicatorTriangleView
-`TabLayoutNiubility`是可滚动tab,TabLayoutNoScroll是不可滚动tab,里面需要嵌套`indicatorview`,可以选择`IndicatorLineView`线条indicator、`IndicatorTriangleView`三角形indicator,
-
+## TabLayoutScroll、TabLayoutNoScroll、TabLayoutMulti、IndicatorLineView 、 IndicatorTriangleView
+`TabLayoutScroll`是可滚动tab,`TabLayoutNoScroll`是不可滚动tab,里面需要嵌套`indicatorview`,可以选择`IndicatorLineView`线条indicator、`IndicatorTriangleView`三角形indicator,
+`TabLayoutMulti`用于需要根据item个数动态设置是否滚动
 ```xml
 <com.cy.tablayoutniubility.TabLayoutNiubility
         android:id="@+id/tablayout"
@@ -889,7 +925,7 @@ TabAdapterNoScroll(Tab的Adapter，不能滚动)
     </com.cy.tablayoutniubility.TabLayoutNiubility>
 ```
 
-## TabLayoutNiubility和 indicator style设置
+## TabLayoutScroll和 indicator style设置
 `TabLayoutNiubility`可设置`space`
 
 `indicator`可设置颜色、选中长度、最大长度、高度、radius等
@@ -939,7 +975,7 @@ TabAdapterNoScroll(Tab的Adapter，不能滚动)
 可在代码中使用
 比如：
 ```java
-tabLayoutNiubility.getIndicatorView().getIndicator().setColor_indicator();
+tabLayoutScroll.getIndicatorView().getIndicator().setColor_indicator();
 ```
 
 ```java
@@ -1616,11 +1652,17 @@ public class TabLayoutMediatorVp2<T> {
             ItemChanged(i);
         }
 ```
+## RecyclerView的item刷新如何做到不闪烁
+禁用默认的刷新动画
+```java
+ SimpleItemAnimator simpleItemAnimator = (SimpleItemAnimator) getItemAnimator();
+ if (simpleItemAnimator != null) simpleItemAnimator.setSupportsChangeAnimations(false);
+```
 
 ## UML类图如下
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200808231445477.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvbmZ1c2luZ19hd2FrZW5pbmc=,size_16,color_FFFFFF,t_70#pic_center)
-为了更清晰易懂，小编画得不正规，比较随意
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200808231445477.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NvbmZ1c2luZ19hd2FrZW5pbmc=,size_16,color_FFFFFF,t_70)
+为了更清晰易懂，小编画得不正规，比较随意,该UML是老的，不是最新版本，最新版本，名字 有改动。
 
 ## 面向接口编程（面向多态编程）的思想
 小编特别喜欢JAVA这门语言，小编个人认为JAVA将面向对象编程的思想展现的淋漓尽致。
@@ -1643,8 +1685,9 @@ CSDN：[https://blog.csdn.net/confusing_awakening](https://blog.csdn.net/confusi
 ffmpeg入门教程:[https://www.jianshu.com/p/042c7847bd8a](https://www.jianshu.com/p/042c7847bd8a)
 
  微信公众号
- ![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWZjZmJiNDUxNzVmOTlkZTA#pic_center)
+ ![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWZjZmJiNDUxNzVmOTlkZTA)
 
 QQ群
 
-![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWEzMWZmNDBhYzY4NTBhNmQ#pic_center)
+![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWEzMWZmNDBhYzY4NTBhNmQ)
+
