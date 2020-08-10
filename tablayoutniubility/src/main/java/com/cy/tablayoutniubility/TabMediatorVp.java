@@ -22,10 +22,10 @@ public class TabMediatorVp<T> implements ITabMediator {
     private TabAdapter<T> tabAdapter;
     private int position_scroll_last = 0;
     private int diff = 0;
-    private int diff_click = 0;
+    private float diff_click = -1;
     private int toScroll = 0;
     private int offsetX_last = 0;
-    private int offsetX_last_click = 0;
+    private int offsetX_last_click = -1;
     private int offsetX_touch = 0;
     private boolean rvScrolledByVp = false;
     private boolean rvScrolledByTouch = false;
@@ -42,7 +42,7 @@ public class TabMediatorVp<T> implements ITabMediator {
         tabAdapter = new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {
-                fragmentPageAdapter.bindDataToTab( holder, position, bean, isSelected);
+                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
             }
 
             @Override
@@ -72,7 +72,7 @@ public class TabMediatorVp<T> implements ITabMediator {
                     //不可见，width_indicator为0
                     tabLayout.getIndicatorView().getIndicator().setWidth_indicator(0).invalidate();
                 }
-                fragmentPageAdapter.onTabClick( holder, position, bean);
+                fragmentPageAdapter.onTabClick(holder, position, bean);
             }
         };
 
@@ -115,8 +115,6 @@ public class TabMediatorVp<T> implements ITabMediator {
              */
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                LogUtils.log("onPageScrolledposition",position);
-                LogUtils.log("onPageScrolled",positionOffset);
                 int centerX = (int) (tabLayout.getWidth() * 1f / 2);
                 //说明上次手指滑动了tabLayout，现在手指滑动viewpager,需要将tablayout复位
                 if (rvScrolledByTouch && offsetX_touch != 0) {
@@ -142,21 +140,19 @@ public class TabMediatorVp<T> implements ITabMediator {
                         RecyclerView.ViewHolder viewHolder = tabLayout.getHorizontalRecyclerView().findViewHolderForAdapterPosition(viewPager.getCurrentItem());
                         if (viewHolder != null) {
                             //indicator想要指向正中间，计算TabLayout需要滑动的距离
-                            if (diff_click == 0)
-                                diff_click = (int) (viewHolder.itemView.getLeft() + viewHolder.itemView.getWidth() * 1f / 2 - centerX);
+                            if (diff_click == -1)
+                                diff_click = (viewHolder.itemView.getLeft() + viewHolder.itemView.getWidth() * 1f / 2 - centerX);
                             //获取tablayout的偏移量，永远<=0
-                            if (offsetX_last_click == 0)
+                            if (offsetX_last_click == -1)
                                 offsetX_last_click = tabLayout.getHorizontalRecyclerView().getOffsetX();
                             if (positionOffset != 0) {
                                 //scrollBy调用一次，onScrolled回调一次
                                 //标志不是由手指滑动tablayout
                                 rvScrolledByVp = true;
-                                //往右滑
-                                if (diff_click>0) {
-                                    tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * positionOffset)), 0);
-                                } else {
-                                    //往左滑
-                                    tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * (1 - positionOffset))), 0);
+                                if (diff_click > 0) {
+                                        tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * positionOffset)), 0);
+                                } else if(diff_click<0){
+                                        tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * (1 - positionOffset))), 0);
                                 }
                                 rvScrolledByVp = false;
                             }
@@ -270,14 +266,14 @@ public class TabMediatorVp<T> implements ITabMediator {
                     tabLayout.getHorizontalRecyclerView().scrollToPosition(position);
                     viewHolder = (TabViewHolder) tabLayout.getHorizontalRecyclerView().findViewHolderForAdapterPosition(position);
                     //scrollToPosition一调用，不会立马滑动完毕，所以还会有存在null的时候，
-                    if(viewHolder!=null){
+                    if (viewHolder != null) {
                         int width_half = (int) (viewHolder.itemView.getWidth() * 1f / 2);
                         int left = viewHolder.itemView.getLeft();
                         tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
                                 .setProgress((int) (left
                                         + width_half
-                                        - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() *1f/ 2));
-                    }else {
+                                        - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() * 1f / 2));
+                    } else {
                         tabLayout.getIndicatorView().getIndicator().setWidth_indicator(0).invalidate();
                     }
 
@@ -297,8 +293,8 @@ public class TabMediatorVp<T> implements ITabMediator {
                         }
                         //标志复位
                         scrolledByClick = false;
-                        diff_click = 0;
-                        offsetX_last_click = 0;
+                        diff_click = -1;
+                        offsetX_last_click = -1;
                         break;
                 }
             }

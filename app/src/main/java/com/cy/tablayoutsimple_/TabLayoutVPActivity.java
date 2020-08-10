@@ -1,33 +1,35 @@
 package com.cy.tablayoutsimple_;
 
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import com.cy.tablayoutniubility.TabMediatorVp2;
-import com.cy.tablayoutniubility.TabViewHolder;
-import com.cy.tablayoutniubility.FragPageAdapterVp2;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import com.cy.tablayoutniubility.FragPageAdapterVp;
 import com.cy.tablayoutniubility.TabAdapter;
 import com.cy.tablayoutniubility.TabLayoutScroll;
+import com.cy.tablayoutniubility.TabMediatorVp;
+import com.cy.tablayoutniubility.TabViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLayoutVP2Activity extends AppCompatActivity {
+public class TabLayoutVPActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_r_v);
-        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+        setContentView(R.layout.activity_tab_layout_v_p);
+
+        ViewPager viewPager = findViewById(R.id.view_pager);
         TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
+                FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
@@ -55,7 +57,7 @@ public class TabLayoutVP2Activity extends AppCompatActivity {
                 return R.layout.item_tab;
             }
         };
-        TabAdapter<String> tabAdapter = new TabMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");
@@ -95,23 +97,5 @@ public class TabLayoutVP2Activity extends AppCompatActivity {
         list.add("漫画");
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
-    }
-
-    /**
-     * --------------------------------------------------------------------------------
-     */
-    public int dpAdapt(float dp) {
-        return dpAdapt(dp, 360);
-    }
-
-    public int dpAdapt(float dp, float widthDpBase) {
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        int heightPixels = dm.heightPixels;//高的像素
-        int widthPixels = dm.widthPixels;//宽的像素
-        float density = dm.density;//density=dpi/160,密度比
-        float heightDP = heightPixels / density;//高度的dp
-        float widthDP = widthPixels / density;//宽度的dp
-        float w = widthDP > heightDP ? heightDP : widthDP;
-        return (int) (dp * w / widthDpBase * density + 0.5f);
     }
 }

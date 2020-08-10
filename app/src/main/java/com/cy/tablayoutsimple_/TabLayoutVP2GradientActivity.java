@@ -8,10 +8,10 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 
+import com.cy.tablayoutniubility.TabMediatorVp2;
 import com.cy.tablayoutniubility.TabViewHolder;
 import com.cy.tablayoutniubility.FragPageAdapterVp2;
 import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabMediatorVp2;
 import com.cy.tablayoutniubility.TabLayoutScroll;
 import com.cy.tablayoutniubility.TabGradientTextView;
 
