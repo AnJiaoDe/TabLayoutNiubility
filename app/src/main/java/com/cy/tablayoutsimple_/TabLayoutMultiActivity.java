@@ -39,8 +39,13 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
         list.add("上课");
         list.add("抗疫");
         list.add("文化");
-//        list.add("经济");
+        list.add("经济");
 //        list.add("幸福里");
+//        list.add("军事");
+//        list.add("小饰品");
+//        list.add("美女");
+//        list.add("瓜皮");
+//        list.add("细菌");
 
         //根据item个数设置是否需要滚动
         if (list.size() > 6) tabLayoutMulti.setScrollable(true);
