@@ -29,7 +29,7 @@ public class IndicatorNullView extends View implements IIndicatorView {
         indicator.setWidth_indicator_max(0);
         indicator.setHeight_indicator(0);
         indicator.setColor_indicator(0x00000000);
-        indicator.setWidth_indicator(ScreenUtils.dpAdapt(context,30));
+        indicator.setWidth_indicator(0);
     }
 
     @Override

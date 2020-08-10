@@ -39,7 +39,7 @@ public class IndicatorTriangleView extends View implements IIndicatorView {
         indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_height_indicator, ScreenUtils.dpAdapt(context,6)));
         indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorTriangleView_color_indicator, 0xffe45540));
 
-        indicator.setWidth_indicator(ScreenUtils.dpAdapt(context,30));
+        indicator.setWidth_indicator(0);
         typedArray.recycle();
 
     }

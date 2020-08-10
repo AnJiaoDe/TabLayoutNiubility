@@ -106,6 +106,9 @@ public class TabMediatorVp<T> implements ITabMediator {
             public void onPageSelected(int position) {
                 //通知tabAdapter更新选中项
                 tabAdapter.setPositionSelected(viewPager.getCurrentItem());
+//                Indicator indicator=tabLayout.getIndicatorView().getIndicator();
+//                indicator.setWidth_indicator(ScreenUtils.dpAdapt(context,30));
+
             }
 
             /**注意：滑动很快的时候，即使到了另外的page,positionOffsetPixels不一定会出现0

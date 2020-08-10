@@ -35,7 +35,7 @@ public class IndicatorLineView extends View implements IIndicatorView {
         indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorLineView_color_indicator, 0xffe45540));
         setRadius_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_radius_indicator, ScreenUtils.dpAdapt(context,2)));
 
-        indicator.setWidth_indicator(ScreenUtils.dpAdapt(context,30));
+        indicator.setWidth_indicator(0);
 
         typedArray.recycle();
 
