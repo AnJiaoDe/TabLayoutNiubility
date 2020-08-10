@@ -176,14 +176,14 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         return this;
     }
 
-
     /**
      * 添加一条数据item,并且notify
      */
-    public TabAdapter<T> add(T bean) {
+    @Override
+    public <W extends ITabAdapter> W add(T bean) {
         addNoNotify(bean);
         notifyItemInserted(list_bean.size() - 1);
-        return this;
+        return (W) this;
     }
 
     /**
@@ -211,6 +211,7 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         list_bean.addAll(beans);
         return this;
     }
+
     /**
      * 添加List,并且notify
      */

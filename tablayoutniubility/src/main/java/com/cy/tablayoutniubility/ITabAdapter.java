@@ -16,4 +16,9 @@ public interface ITabAdapter<T> {
     public <W extends ITabAdapter> W getAdapter();
 
     public <W extends ITabAdapter> W add(List<T> beans);
+
+    /**
+     * 添加一条数据item,并且notify
+     */
+    public <W extends ITabAdapter> W add(T bean);
 }

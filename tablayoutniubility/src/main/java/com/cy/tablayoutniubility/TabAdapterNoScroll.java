@@ -131,4 +131,14 @@ public abstract class TabAdapterNoScroll<T> implements ITabAdapter<T> {
         return (W) this;
     }
 
+    /**
+     * 添加一条数据item,并且notify
+     */
+    @Override
+    public <W extends ITabAdapter> W add(T bean) {
+        list_bean.add(bean);
+        notifyDataSetChanged();
+        return (W) this;
+    }
+
 }
