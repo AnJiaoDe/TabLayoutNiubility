@@ -94,7 +94,7 @@ allprojects {
 2.直接在需要使用的模块的`build.gradle`中添加代码：
 
 ```groovy
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.9'
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.0'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 ```
 3.如果你想使用`ViewPager2`,那么添加代码：
