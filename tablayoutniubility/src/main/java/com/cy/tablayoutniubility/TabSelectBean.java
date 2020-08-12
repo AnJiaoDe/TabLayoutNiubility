@@ -1,4 +1,4 @@
-package com.cy.tablayoutsimple_;
+package com.cy.tablayoutniubility;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.DrawableRes;
@@ -12,12 +12,12 @@ import androidx.annotation.DrawableRes;
  * @UpdateRemark:
  * @Version:
  */
-public class TabBean {
+public class TabSelectBean {
     private String text;
     private @DrawableRes int resID_normal;
     private @DrawableRes int resID_selected;
 
-    public TabBean(String text, @DrawableRes int resID_normal, @DrawableRes int resID_selected) {
+    public TabSelectBean(String text, @DrawableRes int resID_normal, @DrawableRes int resID_selected) {
         this.text = text;
         this.resID_normal = resID_normal;
         this.resID_selected = resID_selected;

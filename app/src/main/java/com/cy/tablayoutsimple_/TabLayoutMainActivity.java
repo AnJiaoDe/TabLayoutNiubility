@@ -13,6 +13,7 @@ import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
 import com.cy.tablayoutniubility.TabLayoutNoScroll;
 import com.cy.tablayoutniubility.TabAdapterNoScroll;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
+import com.cy.tablayoutniubility.TabSelectBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +25,15 @@ public class TabLayoutMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tab_layout_main);
         ViewPager2 viewPager2= findViewById(R.id.view_pager);
         TabLayoutNoScroll tabLayoutNoScroll= findViewById(R.id.tablayout);
-        FragPageAdapterVp2NoScroll<TabBean> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<TabBean>(this) {
+        FragPageAdapterVp2NoScroll<TabSelectBean> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<TabSelectBean>(this) {
 
             @Override
-            public Fragment createFragment(TabBean bean, int position) {
+            public Fragment createFragment(TabSelectBean bean, int position) {
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position).getText());
             }
 
             @Override
-            public void bindDataToTab(TabNoScrollViewHolder holder, int position, TabBean bean, boolean isSelected) {
+            public void bindDataToTab(TabNoScrollViewHolder holder, int position, TabSelectBean bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
                     textView.setTextColor(0xff00ff00);
@@ -45,7 +46,7 @@ public class TabLayoutMainActivity extends AppCompatActivity {
             }
 
             @Override
-            public int getTabLayoutID(int position, TabBean bean) {
+            public int getTabLayoutID(int position, TabSelectBean bean) {
                 if (position == 2) {
                     return R.layout.item_tab_main_circle;
                 }
@@ -53,13 +54,13 @@ public class TabLayoutMainActivity extends AppCompatActivity {
             }
         };
 
-        TabAdapterNoScroll<TabBean> tabAdapter = new TabMediatorVp2NoScroll<TabBean>(tabLayoutNoScroll, viewPager2).setAdapter(fragmentPageAdapter);
+        TabAdapterNoScroll<TabSelectBean> tabAdapter = new TabMediatorVp2NoScroll<TabSelectBean>(tabLayoutNoScroll, viewPager2).setAdapter(fragmentPageAdapter);
 
-        List<TabBean> list = new ArrayList<>();
-        list.add(new TabBean("消息",R.drawable.msg,R.drawable.msg_selected));
-        list.add(new TabBean("通讯录",R.drawable.friends,R.drawable.friends_selected));
-        list.add(new TabBean("朋友圈",R.drawable.circle,R.drawable.circle_selected));
-        list.add(new TabBean("我",R.drawable.my,R.drawable.my_selected));
+        List<TabSelectBean> list = new ArrayList<>();
+        list.add(new TabSelectBean("消息",R.drawable.msg,R.drawable.msg_selected));
+        list.add(new TabSelectBean("通讯录",R.drawable.friends,R.drawable.friends_selected));
+        list.add(new TabSelectBean("朋友圈",R.drawable.circle,R.drawable.circle_selected));
+        list.add(new TabSelectBean("我",R.drawable.my,R.drawable.my_selected));
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
     }
