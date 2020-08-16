@@ -99,8 +99,10 @@ allprojects {
 2.直接在需要使用的模块的`build.gradle`中添加代码：
 
 ```java
+dependencies {
 api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.0'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
+}
 ```
 
 ## 注意：记得去gayhub查看最新版本，最新版本最niubility
