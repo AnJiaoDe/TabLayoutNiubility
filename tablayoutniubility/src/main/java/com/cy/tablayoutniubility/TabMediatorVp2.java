@@ -19,7 +19,6 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
 public class TabMediatorVp2<T> implements ITabMediator {
     private TabLayoutScroll tabLayout;
     private ViewPager2 viewPager2;
-    private TabAdapter<T> tabAdapter;
     private int position_scroll_last = 0;
     private int diff = 0;
     private float diff_click = -1;
@@ -39,7 +38,7 @@ public class TabMediatorVp2<T> implements ITabMediator {
     }
 
     public TabAdapter<T> setAdapter(final FragPageAdapterVp2<T> fragmentPageAdapter) {
-        tabAdapter = new TabAdapter<T>() {
+        final TabAdapter<T> tabAdapter = new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {
                 fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
@@ -116,7 +115,7 @@ public class TabMediatorVp2<T> implements ITabMediator {
              */
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position,positionOffset,positionOffsetPixels);
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
                 int centerX = (int) (tabLayout.getWidth() * 1f / 2);
                 //说明上次手指滑动了tabLayout，现在手指滑动viewpager,需要将tablayout复位
                 if (rvScrolledByTouch && offsetX_touch != 0) {
@@ -152,9 +151,9 @@ public class TabMediatorVp2<T> implements ITabMediator {
                                 //标志不是由手指滑动tablayout
                                 rvScrolledByVp = true;
                                 if (diff_click > 0) {
-                                        tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * positionOffset)), 0);
-                                } else if(diff_click<0){
-                                        tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * (1 - positionOffset))), 0);
+                                    tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * positionOffset)), 0);
+                                } else if (diff_click < 0) {
+                                    tabLayout.getHorizontalRecyclerView().scrollTo((int) (offsetX_last_click - (diff_click * (1 - positionOffset))), 0);
                                 }
                                 rvScrolledByVp = false;
                             }

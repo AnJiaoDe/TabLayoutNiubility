@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -76,5 +77,12 @@ public class TabLayoutNoScroll extends FrameLayout implements ITabLayout {
     public TabLayoutNoScroll setAdapter(TabAdapterNoScroll tabAdapter) {
         tabNoScrollView.setAdapter(tabAdapter);
         return this;
+    }
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeAllViews();
+        ViewGroup parent= (ViewGroup) getParent();
+        if(parent!=null)parent.removeView(this);
     }
 }

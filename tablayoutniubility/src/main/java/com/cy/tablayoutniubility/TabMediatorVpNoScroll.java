@@ -16,7 +16,6 @@ import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
 public class TabMediatorVpNoScroll<T> implements ITabMediator {
     private TabLayoutNoScroll tabLayout;
     private ViewPager viewPager;
-    private TabAdapterNoScroll<T> tabAdapter;
     private int position_scroll_last = 0;
     private int diff = 0;
     private int diff_click = 0;
@@ -31,7 +30,7 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
     }
 
     public TabAdapterNoScroll<T> setAdapter(final FragPageAdapterVpNoScroll<T> fragmentPageAdapter) {
-        tabAdapter = new TabAdapterNoScroll<T>() {
+        final TabAdapterNoScroll<T> tabAdapter = new TabAdapterNoScroll<T>() {
             @Override
             public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {
                 fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
@@ -99,12 +98,12 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                     //TabLayout刚显示，indicator会指向第0个item
                     diff = 0;
                     //计算indicator指向下一个item需要滑动的距离
-                   if(viewHolder_behind!=null) toScroll = (int) (width_half
+                    if (viewHolder_behind != null) toScroll = (int) (width_half
                             + viewHolder_behind.itemView.getWidth() * 1f / 2);
                 } else if (position_scroll_last < position) {
                     //说明从page index 滑动到了page index+1,
                     //indicator想要指向正中间，计算TabLayout需要滑动的距离
-                    if(viewHolder_behind!=null){
+                    if (viewHolder_behind != null) {
                         diff = (int) (viewHolder_behind.itemView.getLeft() + viewHolder_behind.itemView.getWidth() * 1f / 2 - centerX);
                         //下一个item都在正中间的前面，无需滑动，而且可以避免出现负数导致recyclerView抖动
                         if (diff < 0) diff = 0;
@@ -126,7 +125,7 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                                 + viewHolder_behind.itemView.getWidth() * 1f / 2);
                 } else if (op_click_last) {
                     //如果position_scroll_last==position,并且上次操作是点击item,
-                    if (position == click_position_last&& viewHolder_behind!=null) {
+                    if (position == click_position_last && viewHolder_behind != null) {
                         //说明现在是正要从page index 滑动到page index+1
                         //indicator想要指向正中间，计算TabLayout需要滑动的距离
                         diff = (int) (viewHolder_behind.itemView.getLeft() + viewHolder_behind.itemView.getWidth() * 1f / 2 - centerX);

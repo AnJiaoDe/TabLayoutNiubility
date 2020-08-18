@@ -103,4 +103,12 @@ public class TabLayoutMulti extends FrameLayout {
         }
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeAllViews();
+        ViewGroup parent= (ViewGroup) getParent();
+        if(parent!=null)parent.removeView(this);
+    }
+
 }
