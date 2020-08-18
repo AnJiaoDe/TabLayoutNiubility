@@ -8,6 +8,10 @@ GitHub:https://github.com/AnJiaoDe/TabLayoutNiubility
 
 注意：该轮子适用于androidx中的ViewPager2和ViewPager
 
+注意：如果轮子死活下载不下来，说明maven地址有毛病，你需要找到jitpack的官网首页，查看最新的官网地址
+
+注意：记得去gayhub查看最新版本，最新版本最niubility
+
 详细使用如下
 
 Tab均分不滑动(ViewPager、ViewPager2均支持)
@@ -83,28 +87,34 @@ ViewPager双层嵌套(建议不要使用ViewPager2进行双层嵌套，ViewPager
 
 1.工程目录下的`build.gradle`中添加代码：
 
+## 注意：如果轮子死活下载不下来，说明maven地址有毛病，你需要找到jitpack的官网首页，查看最新的官网地址
+
 ```java
 allprojects {
 		repositories {
-			
-			maven { url 'https://jitpack.io' }
+			        maven { url 'https://www.jitpack.io' }
 		}
 	}
 ```
 2.直接在需要使用的模块的`build.gradle`中添加代码：
 
-```groovy
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.9'
+```java
+dependencies {
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.0'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
+}
 ```
+
+## 注意：记得去gayhub查看最新版本，最新版本最niubility
+
 3.如果你想使用`ViewPager2`,那么添加代码：
 
-```groovy
+```java
 api 'androidx.viewpager2:viewpager2:1.0.0'//版本必须>=1.0.0
 ```
 4.混淆：
 
-```shell
+```java
 -keepclasseswithmembers class * {# 保持自定义控件类不被混淆
     public <init>(android.content.Context, android.util.AttributeSet);
     #这行不能加，加了就会失败
