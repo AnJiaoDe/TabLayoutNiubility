@@ -117,7 +117,5 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         removeAllViews();
-        ViewGroup parent= (ViewGroup) getParent();
-        if(parent!=null)parent.removeView(this);
     }
 }

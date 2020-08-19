@@ -29,7 +29,7 @@ import java.util.List;
 public class FragmentTab1 extends Fragment {
     public ViewPager viewPager;
     public static final String TAB_NAME1 = "TAB_NAME1";
-    private View view;
+    private ViewGroup view;
     private TabLayoutScroll tabLayoutLine;
 
     public FragmentTab1() {
@@ -52,7 +52,7 @@ public class FragmentTab1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_tab1, container, false);
+        view = (ViewGroup) inflater.inflate(R.layout.fragment_tab1, container, false);
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
         FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),

@@ -22,4 +22,5 @@ public abstract class FragPageAdapterVp<T> extends BaseFragPageAdapterVp<T,TabVi
     public FragPageAdapterVp(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
+
 }

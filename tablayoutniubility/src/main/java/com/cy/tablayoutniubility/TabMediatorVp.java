@@ -38,6 +38,7 @@ public class TabMediatorVp<T> implements ITabMediator {
     }
 
     public TabAdapter<T> setAdapter(final FragPageAdapterVp<T> fragmentPageAdapter) {
+
         final TabAdapter<T> tabAdapter= new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {

@@ -105,4 +105,8 @@ public class HorizontalRecyclerView extends RecyclerView {
         return linearItemDecoration;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
 }

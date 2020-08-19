@@ -35,4 +35,8 @@ dependencies {
     api 'androidx.recyclerview:recyclerview:1.1.0'
     api 'androidx.viewpager2:viewpager2:1.0.0'
 //    api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.0.4'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+
+
 }

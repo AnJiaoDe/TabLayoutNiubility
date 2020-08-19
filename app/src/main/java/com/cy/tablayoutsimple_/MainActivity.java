@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private  volatile Object obj;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,5 +76,24 @@ public class MainActivity extends AppCompatActivity {
 //                startActivity(new Intent(MainActivity.this, ViewPagerRVActivity.class));
 //            }
 //        });
+
+        obj = new Object();
+        A(obj);
+        obj = null;
+        //虽然置为null，但是new 出来的对象一直在堆中，因为对象被线程持有了，如果A不使用参数，输出是true
+        LogUtils.log("obj=null", obj == null);
+    }
+
+    private void A(final Object obj) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    //输出false
+                    LogUtils.log("obj", obj == null);
+                }
+            }
+        });
+        thread.start();
     }
 }
