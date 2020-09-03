@@ -1,6 +1,5 @@
 package com.cy.tablayoutniubility;
 
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 /**
@@ -12,10 +11,10 @@ import androidx.viewpager2.widget.ViewPager2;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class TabMediatorMulti<T> {
+public class TabMediatorMultiVp2<T> {
     private TabLayoutMulti tabLayoutMulti;
 
-    public TabMediatorMulti(TabLayoutMulti tabLayoutMulti) {
+    public TabMediatorMultiVp2(TabLayoutMulti tabLayoutMulti) {
         this.tabLayoutMulti = tabLayoutMulti;
     }
 
@@ -29,13 +28,4 @@ public class TabMediatorMulti<T> {
         }
     }
 
-    public ITabAdapter setAdapter(ViewPager viewPager, BaseFragPageAdapterVp baseFragPageAdapterVp) {
-        if (tabLayoutMulti.isScrollable()) {
-            TabMediatorVp tabMediatorVp = new TabMediatorVp<T>((TabLayoutScroll) tabLayoutMulti.getTabLayout(), viewPager);
-            return tabMediatorVp.setAdapter((FragPageAdapterVp) baseFragPageAdapterVp);
-        } else {
-            TabMediatorVpNoScroll tabMediatorVpNoScroll = new TabMediatorVpNoScroll<T>((TabLayoutNoScroll) tabLayoutMulti.getTabLayout(), viewPager);
-            return tabMediatorVpNoScroll.setAdapter((FragPageAdapterVpNoScroll) baseFragPageAdapterVp);
-        }
-    }
 }

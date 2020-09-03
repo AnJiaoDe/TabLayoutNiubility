@@ -12,12 +12,9 @@ import com.cy.tablayoutniubility.BaseFragPageAdapterVp2;
 import com.cy.tablayoutniubility.FragPageAdapterVp2;
 import com.cy.tablayoutniubility.FragPageAdapterVp2NoScroll;
 import com.cy.tablayoutniubility.ITabAdapter;
-import com.cy.tablayoutniubility.IViewHolder;
-import com.cy.tablayoutniubility.TabAdapter;
-import com.cy.tablayoutniubility.TabAdapterNoScroll;
 import com.cy.tablayoutniubility.TabLayoutMulti;
-import com.cy.tablayoutniubility.TabMediatorMulti;
-import com.cy.tablayoutniubility.TabMediatorVp2NoScroll;
+import com.cy.tablayoutniubility.TabMediatorMultiVp;
+import com.cy.tablayoutniubility.TabMediatorMultiVp2;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
 import com.cy.tablayoutniubility.TabViewHolder;
 
@@ -106,7 +103,7 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
         }
 
 
-        ITabAdapter tabAdapter = new TabMediatorMulti<String>(tabLayoutMulti).setAdapter(viewPager2, fragmentPageAdapter);
+        ITabAdapter tabAdapter = new TabMediatorMultiVp2<String>(tabLayoutMulti).setAdapter(viewPager2, fragmentPageAdapter);
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
         //或者
