@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         A(obj);
         obj = null;
         //虽然置为null，但是new 出来的对象一直在堆中，因为对象被线程持有了，如果A不使用参数，输出是true
-        LogUtils.log("obj=null", obj == null);
+//        LogUtils.log("obj=null", obj == null);
     }
 
     private void A(final Object obj) {
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 while (true) {
                     //输出false
-                    LogUtils.log("obj", obj == null);
+//                    LogUtils.log("obj", obj == null);
                 }
             }
         });
