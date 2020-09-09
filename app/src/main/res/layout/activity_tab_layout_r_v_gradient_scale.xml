@@ -8,17 +8,13 @@
     <com.cy.tablayoutniubility.TabLayoutScroll
         android:layout_width="match_parent"
         android:background="#fff"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:id="@+id/tablayout">
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             app:width_indicator_selected="10dp"
             android:layout_height="wrap_content"/>
     </com.cy.tablayoutniubility.TabLayoutScroll>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eee"/>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:overScrollMode="never"

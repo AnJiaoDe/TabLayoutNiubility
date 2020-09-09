@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TabLayoutVP2GradientActivity.class));
             }
         });
+        findViewById(R.id.btn_tab_gradient_scale).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TabLayoutVP2GradientScaleActivity.class));
+            }
+        });
         findViewById(R.id.btn_tab_triangle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

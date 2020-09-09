@@ -18,6 +18,7 @@
         <activity android:name=".TabLayoutVpNestActivity" />
         <activity android:name=".TabTriangleVP2Activity" />
         <activity android:name=".TabLayoutVP2GradientActivity" />
+        <activity android:name=".TabLayoutVP2GradientScaleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
