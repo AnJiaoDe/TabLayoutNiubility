@@ -23,41 +23,11 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
     private boolean scrolledByClick = false;
     private boolean op_click_last = false;
     private int click_position_last = -1;
-
-    public TabMediatorVpNoScroll(TabLayoutNoScroll tabLayout, final ViewPager viewPager) {
+    private TabAdapterNoScroll<T> tabAdapter;
+    private FragPageAdapterVpNoScroll<T> fragmentPageAdapter;
+    public TabMediatorVpNoScroll(final TabLayoutNoScroll tabLayout, final ViewPager viewPager) {
         this.tabLayout = tabLayout;
         this.viewPager = viewPager;
-    }
-
-    public TabAdapterNoScroll<T> setAdapter(final FragPageAdapterVpNoScroll<T> fragmentPageAdapter) {
-        final TabAdapterNoScroll<T> tabAdapter = new TabAdapterNoScroll<T>() {
-            @Override
-            public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {
-                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
-            }
-
-            @Override
-            public int getItemLayoutID(int position, T bean) {
-                return fragmentPageAdapter.getTabLayoutID(position, bean);
-            }
-
-            @Override
-            public void onItemClick(TabNoScrollViewHolder holder, int position, T bean) {
-                //点击tabLayout的item,会先回调onPageSelected,然后回调onPageScrolled
-                //标志：tablayout的滑动是由点击item触发的
-                scrolledByClick = true;
-//                position_selected_last = viewPager2.getCurrentItem();
-                viewPager.setCurrentItem(position);
-                //让indicator立马指向currentItem
-                TabNoScrollViewHolder viewHolder = tabLayout.getTabNoScrollView().getViewHolder(viewPager.getCurrentItem());
-                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
-                        .setProgress((int) (viewHolder.itemView.getLeft()
-                                + viewHolder.itemView.getWidth() * 1f / 2
-                                - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));
-                fragmentPageAdapter.onTabClick(holder, position, bean);
-            }
-        };
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -169,11 +139,40 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                 }
             }
         });
+        tabAdapter = new TabAdapterNoScroll<T>() {
+            @Override
+            public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {
+                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
+            }
 
+            @Override
+            public int getItemLayoutID(int position, T bean) {
+                return fragmentPageAdapter.getTabLayoutID(position, bean);
+            }
+
+            @Override
+            public void onItemClick(TabNoScrollViewHolder holder, int position, T bean) {
+                //点击tabLayout的item,会先回调onPageSelected,然后回调onPageScrolled
+                //标志：tablayout的滑动是由点击item触发的
+                scrolledByClick = true;
+//                position_selected_last = viewPager2.getCurrentItem();
+                viewPager.setCurrentItem(position);
+                //让indicator立马指向currentItem
+                TabNoScrollViewHolder viewHolder = tabLayout.getTabNoScrollView().getViewHolder(viewPager.getCurrentItem());
+                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
+                        .setProgress((int) (viewHolder.itemView.getLeft()
+                                + viewHolder.itemView.getWidth() * 1f / 2
+                                - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));
+                fragmentPageAdapter.onTabClick(holder, position, bean);
+            }
+        };
+
+    }
+
+    public TabAdapterNoScroll<T> setAdapter(final FragPageAdapterVpNoScroll<T> fragPageAdapter) {
+        fragmentPageAdapter=fragPageAdapter;
         tabLayout.setAdapter(tabAdapter);
-
         viewPager.setAdapter(fragmentPageAdapter);
-
         return tabAdapter;
     }
 

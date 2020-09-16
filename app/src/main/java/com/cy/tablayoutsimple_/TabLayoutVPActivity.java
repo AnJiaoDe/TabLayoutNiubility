@@ -58,7 +58,9 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 return R.layout.item_tab;
             }
         };
-        final TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
+
+        final TabMediatorVp<String> tabMediatorVp=new TabMediatorVp<String>(tabLayoutLine, viewPager);
+        final TabAdapter<String> tabAdapter = tabMediatorVp.setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();
         list.add("关注");
@@ -102,7 +104,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
         findViewById(R.id.btn_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(fragmentPageAdapter);
+                TabAdapter<String> tabAdapter = tabMediatorVp.setAdapter(fragmentPageAdapter);
                 List<String> list = new ArrayList<>();
                 list.add("关注");
                 list.add("推荐");
@@ -139,8 +141,8 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 list.add("酷玩");
                 list.add("彩票");
                 list.add("漫画");
-                fragmentPageAdapter.add(list);
-                tabAdapter.add(list);
+                fragmentPageAdapter.clearAdd(list);
+                tabAdapter.clearAdd(list);
             }
         });
     }

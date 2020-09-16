@@ -31,51 +31,12 @@ public class TabMediatorVp2<T> implements ITabMediator {
     private boolean scrolledByClick = false;
     private boolean op_click_last = false;
     private int click_position_last = -1;
+    private TabAdapter<T> tabAdapter;
+    private FragPageAdapterVp2<T> fragmentPageAdapter;
 
-    public TabMediatorVp2(TabLayoutScroll tabLayout, final ViewPager2 viewPager2) {
+    public TabMediatorVp2(final TabLayoutScroll tabLayout, final ViewPager2 viewPager2) {
         this.tabLayout = tabLayout;
         this.viewPager2 = viewPager2;
-    }
-
-    public TabAdapter<T> setAdapter(final FragPageAdapterVp2<T> fragmentPageAdapter) {
-        final TabAdapter<T> tabAdapter = new TabAdapter<T>() {
-            @Override
-            public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {
-                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
-            }
-
-            @Override
-            public int getItemLayoutID(int position, T bean) {
-                return fragmentPageAdapter.getTabLayoutID(position, bean);
-            }
-
-            @Override
-            public void onItemClick(TabViewHolder holder, int position, T bean) {
-                //点击tabLayout的item,会先回调onPageSelected,然后回调onPageScrolled
-                //标志复位
-                rvScrolledByTouch = false;
-                offsetX_touch = 0;
-                //标志：tablayout的滑动是由点击item触发的
-                scrolledByClick = true;
-                viewPager2.setCurrentItem(position);
-                //让indicator立马指向currentItem
-                RecyclerView.ViewHolder viewHolder = tabLayout.getHorizontalRecyclerView().findViewHolderForAdapterPosition(viewPager2.getCurrentItem());
-                if (viewHolder != null) {
-
-                    tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
-                            .setProgress((int) (viewHolder.itemView.getLeft()
-                                    + viewHolder.itemView.getWidth() * 1f / 2
-                                    - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));
-
-                } else {
-                    //不可见，width_indicator为0
-                    tabLayout.getIndicatorView().getIndicator().setWidth_indicator(0).invalidate();
-                }
-                fragmentPageAdapter.onTabClick(holder, position, bean);
-            }
-        };
-
-
         tabLayout.getHorizontalRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -99,7 +60,6 @@ public class TabMediatorVp2<T> implements ITabMediator {
 
             }
         });
-
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -301,11 +261,49 @@ public class TabMediatorVp2<T> implements ITabMediator {
                 }
             }
         });
+        tabAdapter = new TabAdapter<T>() {
+            @Override
+            public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {
+                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
+            }
 
+            @Override
+            public int getItemLayoutID(int position, T bean) {
+                return fragmentPageAdapter.getTabLayoutID(position, bean);
+            }
+
+            @Override
+            public void onItemClick(TabViewHolder holder, int position, T bean) {
+                //点击tabLayout的item,会先回调onPageSelected,然后回调onPageScrolled
+                //标志复位
+                rvScrolledByTouch = false;
+                offsetX_touch = 0;
+                //标志：tablayout的滑动是由点击item触发的
+                scrolledByClick = true;
+                viewPager2.setCurrentItem(position);
+                //让indicator立马指向currentItem
+                RecyclerView.ViewHolder viewHolder = tabLayout.getHorizontalRecyclerView().findViewHolderForAdapterPosition(viewPager2.getCurrentItem());
+                if (viewHolder != null) {
+
+                    tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
+                            .setProgress((int) (viewHolder.itemView.getLeft()
+                                    + viewHolder.itemView.getWidth() * 1f / 2
+                                    - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));
+
+                } else {
+                    //不可见，width_indicator为0
+                    tabLayout.getIndicatorView().getIndicator().setWidth_indicator(0).invalidate();
+                }
+                fragmentPageAdapter.onTabClick(holder, position, bean);
+            }
+        };
+
+    }
+
+    public TabAdapter<T> setAdapter(FragPageAdapterVp2<T> fragPageAdapter) {
+        fragmentPageAdapter = fragPageAdapter;
         tabLayout.setAdapter(tabAdapter);
-
         viewPager2.setAdapter(fragmentPageAdapter);
-
         return tabAdapter;
     }
 
