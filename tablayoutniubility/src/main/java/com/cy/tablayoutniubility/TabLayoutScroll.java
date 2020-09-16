@@ -63,9 +63,10 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
         addTab();
     }
 
-    private void addTab(){
+    private void addTab() {
         addView(horizontalRecyclerView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
+
     @Override
     public <T extends View> T getView() {
         return (T) this;
@@ -74,6 +75,7 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     public IIndicatorView getIndicatorView() {
         return indicatorView;
     }
+
     @Override
     public <T extends ITabLayout> T setIndicatorView(IIndicatorView indicatorView) {
         if (this.indicatorView != null) removeView(this.indicatorView.getView());
@@ -105,12 +107,13 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
         return horizontalRecyclerView;
     }
 
-    public TabLayoutScroll  setAdapter(TabAdapter tabAdapter) {
+    public TabLayoutScroll setAdapter(TabAdapter tabAdapter) {
         //tab间距
-        horizontalRecyclerView.addItemDecoration(new LinearItemDecoration(tabAdapter)
-                .setSpace_horizontal(space_horizontal).setSpace_vertical(space_vertical));
+        if (horizontalRecyclerView.getAdapter() == null)
+            horizontalRecyclerView.addItemDecoration(new LinearItemDecoration(tabAdapter)
+                    .setSpace_horizontal(space_horizontal).setSpace_vertical(space_vertical));
         horizontalRecyclerView.setAdapter(tabAdapter);
-        return  this;
+        return this;
     }
 
     @Override
