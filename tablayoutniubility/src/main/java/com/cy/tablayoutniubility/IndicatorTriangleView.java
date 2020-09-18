@@ -34,10 +34,10 @@ public class IndicatorTriangleView extends View implements IIndicatorView {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatorTriangleView);
 
-        indicator.setWidth_indicator_selected(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_width_indicator_selected, ScreenUtils.dpAdapt(context,12)));
-        indicator.setWidth_indicator_max(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_width_indicator_max, ScreenUtils.dpAdapt(context,48)));
-        indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_height_indicator, ScreenUtils.dpAdapt(context,6)));
-        indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorTriangleView_color_indicator, 0xffe45540));
+        indicator.setWidth_indicator_selected(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_cy_width_indicator_selected, ScreenUtils.dpAdapt(context,12)));
+        indicator.setWidth_indicator_max(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_cy_width_indicator_max, ScreenUtils.dpAdapt(context,48)));
+        indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorTriangleView_cy_height_indicator, ScreenUtils.dpAdapt(context,6)));
+        indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorTriangleView_cy_color_indicator, 0xffe45540));
 
         indicator.setWidth_indicator(0);
         typedArray.recycle();

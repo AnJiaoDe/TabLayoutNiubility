@@ -26,10 +26,10 @@ public class TabLayoutMulti extends FrameLayout {
     public TabLayoutMulti(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabLayoutMulti);
-        setScrollable(typedArray.getBoolean(R.styleable.TabLayoutMulti_scrollable, scrollable));
-        setSpace_horizontal(typedArray.getDimensionPixelSize(R.styleable.TabLayoutMulti_space_horizontal,
+        setScrollable(typedArray.getBoolean(R.styleable.TabLayoutMulti_cy_scrollable, scrollable));
+        setSpace_horizontal(typedArray.getDimensionPixelSize(R.styleable.TabLayoutMulti_cy_space_horizontal,
                 ScreenUtils.dpAdapt(context, 20)));
-        setSpace_vertical(typedArray.getDimensionPixelSize(R.styleable.TabLayoutMulti_space_vertical,
+        setSpace_vertical(typedArray.getDimensionPixelSize(R.styleable.TabLayoutMulti_cy_space_vertical,
                 ScreenUtils.dpAdapt(context, 8)));
         typedArray.recycle();
     }

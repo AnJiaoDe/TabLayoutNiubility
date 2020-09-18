@@ -12,7 +12,7 @@
         android:id="@+id/tablayout">
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
-            app:width_indicator_selected="10dp"
+            app:cy_width_indicator_selected="10dp"
             android:layout_height="wrap_content"/>
     </com.cy.tablayoutniubility.TabLayoutScroll>
     <androidx.viewpager2.widget.ViewPager2

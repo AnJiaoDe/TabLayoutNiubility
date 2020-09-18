@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:textSize="16sp"
-    app:textColorNormal="#ff444444"
-    app:textColorSelected="#ffe45540">
+    app:cy_textColorNormal="#ff444444"
+    app:cy_textColorSelected="#ffe45540">
 
 </com.cy.tablayoutniubility.TabGradientTextView>

@@ -29,11 +29,11 @@ public class IndicatorLineView extends View implements IIndicatorView {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.IndicatorLineView);
 
-        indicator.setWidth_indicator_selected(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_width_indicator_selected, ScreenUtils.dpAdapt(context,20)));
-        indicator.setWidth_indicator_max(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_width_indicator_max, ScreenUtils.dpAdapt(context,60)));
-        indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_height_indicator, ScreenUtils.dpAdapt(context,3)));
-        indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorLineView_color_indicator, 0xffe45540));
-        setRadius_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_radius_indicator, ScreenUtils.dpAdapt(context,2)));
+        indicator.setWidth_indicator_selected(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_width_indicator_selected, ScreenUtils.dpAdapt(context,20)));
+        indicator.setWidth_indicator_max(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_width_indicator_max, ScreenUtils.dpAdapt(context,60)));
+        indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_height_indicator, ScreenUtils.dpAdapt(context,3)));
+        indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorLineView_cy_color_indicator, 0xffe45540));
+        setRadius_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_radius_indicator, ScreenUtils.dpAdapt(context,2)));
 
         indicator.setWidth_indicator(0);
 

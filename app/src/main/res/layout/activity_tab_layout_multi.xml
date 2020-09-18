@@ -9,13 +9,13 @@
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:space_horizontal="0dp"
+        app:cy_space_horizontal="0dp"
         android:background="#fff">
 
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
-            app:width_indicator_max="80dp"
-            app:width_indicator_selected="30dp"
+            app:cy_width_indicator_max="80dp"
+            app:cy_width_indicator_selected="30dp"
             android:layout_height="wrap_content" />
     </com.cy.tablayoutniubility.TabLayoutMulti>
 

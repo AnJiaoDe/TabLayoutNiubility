@@ -36,8 +36,8 @@ public class TabGradientTextView extends AppCompatTextView {
     public TabGradientTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabGradientTextView);
-        setTextColorNormal(typedArray.getColor(R.styleable.TabGradientTextView_textColorNormal, 0xfe454545));
-        setTextColorSelected(typedArray.getColor(R.styleable.TabGradientTextView_textColorSelected, 0xffe45540));
+        setTextColorNormal(typedArray.getColor(R.styleable.TabGradientTextView_cy_textColorNormal, 0xfe454545));
+        setTextColorSelected(typedArray.getColor(R.styleable.TabGradientTextView_cy_textColorSelected, 0xffe45540));
         typedArray.recycle();
     }
 
