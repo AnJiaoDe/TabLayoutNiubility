@@ -100,7 +100,7 @@ allprojects {
 
 ```java
 dependencies {
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.5'
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.6'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 }
 ```
