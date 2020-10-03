@@ -29,7 +29,8 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
     @NonNull
     @Override
     public TabViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new TabViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+        TabViewHolder tabViewHolder = new TabViewHolder(LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false));
+        return tabViewHolder;
     }
 
     @Override

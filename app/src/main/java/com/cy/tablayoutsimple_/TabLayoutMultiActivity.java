@@ -1,11 +1,15 @@
 package com.cy.tablayoutsimple_;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cy.tablayoutniubility.BaseFragPageAdapterVp2;
@@ -74,7 +78,7 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
                     return R.layout.item_tab_center;
                 }
             };
-        }else {
+        } else {
             fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
                 @Override
                 public Fragment createFragment(String bean, int position) {
