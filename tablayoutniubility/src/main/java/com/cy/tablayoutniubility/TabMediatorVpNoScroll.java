@@ -24,7 +24,7 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
     private boolean op_click_last = false;
     private int click_position_last = -1;
     private TabAdapterNoScroll<T> tabAdapter;
-    private FragPageAdapterVpNoScroll<T> fragmentPageAdapter;
+    private ITabPageAdapterVpNoScroll<T> tabPageAdapterVpNoScroll;
     public TabMediatorVpNoScroll(final TabLayoutNoScroll tabLayout, final ViewPager viewPager) {
         this.tabLayout = tabLayout;
         this.viewPager = viewPager;
@@ -118,7 +118,7 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                     //手指往左滑动，positionOffset由小变大
                     //手指往右滑动，positionOffset由大变小
                     if (viewHolder_behind != null)
-                        fragmentPageAdapter.onTabScrolled(viewHolder, position, false, 1 - positionOffset,
+                        tabPageAdapterVpNoScroll.onTabScrolled(viewHolder, position, false, 1 - positionOffset,
                                 viewHolder_behind, position + 1, true, positionOffset);
                 position_scroll_last = position;
             }
@@ -142,12 +142,12 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
         tabAdapter = new TabAdapterNoScroll<T>() {
             @Override
             public void bindDataToView(TabNoScrollViewHolder holder, int position, T bean, boolean isSelected) {
-                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
+                tabPageAdapterVpNoScroll.bindDataToTab(holder, position, bean, isSelected);
             }
 
             @Override
             public int getItemLayoutID(int position, T bean) {
-                return fragmentPageAdapter.getTabLayoutID(position, bean);
+                return tabPageAdapterVpNoScroll.getTabLayoutID(position, bean);
             }
 
             @Override
@@ -163,16 +163,16 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                         .setProgress((int) (viewHolder.itemView.getLeft()
                                 + viewHolder.itemView.getWidth() * 1f / 2
                                 - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));
-                fragmentPageAdapter.onTabClick(holder, position, bean);
+                tabPageAdapterVpNoScroll.onTabClick(holder, position, bean);
             }
         };
 
     }
 
-    public TabAdapterNoScroll<T> setAdapter(final FragPageAdapterVpNoScroll<T> fragPageAdapter) {
-        fragmentPageAdapter=fragPageAdapter;
+    public TabAdapterNoScroll<T> setAdapter(final ITabPageAdapterVpNoScroll<T> tabPageAdapterVpNoScroll) {
+        this.tabPageAdapterVpNoScroll =tabPageAdapterVpNoScroll;
         tabLayout.setAdapter(tabAdapter);
-        viewPager.setAdapter(fragmentPageAdapter);
+        viewPager.setAdapter(tabPageAdapterVpNoScroll.getPageAdapter());
         return tabAdapter;
     }
 

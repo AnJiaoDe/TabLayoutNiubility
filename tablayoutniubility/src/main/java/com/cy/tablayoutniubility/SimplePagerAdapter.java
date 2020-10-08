@@ -1,8 +1,9 @@
 package com.cy.tablayoutniubility;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,51 +11,30 @@ import java.util.List;
 /**
  * @Description:
  * @Author: cy
- * @CreateDate: 2020/6/13 16:20
+ * @CreateDate: 2020/10/7 23:50
  * @UpdateUser:
- * @UpdateDate: 2020/6/13 16:20
+ * @UpdateDate: 2020/10/7 23:50
  * @UpdateRemark:
- * @Version:
+ * @Version: 1.0
  */
-public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends CyFragStatePageAdapterVp
-        implements IBaseTabPageAdapter<T, V> {
-    private List<T> list_bean = new ArrayList<>();
-
-    //    private FragmentManager.FragmentLifecycleCallbacks fragmentLifecycleCallbacks;
-//    private ILifecycleCallback lifecycleCallback;
-    public BaseFragPageAdapterVp(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-//        fragmentLifecycleCallbacks=new FragmentManager.FragmentLifecycleCallbacks() {
-//            @Override
-//            public void onFragmentViewDestroyed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-//                super.onFragmentViewDestroyed(fm, f);
-//                fm.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks);
-//                if(lifecycleCallback!=null){
-//                    lifecycleCallback.onFragmentViewDestroyed();
-//                    lifecycleCallback=null;
-//                }
-//            }
-//        };
-    }
-
-//    public void setLifecycleCallback(ILifecycleCallback lifecycleCallback) {
-//        this.lifecycleCallback = lifecycleCallback;
-//    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return createFragment(list_bean.get(position), position);
-
-    }
-
+public abstract class SimplePagerAdapter<T, V extends IViewHolder> extends PagerAdapter  implements IBaseTabPageAdapter<T, V> {
+    private List<T> list_bean=new ArrayList<>();
     @Override
     public int getCount() {
         return list_bean.size();
     }
+    public abstract Object instantiateItem(@NonNull ViewGroup container, int position,T bean) ;
+    @NonNull
+    @Override
+    public final Object instantiateItem(@NonNull ViewGroup container, int position) {
+        return instantiateItem(container,position,list_bean.get(position));
+    }
+    public abstract void destroyItem(@NonNull ViewGroup container, int position,T bean,@NonNull Object object) ;
 
-    public abstract Fragment createFragment(T bean, int position);
-
+    @Override
+    public final void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        destroyItem(container,position,list_bean.get(position),object);
+    }
 
     @Override
     public void onTabClick(V holder, int position, T bean) {
@@ -225,7 +205,7 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Cy
     /**
      * 先清空后添加List,并且notify
      */
-   @Override
+    @Override
     public <W extends IBaseTabPageAdapter<T, V>> W clearAdd(List<T> beans) {
         clearAddNoNotify(beans);
         notifyDataSetChanged();

@@ -2,7 +2,6 @@ package com.cy.tablayoutniubility;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import static androidx.viewpager2.widget.ViewPager2.SCROLL_STATE_IDLE;
@@ -32,7 +31,7 @@ public class TabMediatorVp2<T> implements ITabMediator {
     private boolean op_click_last = false;
     private int click_position_last = -1;
     private TabAdapter<T> tabAdapter;
-    private FragPageAdapterVp2<T> fragmentPageAdapter;
+    private ITabPageAdapterVp2<T> tabPageAdapterVp2;
 
     public TabMediatorVp2(final TabLayoutScroll tabLayout, final ViewPager2 viewPager2) {
         this.tabLayout = tabLayout;
@@ -218,7 +217,7 @@ public class TabMediatorVp2<T> implements ITabMediator {
                         //手指往左滑动，positionOffset由小变大
                         //手指往右滑动，positionOffset由大变小
                         if (viewHolder_behind != null)
-                            fragmentPageAdapter.onTabScrolled(viewHolder, position, false, 1 - positionOffset,
+                            tabPageAdapterVp2.onTabScrolled(viewHolder, position, false, 1 - positionOffset,
                                     viewHolder_behind, position + 1, true, positionOffset);
 
                 } else {
@@ -264,12 +263,12 @@ public class TabMediatorVp2<T> implements ITabMediator {
         tabAdapter = new TabAdapter<T>() {
             @Override
             public void bindDataToView(TabViewHolder holder, int position, T bean, boolean isSelected) {
-                fragmentPageAdapter.bindDataToTab(holder, position, bean, isSelected);
+                tabPageAdapterVp2.bindDataToTab(holder, position, bean, isSelected);
             }
 
             @Override
             public int getItemLayoutID(int position, T bean) {
-                return fragmentPageAdapter.getTabLayoutID(position, bean);
+                return tabPageAdapterVp2.getTabLayoutID(position, bean);
             }
 
             @Override
@@ -294,16 +293,16 @@ public class TabMediatorVp2<T> implements ITabMediator {
                     //不可见，width_indicator为0
                     tabLayout.getIndicatorView().getIndicator().setWidth_indicator(0).invalidate();
                 }
-                fragmentPageAdapter.onTabClick(holder, position, bean);
+                tabPageAdapterVp2.onTabClick(holder, position, bean);
             }
         };
 
     }
 
-    public TabAdapter<T> setAdapter(FragPageAdapterVp2<T> fragPageAdapter) {
-        fragmentPageAdapter = fragPageAdapter;
+    public TabAdapter<T> setAdapter(ITabPageAdapterVp2<T> tabPageAdapterVp2) {
+        this.tabPageAdapterVp2 = tabPageAdapterVp2;
         tabLayout.setAdapter(tabAdapter);
-        viewPager2.setAdapter(fragmentPageAdapter);
+        viewPager2.setAdapter(tabPageAdapterVp2.getPageAdapter());
         return tabAdapter;
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
  * @param <T>
  */
 
-public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> implements ITabAdapter<T> {
+public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> implements ITabAdapter<T, TabViewHolder> {
 
     private List<T> list_bean = new ArrayList<>();//数据源
     private int positionSelectedLast = 0;
@@ -50,9 +50,6 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         return list_bean.size();
     }
 
-    public List<T> getList_bean() {
-        return list_bean;
-    }
 
     protected void handleClick(final TabViewHolder holder) {
         /**
@@ -120,27 +117,35 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
         }
     }
 
+    @Override
+    public List<T> getList_bean() {
+        return list_bean;
+    }
+
     /**
      * @param list_bean
      */
-    public TabAdapter<T> setList_bean(List<T> list_bean) {
+    @Override
+    public <W extends ITabAdapter> W setList_bean(List<T> list_bean) {
         this.list_bean = list_bean;
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 删除相应position的数据Item
      */
-    public TabAdapter<T> removeNoNotify(int position) {
+    @Override
+    public <W extends ITabAdapter> W removeNoNotify(int position) {
         list_bean.remove(position);
-        return this;
+        return (W) this;
     }
 
     /**
      * 删除相应position的数据Item ,并且notify,
      */
-    public TabAdapter<T> remove(int position) {
+    @Override
+    public <W extends ITabAdapter> W remove(int position) {
         removeNoNotify(position);
         /**
          onBindViewHolder回调的position永远是最后一个可见的item的position,
@@ -148,33 +153,36 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
          onBindViewHolder回调的position永远是4
          */
         notifyItemRemoved(position);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item
      */
-    public TabAdapter<T> addNoNotify(int position, T bean) {
+    @Override
+    public <W extends ITabAdapter> W addNoNotify(int position, T bean) {
         list_bean.add(position, bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item,并且notify
      */
-    public TabAdapter<T> add(int position, T bean) {
+    @Override
+    public <W extends ITabAdapter> W add(int position, T bean) {
         addNoNotify(position, bean);
         notifyItemInserted(position);
-        return this;
+        return (W) this;
     }
 
 
     /**
      * 添加一条数据item
      */
-    public TabAdapter<T> addNoNotify(T bean) {
+    @Override
+    public <W extends ITabAdapter> W addNoNotify(T bean) {
         list_bean.add(bean);
-        return this;
+        return (W) this;
     }
 
     /**
@@ -190,27 +198,29 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
     /**
      * 添加一条数据item到position 0
      */
-
-    public TabAdapter<T> addToTopNoNotify(T bean) {
+    @Override
+    public <W extends ITabAdapter> W addToTopNoNotify(T bean) {
         list_bean.add(0, bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加一条数据item到position 0,并且notify
      */
-    public TabAdapter<T> addToTop(T bean) {
+    @Override
+    public <W extends ITabAdapter> W addToTop(T bean) {
         addToTopNoNotify(bean);
         notifyItemInserted(0);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List
      */
-    public TabAdapter<T> addNoNotify(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W addNoNotify(List<T> beans) {
         list_bean.addAll(beans);
-        return this;
+        return (W) this;
     }
 
     /**
@@ -227,92 +237,95 @@ public abstract class TabAdapter<T> extends RecyclerView.Adapter<TabViewHolder> 
     /**
      * 先清空后添加List
      */
-
-    public TabAdapter<T> clearAddNoNotify(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W clearAddNoNotify(List<T> beans) {
         list_bean.clear();
         list_bean.addAll(beans);
-        return this;
+        return (W) this;
     }
 
 
     /**
      * 先清空后添加
      */
-
-    public TabAdapter<T> clearAddNoNotify(T bean) {
+    @Override
+    public <W extends ITabAdapter> W clearAddNoNotify(T bean) {
         clearAdd(bean);
-        return this;
+        return (W) this;
     }
 
     /**
      * 先清空后添加,并且notify
      */
-
-    public TabAdapter<T> clearAdd(T bean) {
+    @Override
+    public <W extends ITabAdapter> W clearAdd(T bean) {
         clearNoNotify();
         add(bean);
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 先清空后添加List,并且notify
      */
-
-    public TabAdapter<T> clearAdd(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W clearAdd(List<T> beans) {
         clearAddNoNotify(beans);
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List到position 0
      */
-
-    public TabAdapter<T> addToTopNoNotify(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W addToTopNoNotify(List<T> beans) {
         list_bean.addAll(0, beans);
-        return this;
+        return (W) this;
     }
 
     /**
      * 添加List到position 0,并且notify
      */
-
-    public TabAdapter<T> addToTop(List<T> beans) {
+    @Override
+    public <W extends ITabAdapter> W addToTop(List<T> beans) {
         addToTopNoNotify(beans);
         //没有刷新的作用
 //        notifyItemRangeInserted(0, beans.size());
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
     /**
      * 清空list
      */
-    public TabAdapter<T> clearNoNotify() {
+    @Override
+    public <W extends ITabAdapter> W clearNoNotify() {
         list_bean.clear();
-        return this;
+        return (W) this;
     }
 
     /**
      * 清空list
      */
-    public TabAdapter<T> clear() {
+    @Override
+    public <W extends ITabAdapter> W clear() {
         list_bean.clear();
         notifyDataSetChanged();
-        return this;
+        return (W) this;
     }
 
-
-    public TabAdapter<T> setNoNotify(int index, T bean) {
+    @Override
+    public <W extends ITabAdapter> W setNoNotify(int index, T bean) {
         list_bean.set(index, bean);
-        return this;
+        return (W) this;
     }
 
-    public TabAdapter<T> set(int index, T bean) {
+    @Override
+    public <W extends ITabAdapter> W set(int index, T bean) {
         setNoNotify(index, bean);
         notifyItemChanged(index);
-        return this;
+        return (W) this;
     }
 
 }

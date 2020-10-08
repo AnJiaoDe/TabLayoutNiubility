@@ -9,42 +9,48 @@
 //import android.util.DisplayMetrics;
 //import android.widget.TextView;
 //
+//import com.cy.tablayoutniubility.FragPageAdapterVp2;
+//import com.cy.tablayoutniubility.TabLayoutScroll;
+//import com.cy.tablayoutniubility.TabMediatorVp2;
 //import com.cy.tablayoutniubility.TabViewHolder;
-//import com.cy.tablayoutniubility.FragmentPageAdapterVp2;
 //import com.cy.tablayoutniubility.TabAdapter;
-//import com.cy.tablayoutniubility.TabLayoutMediatorVp2;
-//import com.cy.tablayoutniubility.TabLayoutNiubility;
 //
 //import java.util.ArrayList;
 //import java.util.List;
 //
 //public class TabLayoutVp2NestActivity extends AppCompatActivity {
 //    public ViewPager2 viewPager2;
-//    private TabLayoutNiubility tabLayoutLine;
+//    private TabLayoutScroll tabLayoutLine;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
+//        //删除保存的Fragment状态
+//        if (savedInstanceState != null) {
+//            //"android:support:fragments"是FragmentActivity类里的包可见的值,因为不是public的所以直接写实际的字符串
+//            savedInstanceState.putParcelable("android:support:fragments", null);
+//        }
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_tab_layout_vp2_nest);
 //        viewPager2 = findViewById(R.id.view_pager);
 //        viewPager2.requestDisallowInterceptTouchEvent(true);
 //        tabLayoutLine = findViewById(R.id.tablayout);
 //
-//
+//        LogUtils.log("onCreate");
 //
 ////        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-//        FragmentPageAdapterVp2<String> fragmentPageAdapter = new FragmentPageAdapterVp2<String>(this) {
+//        FragPageAdapterVp2<String> fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
 //
 //            @Override
 //            public Fragment createFragment(String bean, int position) {
+//                LogUtils.log("createFragment", position);
 //                return FragmentTab1Vp2.newInstance(FragmentTab1Vp2.TAB_NAME1, getList_bean().get(position));
 //            }
 //
 //            @Override
 //            public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
+//                LogUtils.log("createFragmentbindDataToTab", position);
 //                TextView textView = holder.getView(R.id.tv);
 //                if (isSelected) {
-//                    LogUtils.log("bindDataToTabParent",position);
 //                    textView.setTextColor(0xffe45540);
 //                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 //                } else {
@@ -63,7 +69,7 @@
 //            }
 //        };
 //
-//        TabAdapter<String> tabAdapter = new TabLayoutMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
+//        TabAdapter<String> tabAdapter = new TabMediatorVp2<String>(tabLayoutLine, viewPager2).setAdapter(fragmentPageAdapter);
 //
 //        List<String> list = new ArrayList<>();
 //        list.add("关注");

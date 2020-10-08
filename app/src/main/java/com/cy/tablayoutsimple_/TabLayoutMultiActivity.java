@@ -1,23 +1,18 @@
 package com.cy.tablayoutsimple_;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cy.tablayoutniubility.BaseFragPageAdapterVp2;
 import com.cy.tablayoutniubility.FragPageAdapterVp2;
 import com.cy.tablayoutniubility.FragPageAdapterVp2NoScroll;
 import com.cy.tablayoutniubility.ITabAdapter;
+import com.cy.tablayoutniubility.IBaseTabPageAdapter;
 import com.cy.tablayoutniubility.TabLayoutMulti;
-import com.cy.tablayoutniubility.TabMediatorMultiVp;
 import com.cy.tablayoutniubility.TabMediatorMultiVp2;
 import com.cy.tablayoutniubility.TabNoScrollViewHolder;
 import com.cy.tablayoutniubility.TabViewHolder;
@@ -51,10 +46,10 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
         //根据item个数设置是否需要滚动
         if (list.size() > 6) tabLayoutMulti.setScrollable(true);
 
-        BaseFragPageAdapterVp2 fragmentPageAdapter;
+        IBaseTabPageAdapter tabPageAdapter;
 
         if (tabLayoutMulti.isScrollable()) {
-            fragmentPageAdapter = new FragPageAdapterVp2<String>(this) {
+            tabPageAdapter = new FragPageAdapterVp2<String>(this) {
                 @Override
                 public Fragment createFragment(String bean, int position) {
                     return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
@@ -79,7 +74,7 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
                 }
             };
         } else {
-            fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
+            tabPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
                 @Override
                 public Fragment createFragment(String bean, int position) {
                     return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
@@ -107,16 +102,8 @@ public class TabLayoutMultiActivity extends AppCompatActivity {
         }
 
 
-        ITabAdapter tabAdapter = new TabMediatorMultiVp2<String>(tabLayoutMulti).setAdapter(viewPager2, fragmentPageAdapter);
-        fragmentPageAdapter.add(list);
+        ITabAdapter tabAdapter = new TabMediatorMultiVp2(tabLayoutMulti).setAdapter(viewPager2, tabPageAdapter);
+        tabPageAdapter.add(list);
         tabAdapter.add(list);
-        //或者
-//        if(tabLayoutMulti.isScrollable()){
-//            TabAdapter tabAdapt= (TabAdapter) tabAdapter.getAdapter();
-//            tabAdapt.add(list);
-//        }else {
-//            TabAdapterNoScroll tabAdapt= (TabAdapterNoScroll) tabAdapter.getAdapter();
-//            tabAdapt.add(list);
-//        }
     }
 }

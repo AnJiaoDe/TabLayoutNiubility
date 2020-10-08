@@ -43,22 +43,20 @@ public class FragmentTab1 extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = (ViewGroup) inflater.inflate(R.layout.fragment_tab1, container, false);
+
+        LogUtils.log("onCreateView");
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
         FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {
+                LogUtils.log("createFragment2", position);
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
 
@@ -66,11 +64,9 @@ public class FragmentTab1 extends Fragment {
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
-                    LogUtils.log("bindDataToTabisSelected",position);
                     textView.setTextColor(0xffe45540);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 } else {
-                    LogUtils.log("bindDataToTab",position);
                     textView.setTextColor(0xff444444);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 }

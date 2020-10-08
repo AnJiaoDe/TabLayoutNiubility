@@ -70,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TabLayoutMultiActivity.class));
             }
         });
+        findViewById(R.id.btn_tab_vp_frag_custom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TabLayoutVpFragCustomActivity.class));
+            }
+        });
         findViewById(R.id.btn_pagerAdapter).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

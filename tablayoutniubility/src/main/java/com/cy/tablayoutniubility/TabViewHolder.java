@@ -16,9 +16,7 @@ public class TabViewHolder extends RecyclerView.ViewHolder implements IViewHolde
     public TabViewHolder(View itemView) {
         super(itemView);
         array_view = new SparseArray<View>();
-
     }
-
     //获取View
     @Override
     public <T extends View> T getView(int viewId) {

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class FragPageAdapterVp2NoScroll<T> extends BaseFragPageAdapterVp2<T, TabNoScrollViewHolder> {
+public abstract class FragPageAdapterVp2NoScroll<T> extends BaseFragPageAdapterVp2<T, TabNoScrollViewHolder>
+        implements ITabPageAdapterVp2NoScroll<T> {
     public FragPageAdapterVp2NoScroll(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }
@@ -30,5 +32,10 @@ public abstract class FragPageAdapterVp2NoScroll<T> extends BaseFragPageAdapterV
 
     public FragPageAdapterVp2NoScroll(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
+    }
+
+    @Override
+    public <W extends RecyclerView.Adapter> W getPageAdapter() {
+        return (W) this;
     }
 }
