@@ -88,7 +88,6 @@ public abstract class BaseContainerPageAdapterVp2<T, V extends IViewHolder> exte
     @Override
     public final void onViewRecycled(@NonNull BaseViewHolder holder) {
         super.onViewRecycled(holder);
-        LogUtils.log("onViewRecycled",holder.getAdapterPosition());
         sparseArray_container.get(holder.getAdapterPosition()).onDestroyView();
         ((FrameLayout) holder.itemView).removeAllViews();
         sparseArray_container.remove(holder.getAdapterPosition());
