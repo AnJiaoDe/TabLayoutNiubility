@@ -2,31 +2,36 @@ package com.cy.tablayoutsimple_;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cy.tablayoutniubility.BaseViewHolder;
 import com.cy.tablayoutniubility.ContainerPageAdapterVp;
+import com.cy.tablayoutniubility.ContainerPageAdapterVp2;
 import com.cy.tablayoutniubility.PageContainer;
 import com.cy.tablayoutniubility.TabAdapter;
 import com.cy.tablayoutniubility.TabLayoutScroll;
 import com.cy.tablayoutniubility.TabMediatorVp;
+import com.cy.tablayoutniubility.TabMediatorVp2;
 import com.cy.tablayoutniubility.TabViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
+public class TabLayoutVp2FragCustomActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_vp_frag_custom);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        setContentView(R.layout.activity_tab_layout_vp2_frag_custom);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager);
         final TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
-        ContainerPageAdapterVp<String> containerPageAdapter = new ContainerPageAdapterVp<String>(viewPager) {
+        ContainerPageAdapterVp2<String> containerPageAdapter2 = new ContainerPageAdapterVp2<String>(viewPager2) {
+
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
@@ -56,8 +61,8 @@ public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
 
         };
 
-        final TabMediatorVp<String> tabMediatorVp = new TabMediatorVp<String>(tabLayoutLine, viewPager);
-        final TabAdapter<String> tabAdapter = tabMediatorVp.setAdapter(containerPageAdapter);
+        final TabMediatorVp2<String> tabMediatorVp2 = new TabMediatorVp2<String>(tabLayoutLine, viewPager2);
+        final TabAdapter<String> tabAdapter = tabMediatorVp2.setAdapter(containerPageAdapter2);
 
 
         List<String> list = new ArrayList<>();
@@ -96,7 +101,7 @@ public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
         list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
-        containerPageAdapter.add(list);
+        containerPageAdapter2.add(list);
         tabAdapter.add(list);
 
     }

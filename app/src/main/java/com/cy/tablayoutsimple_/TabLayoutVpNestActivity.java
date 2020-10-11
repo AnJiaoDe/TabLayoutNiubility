@@ -33,7 +33,6 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        LogUtils.log("viewPager.getAdapter()==null", viewPager.getAdapter() == null);
         fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
@@ -106,7 +105,6 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         list.add("漫画");
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
-        LogUtils.log("oncreate0000000000");
 
     }
 

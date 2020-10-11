@@ -1,5 +1,6 @@
 package com.cy.tablayoutniubility;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,21 @@ import android.view.ViewGroup;
  */
 public abstract class PageContainer {
     protected View view;
+    protected Context context;
+
+    public Context getContext() {
+        return context;
+    }
+
+    public View getView() {
+        return view;
+    }
 
     public abstract View onCreateView(LayoutInflater layoutInflater, ViewGroup container);
 
-    public abstract void onDestroyView();
+    public  void onResume(boolean isFirstResume){}
+
+    public  void onStop(){}
+
+    public  void onDestroyView(){}
 }

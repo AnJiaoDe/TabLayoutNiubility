@@ -17,7 +17,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public abstract class SimplePagerAdapter<T, V extends IViewHolder> extends PagerAdapter  implements IBaseTabPageAdapter<T, V> {
+public abstract class SimplePageAdapter<T, V extends IViewHolder> extends PagerAdapter  implements IBaseTabPageAdapter<T, V> {
     private List<T> list_bean=new ArrayList<>();
     @Override
     public int getCount() {

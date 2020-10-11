@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @Description:
@@ -20,6 +21,10 @@ import androidx.viewpager.widget.PagerAdapter;
  */
 public abstract class ContainerPageAdapterVp<T> extends BaseContainerPageAdapterVp<T, TabViewHolder>
         implements ITabPageAdapterVp<T>{
+    public ContainerPageAdapterVp(ViewPager viewPager) {
+        super(viewPager);
+    }
+
     @Override
     public <W extends PagerAdapter> W getPageAdapter() {
         return (W) this;

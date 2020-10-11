@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * @Version: 1.0
  */
  abstract class CyFragStatePageAdapterVp extends PagerAdapter {
-    private static final String TAG = "FragmentStatePagerAdapt";
+    private static final String TAG = "CyFragStatePageAdapterVp";
     private static final boolean DEBUG = false;
 
     @Retention(RetentionPolicy.SOURCE)

@@ -34,6 +34,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
 
             @Override
             public Fragment createFragment(String bean, int position) {
+                LogUtils.log("createFragmenteeee",position);
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
 

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * @Description:
@@ -18,6 +19,10 @@ import androidx.viewpager.widget.PagerAdapter;
  */
 public abstract class ContainerPageAdapterVpNoScroll<T> extends BaseContainerPageAdapterVp<T, TabNoScrollViewHolder>
         implements ITabPageAdapterVpNoScroll<T> {
+    public ContainerPageAdapterVpNoScroll(ViewPager viewPager) {
+        super(viewPager);
+    }
+
     @Override
     public <W extends PagerAdapter> W getPageAdapter() {
         return (W) this;

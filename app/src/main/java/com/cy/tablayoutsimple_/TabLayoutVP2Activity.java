@@ -31,9 +31,9 @@ public class TabLayoutVP2Activity extends AppCompatActivity {
 
             @Override
             public Fragment createFragment(String bean, int position) {
+                LogUtils.log("createFragmentpppppppppppp",position);
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
-
             @Override
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);

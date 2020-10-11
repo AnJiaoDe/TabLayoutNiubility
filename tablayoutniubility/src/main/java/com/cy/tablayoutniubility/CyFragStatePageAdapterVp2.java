@@ -43,7 +43,7 @@ import static androidx.recyclerview.widget.RecyclerView.NO_ID;
  * @Version: 1.0
  */
 public abstract class CyFragStatePageAdapterVp2 extends
-        RecyclerView.Adapter<FragmentViewHolderVp2> implements StatefulAdapter {
+        RecyclerView.Adapter<CyFragmentViewHolderVp2> implements StatefulAdapter {
     // State saving config
     private static final String KEY_PREFIX_FRAGMENT = "f#";
     private static final String KEY_PREFIX_STATE = "s#";
@@ -115,12 +115,12 @@ public abstract class CyFragStatePageAdapterVp2 extends
 
     @NonNull
     @Override
-    public final FragmentViewHolderVp2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return FragmentViewHolderVp2.create(parent);
+    public final CyFragmentViewHolderVp2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return CyFragmentViewHolderVp2.create(parent);
     }
 
     @Override
-    public final void onBindViewHolder(final @NonNull FragmentViewHolderVp2 holder, int position) {
+    public final void onBindViewHolder(final @NonNull CyFragmentViewHolderVp2 holder, int position) {
         final long itemId = holder.getItemId();
         final int viewHolderId = holder.getContainer().getId();
         final Long boundItemId = itemForViewHolder(viewHolderId); // item currently bound to the VH
@@ -230,7 +230,7 @@ public abstract class CyFragStatePageAdapterVp2 extends
     }
 
     @Override
-    public final void onViewAttachedToWindow(@NonNull final FragmentViewHolderVp2 holder) {
+    public final void onViewAttachedToWindow(@NonNull final CyFragmentViewHolderVp2 holder) {
         placeFragmentInViewHolder(holder);
         gcFragments();
     }
@@ -239,7 +239,7 @@ public abstract class CyFragStatePageAdapterVp2 extends
      * @param holder that has been bound to a Fragment in the {@link #onBindViewHolder} stage.
      */
     @SuppressWarnings("WeakerAccess") // to avoid creation of a synthetic accessor
-    void placeFragmentInViewHolder(@NonNull final FragmentViewHolderVp2 holder) {
+    void placeFragmentInViewHolder(@NonNull final CyFragmentViewHolderVp2 holder) {
         Fragment fragment = mFragments.get(holder.getItemId());
         if (fragment == null) {
             throw new IllegalStateException("Design assumption violated.");
@@ -361,7 +361,8 @@ public abstract class CyFragStatePageAdapterVp2 extends
     }
 
     @Override
-    public final void onViewRecycled(@NonNull FragmentViewHolderVp2 holder) {
+    public final void onViewRecycled(@NonNull CyFragmentViewHolderVp2 holder) {
+
         final int viewHolderId = holder.getContainer().getId();
         final Long boundItemId = itemForViewHolder(viewHolderId); // item currently bound to the VH
         if (boundItemId != null) {
@@ -371,7 +372,7 @@ public abstract class CyFragStatePageAdapterVp2 extends
     }
 
     @Override
-    public final boolean onFailedToRecycleView(@NonNull FragmentViewHolderVp2 holder) {
+    public final boolean onFailedToRecycleView(@NonNull CyFragmentViewHolderVp2 holder) {
         /*
          This happens when a ViewHolder is in a transient state (e.g. during an
          animation).

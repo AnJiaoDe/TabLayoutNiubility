@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -18,23 +19,27 @@ import com.cy.tablayoutniubility.TabViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
+public class TabLayoutVpNestCustomActivity extends AppCompatActivity {
+    private ContainerPageAdapterVp<String> containerPageAdapterVp;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab_layout_vp_frag_custom);
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        final TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
-        ContainerPageAdapterVp<String> containerPageAdapter = new ContainerPageAdapterVp<String>(viewPager) {
+        setContentView(R.layout.activity_tab_layout_vp);
+        viewPager = findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
+//        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        containerPageAdapterVp = new ContainerPageAdapterVp<String>(viewPager) {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab2(bean);
+                return new PageContainerTab1(bean);
             }
 
             @Override
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
+                LogUtils.log("createFragmentbindDataToTab", position);
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
                     textView.setTextColor(0xffe45540);
@@ -53,12 +58,9 @@ public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
                 }
                 return R.layout.item_tab;
             }
-
         };
 
-        final TabMediatorVp<String> tabMediatorVp = new TabMediatorVp<String>(tabLayoutLine, viewPager);
-        final TabAdapter<String> tabAdapter = tabMediatorVp.setAdapter(containerPageAdapter);
-
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(containerPageAdapterVp);
 
         List<String> list = new ArrayList<>();
         list.add("关注");
@@ -96,8 +98,31 @@ public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
         list.add("酷玩");
         list.add("彩票");
         list.add("漫画");
-        containerPageAdapter.add(list);
+        containerPageAdapterVp.add(list);
         tabAdapter.add(list);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    /**
+     * --------------------------------------------------------------------------------
+     */
+    public int dpAdapt(float dp) {
+        return dpAdapt(dp, 360);
+    }
+
+    public int dpAdapt(float dp, float widthDpBase) {
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int heightPixels = dm.heightPixels;//高的像素
+        int widthPixels = dm.widthPixels;//宽的像素
+        float density = dm.density;//density=dpi/160,密度比
+        float heightDP = heightPixels / density;//高度的dp
+        float widthDP = widthPixels / density;//宽度的dp
+        float w = widthDP > heightDP ? heightDP : widthDP;
+        return (int) (dp * w / widthDpBase * density + 0.5f);
     }
 }

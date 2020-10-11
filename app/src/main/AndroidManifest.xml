@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TabLayoutVpFragCustomActivity"></activity>
+        <activity android:name=".TabLayoutVp2FragCustomActivity"></activity>
+        <activity android:name=".TabLayoutVpNestCustomActivity" />
+        <activity android:name=".TabLayoutVpFragCustomActivity" />
         <activity android:name=".PageAdapterActivity" />
         <activity android:name=".TabLayoutVPActivity" />
         <activity android:name=".TabLayoutMultiActivity" />

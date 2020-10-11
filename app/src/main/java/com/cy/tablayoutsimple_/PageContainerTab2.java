@@ -1,5 +1,7 @@
 package com.cy.tablayoutsimple_;
 
+import android.content.Context;
+import android.nfc.cardemulation.HostApduService;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,12 @@ import com.cy.tablayoutniubility.PageContainer;
  * @UpdateRemark:
  * @Version: 1.0
  */
-public class PageContainer1 extends PageContainer {
+public class PageContainerTab2 extends PageContainer {
     private View view;
     private String bean;
-    public PageContainer1(String bean) {
-        this.bean=bean;
+
+    public PageContainerTab2(String bean) {
+        this.bean = bean;
     }
 
     @Override
@@ -33,7 +36,22 @@ public class PageContainer1 extends PageContainer {
     }
 
     @Override
+    public void onResume(boolean isFirstResume) {
+        super.onResume(isFirstResume);
+        LogUtils.log("onResume",bean+isFirstResume);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtils.log("onStop",bean);
+
+    }
+
+    @Override
     public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.log("onDestroyView",bean);
 
     }
 }
