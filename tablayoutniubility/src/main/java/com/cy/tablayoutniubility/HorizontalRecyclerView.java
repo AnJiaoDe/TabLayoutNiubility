@@ -43,6 +43,7 @@ public class HorizontalRecyclerView extends RecyclerView {
 
     }
 
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
@@ -58,10 +59,9 @@ public class HorizontalRecyclerView extends RecyclerView {
                 int dy = moveY - downY;
                 downX = moveX;
                 downY = moveY;
-                if (Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > Math.abs(dy) &&
+                        ((dx > 0 && canScrollHorizontally(-1)) || (dx < 0 && canScrollHorizontally(1)))) {
                     requestDisallowInterceptTouch(true);
-                    if ((dx > 0 && canScrollHorizontally(-1)) || (dx < 0 && canScrollHorizontally(1)))
-                        return true;
                 }
                 break;
         }
