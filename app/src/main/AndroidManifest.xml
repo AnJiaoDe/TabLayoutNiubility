@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TabLayoutVP2Activity" />
+        <activity android:name=".TabLayoutVP2Activity"/>
     </application>
 
 </manifest>

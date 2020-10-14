@@ -2,8 +2,10 @@ package com.cy.tablayoutniubility;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
  */
 
 public class HorizontalRecyclerView extends RecyclerView {
+    private int downX; // 按下时 X轴坐标值
+    private int downY; // 按下时 Y 轴坐标值
     private LinearItemDecoration linearItemDecoration;
     //永远<=0
     private int offsetX = 0;
@@ -39,7 +43,35 @@ public class HorizontalRecyclerView extends RecyclerView {
 
     }
 
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                downX = (int) ev.getX();
+                downY = (int) ev.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int moveX = (int) ev.getX();
+                int moveY = (int) ev.getY();
 
+                int dx = moveX - downX;
+                int dy = moveY - downY;
+                downX = moveX;
+                downY = moveY;
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    requestDisallowInterceptTouch(true);
+                    if ((dx > 0 && canScrollHorizontally(-1)) || (dx < 0 && canScrollHorizontally(1)))
+                        return true;
+                }
+                break;
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private void requestDisallowInterceptTouch(boolean disallowInterceptTouchEvent) {
+        final ViewParent parent = getParent();
+        if (parent != null) parent.requestDisallowInterceptTouchEvent(disallowInterceptTouchEvent);
+    }
     /**
      * x为正，表示手指往左滑,x为负，表示手指往右滑
      *
