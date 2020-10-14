@@ -105,7 +105,6 @@ public class TabLayoutMulti extends FrameLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeAllViews();
     }
 
 }

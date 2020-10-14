@@ -81,6 +81,5 @@ public class TabLayoutNoScroll extends FrameLayout implements ITabLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeAllViews();
     }
 }
