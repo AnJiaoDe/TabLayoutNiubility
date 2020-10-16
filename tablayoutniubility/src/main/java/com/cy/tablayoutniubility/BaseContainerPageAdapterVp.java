@@ -40,8 +40,8 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
 
                 PageContainer pageContainer_selected = sparseArray_container.get(position);
                 if(pageContainer_selected!=null){
-                    sparseArray_resume.put(position, true);
                     pageContainer_selected.onResume(sparseArray_resume.get(position) == null || !sparseArray_resume.get(position));
+                    sparseArray_resume.put(position, true);
                 }
                 position_selected_last = position;
             }
