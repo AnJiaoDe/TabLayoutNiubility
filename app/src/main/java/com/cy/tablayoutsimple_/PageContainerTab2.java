@@ -22,7 +22,8 @@ public class PageContainerTab2 extends PageContainer {
     private View view;
     private String bean;
 
-    public PageContainerTab2(String bean) {
+    public PageContainerTab2(PageContainer pageContainerParent,String bean) {
+        super(pageContainerParent);
         this.bean = bean;
     }
 
@@ -51,7 +52,7 @@ public class PageContainerTab2 extends PageContainer {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        LogUtils.log("onDestroyView",bean);
+        LogUtils.log("onDestroyViewPageContainerTab2",bean);
 
     }
 }

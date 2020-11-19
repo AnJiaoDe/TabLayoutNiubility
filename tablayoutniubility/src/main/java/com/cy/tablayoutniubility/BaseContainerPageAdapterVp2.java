@@ -81,7 +81,8 @@ public abstract class BaseContainerPageAdapterVp2<T, V extends IViewHolder> exte
     public final void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         FrameLayout frameLayout= (FrameLayout) holder.itemView;
         PageContainer pageContainer = onCreatePageContainer(frameLayout, position, getList_bean().get(position));
-        pageContainer.getPageContainerParentManager().addPageContainer(pageContainer);
+        if(pageContainer.getPageContainerParent()!=null)
+            pageContainer.getPageContainerParent().getPageContainerManager().addPageContainer(pageContainer);
         pageContainer.context = frameLayout.getContext();
         frameLayout.addView(pageContainer.view = pageContainer.onCreateView(LayoutInflater.from(frameLayout.getContext()), frameLayout),
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -92,8 +93,7 @@ public abstract class BaseContainerPageAdapterVp2<T, V extends IViewHolder> exte
     public final void onViewRecycled(@NonNull BaseViewHolder holder) {
         super.onViewRecycled(holder);
         sparseArray_container.get(holder.getAdapterPosition()).onDestroyView();
-        for(PageContainer pageContainer:sparseArray_container.get(holder.getAdapterPosition())
-                .getPageContainerChildManager().getPageContainers()){
+        for(PageContainer pageContainer:sparseArray_container.get(holder.getAdapterPosition()).getPageContainerManager().getPageContainers()){
             pageContainer.onDestroyView();
         }
         ((FrameLayout) holder.itemView).removeAllViews();

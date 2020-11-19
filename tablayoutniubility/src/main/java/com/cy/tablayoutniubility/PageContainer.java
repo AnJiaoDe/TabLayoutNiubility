@@ -19,8 +19,12 @@ import androidx.annotation.NonNull;
 public abstract class PageContainer {
     protected View view;
     protected Context context;
-    private PageContainerManager pageContainerParentManager=new PageContainerManager();
-    private PageContainerManager pageContainerChildManager=new PageContainerManager();
+    private PageContainerManager pageContainerManager=new PageContainerManager();
+    private PageContainer pageContainerParent;
+
+    public PageContainer(PageContainer pageContainerParent) {
+        this.pageContainerParent = pageContainerParent;
+    }
 
     public Context getContext() {
         return context;
@@ -38,11 +42,11 @@ public abstract class PageContainer {
 
     public  void onDestroyView(){}
 
-    public PageContainerManager getPageContainerParentManager() {
-        return pageContainerParentManager;
+    public final PageContainerManager getPageContainerManager() {
+        return pageContainerManager;
     }
 
-    public PageContainerManager getPageContainerChildManager() {
-        return pageContainerChildManager;
+    public PageContainer getPageContainerParent() {
+        return pageContainerParent;
     }
 }

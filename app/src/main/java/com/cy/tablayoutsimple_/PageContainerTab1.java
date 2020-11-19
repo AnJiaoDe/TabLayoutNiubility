@@ -33,8 +33,9 @@ import java.util.List;
 public class PageContainerTab1 extends PageContainer {
     private String bean;
 
-    public PageContainerTab1(String bean) {
-        this.bean = bean;
+    public PageContainerTab1(PageContainer pageContainerParent,String bean) {
+        super(pageContainerParent);
+                this.bean = bean;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class PageContainerTab1 extends PageContainer {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab2(bean);
+                return new PageContainerTab2(PageContainerTab1.this,bean);
             }
 
             @Override

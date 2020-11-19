@@ -34,7 +34,7 @@ public class TabLayoutVpNestCustomActivity extends AppCompatActivity {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab1(bean);
+                return new PageContainerTab1(null,bean);
             }
 
             @Override

@@ -30,7 +30,7 @@ public class TabLayoutVpFragCustomActivity extends AppCompatActivity {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab2(bean);
+                return new PageContainerTab2(null,bean);
             }
 
             @Override
