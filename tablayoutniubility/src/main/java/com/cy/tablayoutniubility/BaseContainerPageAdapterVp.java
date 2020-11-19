@@ -58,6 +58,7 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
     @Override
     public final Object instantiateItem(@NonNull ViewGroup container, int position, T bean) {
         PageContainer pageContainer = onCreatePageContainer(container, position, bean);
+        pageContainer.getPageContainerParentManager().addPageContainer(pageContainer);
         pageContainer.context = container.getContext();
         container.addView(pageContainer.view = pageContainer.onCreateView(LayoutInflater.from(container.getContext()), container),
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -73,6 +74,9 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, T bean, @NonNull Object object) {
         ((PageContainer) object).onDestroyView();
+        for(PageContainer pageContainer:((PageContainer) object).getPageContainerChildManager().getPageContainers()){
+            pageContainer.onDestroyView();
+        }
         container.removeView(((PageContainer) object).view);
         sparseArray_container.remove(position);
         sparseArray_resume.remove(position);

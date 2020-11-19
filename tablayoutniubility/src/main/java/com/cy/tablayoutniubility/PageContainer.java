@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 /**
  * @Description:
  * @Author: cy
@@ -17,6 +19,8 @@ import android.view.ViewGroup;
 public abstract class PageContainer {
     protected View view;
     protected Context context;
+    private PageContainerManager pageContainerParentManager=new PageContainerManager();
+    private PageContainerManager pageContainerChildManager=new PageContainerManager();
 
     public Context getContext() {
         return context;
@@ -33,4 +37,12 @@ public abstract class PageContainer {
     public  void onStop(){}
 
     public  void onDestroyView(){}
+
+    public PageContainerManager getPageContainerParentManager() {
+        return pageContainerParentManager;
+    }
+
+    public PageContainerManager getPageContainerChildManager() {
+        return pageContainerChildManager;
+    }
 }
