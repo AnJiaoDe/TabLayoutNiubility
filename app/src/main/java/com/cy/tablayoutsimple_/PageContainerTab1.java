@@ -33,9 +33,9 @@ import java.util.List;
 public class PageContainerTab1 extends PageContainer {
     private String bean;
 
-    public PageContainerTab1(PageContainer pageContainerParent,String bean) {
+    public PageContainerTab1(PageContainer pageContainerParent, String bean) {
         super(pageContainerParent);
-                this.bean = bean;
+        this.bean = bean;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class PageContainerTab1 extends PageContainer {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab2(PageContainerTab1.this,bean);
+                return new PageContainerTab2(PageContainerTab1.this, bean);
             }
 
             @Override
@@ -71,20 +71,27 @@ public class PageContainerTab1 extends PageContainer {
         };
         TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(containerPageAdapterVp);
         List<String> list = new ArrayList<>();
-        list.add(bean + "0");
-        list.add(bean + "1");
-        list.add(bean + "2");
-        list.add(bean + "3");
-        list.add(bean + "4");
-        list.add(bean + "5");
-        list.add(bean + "6");
-        list.add(bean + "7");
-        list.add(bean + "8");
-        list.add(bean + "9");
-        list.add(bean + "10");
-        list.add(bean + "11");
-        list.add(bean + "12");
-        list.add(bean + "13");
+        if (bean.equals("关注")) {
+            list.add(bean + "0");
+            list.add(bean + "1");
+        } else if (bean.equals("推荐")) {
+            list.add(bean + "0");
+        } else {
+            list.add(bean + "0");
+            list.add(bean + "1");
+            list.add(bean + "2");
+            list.add(bean + "3");
+            list.add(bean + "4");
+            list.add(bean + "5");
+            list.add(bean + "6");
+            list.add(bean + "7");
+            list.add(bean + "8");
+            list.add(bean + "9");
+            list.add(bean + "10");
+            list.add(bean + "11");
+            list.add(bean + "12");
+            list.add(bean + "13");
+        }
         containerPageAdapterVp.add(list);
         tabAdapter.add(list);
         return view;
@@ -93,7 +100,7 @@ public class PageContainerTab1 extends PageContainer {
     @Override
     public void onResume(boolean isFirstResume) {
         super.onResume(isFirstResume);
-        LogUtils.log("onResume", bean + isFirstResume);
+        LogUtils.log("onResumetab1", bean + isFirstResume);
     }
 
     @Override

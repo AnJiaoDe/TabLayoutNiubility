@@ -39,7 +39,7 @@ public class PageContainerTab2 extends PageContainer {
     @Override
     public void onResume(boolean isFirstResume) {
         super.onResume(isFirstResume);
-        LogUtils.log("onResume",bean+isFirstResume);
+        LogUtils.log("onResumetab2",bean+isFirstResume);
     }
 
     @Override

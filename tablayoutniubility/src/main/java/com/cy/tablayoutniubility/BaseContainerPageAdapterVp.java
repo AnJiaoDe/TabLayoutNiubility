@@ -23,7 +23,7 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
     private SparseArray<Boolean> sparseArray_resume;
     private int position_selected_last = -1;
 
-    public BaseContainerPageAdapterVp(ViewPager viewPager) {
+    public BaseContainerPageAdapterVp(final ViewPager viewPager) {
         this.viewPager = viewPager;
         sparseArray_container = new SparseArray<>();
         sparseArray_resume = new SparseArray<>();
@@ -35,12 +35,20 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
 
             @Override
             public void onPageSelected(int position) {
+
                 PageContainer pageContainer_last_selected = sparseArray_container.get(position_selected_last);
                 if (pageContainer_last_selected != null) pageContainer_last_selected.onStop();
 
                 PageContainer pageContainer_selected = sparseArray_container.get(position);
-                if(pageContainer_selected!=null){
-                    pageContainer_selected.onResume(sparseArray_resume.get(position) == null || !sparseArray_resume.get(position));
+                if (pageContainer_selected != null) {
+                    boolean isFirstResume = sparseArray_resume.get(position) == null || !sparseArray_resume.get(position);
+                    pageContainer_selected.onResume(isFirstResume);
+
+                    if (pageContainer_selected.getPageContainerChildManager().getPageContainerChildResumedLast() != null)
+                        pageContainer_selected.getPageContainerChildManager().getPageContainerChildResumedLast().onResume(false);
+
+                    if (pageContainer_selected.getPageContainerParent() != null)
+                        pageContainer_selected.getPageContainerParent().getPageContainerChildManager().setPageContainerChildResumedLast(pageContainer_selected);
                     sparseArray_resume.put(position, true);
                 }
                 position_selected_last = position;
@@ -58,14 +66,20 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
     @Override
     public final Object instantiateItem(@NonNull ViewGroup container, int position, T bean) {
         PageContainer pageContainer = onCreatePageContainer(container, position, bean);
-        if(pageContainer.getPageContainerParent()!=null)
-            pageContainer.getPageContainerParent().getPageContainerManager().addPageContainer(pageContainer);
+        if (pageContainer.getPageContainerParent() != null)
+            pageContainer.getPageContainerParent().getPageContainerChildManager().addPageContainer(pageContainer);
         pageContainer.context = container.getContext();
         container.addView(pageContainer.view = pageContainer.onCreateView(LayoutInflater.from(container.getContext()), container),
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         if (position == 0 && position_selected_last == -1) {
             position_selected_last = position;
             pageContainer.onResume(true);
+            if (pageContainer.getPageContainerParent() != null)
+                pageContainer.getPageContainerParent().getPageContainerChildManager().setPageContainerChildResumedLast(pageContainer);
+//            for (int i = 0; i < pageContainer.getPageContainerChildManager().getPageContainers().size(); i++) {
+//                if (i == 0)
+//                    pageContainer.getPageContainerChildManager().getPageContainers().get(i).onResume(true);
+//            }
             sparseArray_resume.put(position, true);
         }
         sparseArray_container.put(position, pageContainer);
@@ -75,9 +89,10 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, T bean, @NonNull Object object) {
         ((PageContainer) object).onDestroyView();
-        for(PageContainer pageContainer:((PageContainer) object).getPageContainerManager().getPageContainers()){
+        for (PageContainer pageContainer : ((PageContainer) object).getPageContainerChildManager().getPageContainers()) {
             pageContainer.onDestroyView();
         }
+        ((PageContainer) object).getPageContainerChildManager().clear();
         container.removeView(((PageContainer) object).view);
         sparseArray_container.remove(position);
         sparseArray_resume.remove(position);
