@@ -48,6 +48,7 @@ public class PageContainerTab1 extends PageContainer {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
+                //该PageContainer属于第2层ViewPager,它的父PageContainer传PageContainerTab1.this即可
                 return new PageContainerTab2(PageContainerTab1.this, bean);
             }
 

@@ -19,7 +19,6 @@ public abstract class PageContainer {
     protected Context context;
     private PageContainerChildManager pageContainerChildManager=new PageContainerChildManager();
     private PageContainer pageContainerParent;
-
     public PageContainer(PageContainer pageContainerParent) {
         this.pageContainerParent = pageContainerParent;
     }

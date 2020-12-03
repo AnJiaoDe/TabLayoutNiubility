@@ -20,21 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabLayoutVpNestCustomActivity extends AppCompatActivity {
-    private ContainerPageAdapterVp<String> containerPageAdapterVp;
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout_vp);
-        viewPager = findViewById(R.id.view_pager);
+        ViewPager viewPager = findViewById(R.id.view_pager);
         TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        containerPageAdapterVp = new ContainerPageAdapterVp<String>(viewPager) {
+        ContainerPageAdapterVp<String> containerPageAdapterVp = new ContainerPageAdapterVp<String>(viewPager) {
             @Override
             public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
                 LogUtils.log("onCreatePageContainer", position);
-                return new PageContainerTab1(null,bean);
+                //该PageContainer属于第一层ViewPager,它的父PageContainer传null即可
+                return new PageContainerTab1(null, bean);
             }
 
             @Override
