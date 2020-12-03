@@ -28,6 +28,16 @@ ViewPager双层嵌套(建议不要使用ViewPager2进行双层嵌套，ViewPager
 
 仿微信主页Tab
 
+千古BUG：Activity销毁重启，Fragment恢复问题
+
+AndroidX ViewPager中的FragmentStatePagerAdapter存在的问题
+
+AndroidX ViewPager2中的FragmentStateAdapter存在的问题
+
+自定义fragment
+
+自定义Fragment PageContainer 双层嵌套（ViewPager和ViewPager2均适用）
+
 相关API
 
 TabMediator
@@ -81,6 +91,8 @@ Tab文字颜色渐变(ViewPager、ViewPager2均支持)
 ViewPager双层嵌套(建议不要使用ViewPager2进行双层嵌套，ViewPager2嵌套滑动冲突几乎无法处理，贼鸡儿坑)
 
 仿微信主页Tab
+
+自定义fragment
 ## 使用方法
 
 ## 注意：该轮子适用于androidx中的ViewPager2和ViewPager
@@ -100,7 +112,7 @@ allprojects {
 
 ```java
 dependencies {
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.1.6'
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.2.5'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 }
 ```
@@ -177,7 +189,7 @@ tab_item布局：
 JAVA代码：
 
 ```java
-     ViewPager2 viewPager2 = findViewById(R.id.view_pager);
+    ViewPager2 viewPager2 = findViewById(R.id.view_pager);
         TabLayoutNoScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(0).setSpace_vertical(0);
         FragPageAdapterVp2NoScroll<String> fragmentPageAdapter = new FragPageAdapterVp2NoScroll<String>(this) {
@@ -888,6 +900,329 @@ JAVA代码：
         list.add(new TabBean("我",R.drawable.my,R.drawable.my_selected));
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
+```
+
+
+
+## 千古BUG：Activity销毁重启，Fragment恢复问题
+当用户修改了手机字体大小，语言等，Activity会被销毁并重启，其中的Fragment会在Activity的 `super.onCreate(savedInstanceState);`中恢复，这样就出了个严重的BUG：Activity被回收，Activity持有的所有数据和对象均被回收，假如Fragment持有了Activity的某些数据或者对象，在Acitivty尚未来得及初始化这些数据和对象的时候，去恢复Fragment,这时候必然报空指针异常，这种现象尤其是在ViewPager和Fragment双层嵌套使用时尤为造孽。
+
+虽然有很直接的办法：就是判断NULL，但这样写代码未免极其不爽，而且还不保证绝对不出问题。
+
+也有人用这种办法：
+
+在`onSaveInstanceState`中做手脚，然而小编试了，并不灵，而且小编不推荐这样做，因为这样做，代码肯定不健壮。
+
+[FragmentActivity重启时Fragment状态异常的问题解决办法](https://www.jianshu.com/p/517d1c4eff1d)
+
+
+```java
+public class MainActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+```
+
+## AndroidX ViewPager中的FragmentStatePagerAdapter存在的问题
+
+```java
+  @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        // If we already have this item instantiated, there is nothing
+        // to do.  This can happen when we are restoring the entire pager
+        // from its saved state, where the fragment manager has already
+        // taken care of restoring the fragments we previously had instantiated.
+        if (mFragments.size() > position) {
+            Fragment f = mFragments.get(position);
+            if (f != null) {
+                return f;
+            }
+        }
+
+        if (mCurTransaction == null) {
+            mCurTransaction = mFragmentManager.beginTransaction();
+        }
+
+        Fragment fragment = getItem(position);
+        if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
+        if (mSavedState.size() > position) {
+            Fragment.SavedState fss = mSavedState.get(position);
+            if (fss != null) {
+                fragment.setInitialSavedState(fss);
+            }
+        }
+        while (mFragments.size() <= position) {
+            mFragments.add(null);
+        }
+        fragment.setMenuVisibility(false);
+        if (mBehavior == BEHAVIOR_SET_USER_VISIBLE_HINT) {
+            fragment.setUserVisibleHint(false);
+        }
+
+        mFragments.set(position, fragment);
+        mCurTransaction.add(container.getId(), fragment);
+
+        if (mBehavior == BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            mCurTransaction.setMaxLifecycle(fragment, Lifecycle.State.STARTED);
+        }
+
+        return fragment;
+    }
+```
+看到一处关键代码：
+```java
+ if (mFragments.size() > position) {
+            Fragment f = mFragments.get(position);
+            if (f != null) {
+                return f;
+            }
+        }
+
+```
+Fragment被缓存起来了，虽说节约内存，但是也容易出现身体不适，因为可能开发过程中，重新设置了adapter或者多种原因，这时，我们不希望缓存`fragment`了。
+
+所以小编开发的轮子中，把这段使用缓存的代码删除了。
+
+
+## AndroidX ViewPager2中的FragmentStateAdapter存在的问题
+```java
+private void ensureFragment(int position) {
+        long itemId = getItemId(position);
+//        if (!mFragments.containsKey(itemId)) {
+            // TODO(133419201): check if a Fragment provided here is a new Fragment
+            Fragment newFragment = createFragment(position);
+            newFragment.setInitialSavedState(mSavedStates.get(itemId));
+            mFragments.put(itemId, newFragment);
+//        }
+    }
+```
+可以看到和`Androidx`中的`ViewPager`的`FragmentStatePagerAdapter`一样缓存了`Fragment`,
+小编在轮子中也把这段使用缓存的代码删除了。
+
+## 自定义fragment
+小编有超强的代码洁癖，所以不喜欢用一堆代码去解决API的某些身体不适，干脆自己自定义`fragment`，
+
+做了基本的生命周期控制，但是生命周期肯定不如Fragment的强大，不过依然能满足基本需求，特别适用于`ViewPgaer`和`Fragmnt`双层嵌套使用的时候。
+
+```java
+public abstract class PageContainer {
+    protected View view;
+    protected Context context;
+    private PageContainerChildManager pageContainerChildManager=new PageContainerChildManager();
+    private PageContainer pageContainerParent;
+
+    public PageContainer(PageContainer pageContainerParent) {
+        this.pageContainerParent = pageContainerParent;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public abstract View onCreateView(LayoutInflater layoutInflater, ViewGroup container);
+
+    public  void onResume(boolean isFirstResume){}
+
+    public  void onStop(){}
+
+    public  void onDestroyView(){}
+
+    public final PageContainerChildManager getPageContainerChildManager() {
+        return pageContainerChildManager;
+    }
+
+    public final PageContainer getPageContainerParent() {
+        return pageContainerParent;
+    }
+}
+```
+
+## 自定义Fragment PageContainer 双层嵌套（ViewPager和ViewPager2均适用）
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200807173114131.gif)
+Activity代码：
+```java
+        ViewPager viewPager = findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
+//        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
+        ContainerPageAdapterVp<String> containerPageAdapterVp = new ContainerPageAdapterVp<String>(viewPager) {
+            @Override
+            public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
+                LogUtils.log("onCreatePageContainer", position);
+                 //该PageContainer属于第一层ViewPager,它的父PageContainer传null即可
+                return new PageContainerTab1(null, bean);
+            }
+
+            @Override
+            public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
+                LogUtils.log("createFragmentbindDataToTab", position);
+                TextView textView = holder.getView(R.id.tv);
+                if (isSelected) {
+                    textView.setTextColor(0xffe45540);
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                } else {
+                    textView.setTextColor(0xff444444);
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                }
+                textView.setText(bean);
+            }
+
+            @Override
+            public int getTabLayoutID(int position, String bean) {
+                if (position == 0) {
+                    return R.layout.item_tab_msg;
+                }
+                return R.layout.item_tab;
+            }
+        };
+
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(containerPageAdapterVp);
+
+        List<String> list = new ArrayList<>();
+        list.add("关注");
+        list.add("推荐");
+        list.add("视频");
+        list.add("漫画");
+        containerPageAdapterVp.add(list);
+        tabAdapter.add(list);
+```
+PageContainerTab1 代码：
+```java
+public class PageContainerTab1 extends PageContainer {
+    private String bean;
+
+    public PageContainerTab1(PageContainer pageContainerParent, String bean) {
+        super(pageContainerParent);
+        this.bean = bean;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup container) {
+        view = (ViewGroup) layoutInflater.inflate(R.layout.fragment_tab1, container, false);
+        LogUtils.log("onCreateView");
+        ViewPager viewPager = view.findViewById(R.id.view_pager);
+        TabLayoutScroll tabLayoutLine = view.findViewById(R.id.tablayout);
+        ContainerPageAdapterVp<String> containerPageAdapterVp = new ContainerPageAdapterVp<String>(viewPager) {
+            @Override
+            public PageContainer onCreatePageContainer(ViewGroup container, int position, String bean) {
+                LogUtils.log("onCreatePageContainer", position);
+                  //该PageContainer属于第2层ViewPager,它的父PageContainer传PageContainerTab1.this即可
+                return new PageContainerTab2(PageContainerTab1.this, bean);
+            }
+
+            @Override
+            public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
+                TextView textView = holder.getView(R.id.tv);
+                if (isSelected) {
+                    textView.setTextColor(0xffe45540);
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+                } else {
+                    textView.setTextColor(0xff444444);
+                    textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                }
+                textView.setText(bean);
+            }
+
+            @Override
+            public int getTabLayoutID(int position, String bean) {
+                return R.layout.item_tab;
+            }
+        };
+        TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(containerPageAdapterVp);
+        List<String> list = new ArrayList<>();
+        if (bean.equals("关注")) {
+            list.add(bean + "0");
+            list.add(bean + "1");
+        } else if (bean.equals("推荐")) {
+            list.add(bean + "0");
+        } else {
+            list.add(bean + "0");
+            list.add(bean + "1");
+            list.add(bean + "2");
+            list.add(bean + "3");
+            list.add(bean + "4");
+            list.add(bean + "5");
+            list.add(bean + "6");
+            list.add(bean + "7");
+            list.add(bean + "8");
+            list.add(bean + "9");
+            list.add(bean + "10");
+            list.add(bean + "11");
+            list.add(bean + "12");
+            list.add(bean + "13");
+        }
+        containerPageAdapterVp.add(list);
+        tabAdapter.add(list);
+        return view;
+    }
+
+    @Override
+    public void onResume(boolean isFirstResume) {
+        super.onResume(isFirstResume);
+        LogUtils.log("onResumetab1", bean + isFirstResume);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtils.log("onStop", bean);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.log("onDestroyView", bean);
+
+    }
+}
+
+```
+PageContainerTab2 代码：
+```java
+public class PageContainerTab2 extends PageContainer {
+    private View view;
+    private String bean;
+
+    public PageContainerTab2(PageContainer pageContainerParent,String bean) {
+        super(pageContainerParent);
+        this.bean = bean;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater layoutInflater, ViewGroup container) {
+        view=layoutInflater.inflate(R.layout.fragment_tab2, container, false);
+        LogUtils.log("onCreateView",bean);
+        TextView textView = view.findViewById(R.id.tv);
+        textView.setText(bean);
+        return view;
+    }
+
+    @Override
+    public void onResume(boolean isFirstResume) {
+        super.onResume(isFirstResume);
+        LogUtils.log("onResumetab2",bean+isFirstResume);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtils.log("onStop",bean);
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.log("onDestroyViewPageContainerTab2",bean);
+
+    }
+}
+
 ```
 
 ## 相关API
