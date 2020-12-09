@@ -112,7 +112,7 @@ allprojects {
 
 ```java
 dependencies {
-api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.2.5'
+api 'com.github.AnJiaoDe:TabLayoutNiubility:V1.2.6'
 api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 }
 ```
@@ -124,16 +124,7 @@ api 'androidx.recyclerview:recyclerview:1.1.0'//版本必须>=1.1.0
 ```java
 api 'androidx.viewpager2:viewpager2:1.0.0'//版本必须>=1.0.0
 ```
-4.混淆：
-
-```java
--keepclasseswithmembers class * {# 保持自定义控件类不被混淆
-    public <init>(android.content.Context, android.util.AttributeSet);
-    #这行不能加，加了就会失败
-#    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
--keep class androidx.** {*;}
-```
+4.混淆已配置到库内部，无需做混淆配置
 
 ## 详细使用如下
 
