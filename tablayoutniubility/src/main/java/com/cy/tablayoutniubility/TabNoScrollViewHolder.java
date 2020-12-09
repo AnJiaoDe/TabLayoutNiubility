@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class TabNoScrollViewHolder implements IViewHolder {
     private SparseArray<View> array_view;
-    protected View itemView;
+    public View itemView;
     private int adapterPosition;
 
     public TabNoScrollViewHolder(View itemView) {
