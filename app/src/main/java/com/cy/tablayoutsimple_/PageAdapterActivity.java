@@ -85,6 +85,7 @@ public class PageAdapterActivity extends AppCompatActivity {
                             tabAdapter.addNoNotify(0, pageBean);
                             tabAdapter.notifyItemRemoved(tabAdapter.getItemCount() - 1);
                             tabAdapter.notifyItemInserted(0);
+                            break;
                         }
                         if (position == tabAdapter.getItemCount() - 1) {
                             PageBean pageBean = tabAdapter.getList_bean().get(0);
