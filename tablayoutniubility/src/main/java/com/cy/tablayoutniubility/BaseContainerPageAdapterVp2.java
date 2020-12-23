@@ -30,6 +30,19 @@ public abstract class BaseContainerPageAdapterVp2<T, V extends IViewHolder> exte
         this.viewPager2 = viewPager2;
         sparseArray_container = new SparseArray<>();
         sparseArray_resume = new SparseArray<>();
+
+        viewPager2.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                clear();
+            }
+        });
+
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -100,6 +113,18 @@ public abstract class BaseContainerPageAdapterVp2<T, V extends IViewHolder> exte
         ((FrameLayout) holder.itemView).removeAllViews();
         sparseArray_container.remove(holder.getAdapterPosition());
         sparseArray_resume.remove(holder.getAdapterPosition());
+    }
+
+    @Override
+    public <W extends IBaseTabPageAdapter<T, V>> W clear() {
+        for (int i = 0; i < sparseArray_container.size(); i++) {
+            PageContainer pageContainer = sparseArray_container.get(sparseArray_container.keyAt(i));
+            pageContainer.onDestroyView();
+            pageContainer.getPageContainerChildManager().clear();
+            sparseArray_container.remove(sparseArray_container.keyAt(i));
+            sparseArray_resume.remove(sparseArray_container.keyAt(i));
+        }
+        return super.clear();
     }
 
     @Override

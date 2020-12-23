@@ -114,7 +114,7 @@ public class PageContainerTab1 extends PageContainer {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        LogUtils.log("onDestroyView", bean);
+        LogUtils.log("onDestroyViewPageTab1", bean);
 
     }
 }
