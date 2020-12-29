@@ -22,8 +22,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
     private List<T> list_bean;//数据源
     private int positionSelectedLast = 0;
     private int positionSelected = 0;
-    private int count_threshold = 5000;
-    private int count_delete = 10;
 
     public SimplePageAdapterVp2() {
         list_bean = new ArrayList<>();//数据源
@@ -199,7 +197,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
      */
     public <W extends IBaseTabPageAdapter<T, V>> W addNoNotify(int position, T bean) {
         list_bean.add(position, bean);
-        reduceFromTop(count_threshold, 1);
         return (W) this;
 
     }
@@ -220,7 +217,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
      */
     public <W extends IBaseTabPageAdapter<T, V>> W addNoNotify(T bean) {
         list_bean.add(bean);
-        reduceFromTop(count_threshold, 1);
         return (W) this;
 
     }
@@ -241,7 +237,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
 
     public <W extends IBaseTabPageAdapter<T, V>> W addToTopNoNotify(T bean) {
         list_bean.add(0, bean);
-        reduceFromBottom(count_threshold, 1);
         return (W) this;
 
     }
@@ -261,7 +256,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
      */
     public <W extends IBaseTabPageAdapter<T, V>> W addNoNotify(List<T> beans) {
         list_bean.addAll(beans);
-        reduceFromTop(count_threshold, beans.size());
         return (W) this;
 
     }
@@ -283,7 +277,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
     public <W extends IBaseTabPageAdapter<T, V>> W clearAddNoNotify(List<T> beans) {
         list_bean.clear();
         list_bean.addAll(beans);
-        reduceFromTop(count_threshold, beans.size());
         return (W) this;
 
     }
@@ -295,7 +288,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
 
     public <W extends IBaseTabPageAdapter<T, V>> W clearAddNoNotify(T bean) {
         clearAdd(bean);
-        reduceFromTop(count_threshold, 1);
         return (W) this;
 
     }
@@ -329,7 +321,6 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
 
     public <W extends IBaseTabPageAdapter<T, V>> W addToTopNoNotify(List<T> beans) {
         list_bean.addAll(0, beans);
-        reduceFromBottom(count_threshold, beans.size());
         return (W) this;
 
     }
@@ -377,61 +368,5 @@ public abstract class SimplePageAdapterVp2<T, V extends IViewHolder> extends Rec
         notifyItemChanged(index);
         return (W) this;
 
-    }
-
-    /**
-     * 假设List装的实体类对象，每个实体类对象占用500字节，
-     * 1MB=1024*1024B;1MB/500大致=2024个实体对象，假如list.size达到1W，大致占用5MB内存
-     * 所以考虑到内存问题，list.size达到5000就应该开始删除部分数据了。删除离当前item最远的数据，留下最近的数据
-     */
-    public <W extends IBaseTabPageAdapter<T, V>> W reduceFromTop(int threshold, int count_delete) {
-        if (list_bean.size() > threshold) {
-            for (int i = 0; i < count_delete && i < list_bean.size(); i++) {
-                remove(i);
-            }
-        }
-        return (W) this;
-
-    }
-
-    //0 1 2 3     4-2
-    public <W extends IBaseTabPageAdapter<T, V>> W reduceFromBottom(int threshold, int count_delete) {
-        if (list_bean.size() > threshold) {
-            int size = list_bean.size();
-            for (int i = size - 1; i >= size - count_delete && i >= 0; i--) {
-                remove(i);
-            }
-        }
-        return (W) this;
-
-    }
-
-    public <W extends IBaseTabPageAdapter<T, V>> W reduceFromTop() {
-        reduceFromTop(count_threshold, count_delete);
-        return (W) this;
-
-    }
-
-    //0 1 2 3     4-2
-    public <W extends IBaseTabPageAdapter<T, V>> W reduceFromBottom() {
-        reduceFromBottom(count_threshold, count_delete);
-        return (W) this;
-
-    }
-
-    public int getCount_threshold() {
-        return count_threshold;
-    }
-
-    public void setCount_threshold(int count_threshold) {
-        this.count_threshold = count_threshold;
-    }
-
-    public int getCount_delete() {
-        return count_delete;
-    }
-
-    public void setCount_delete(int count_delete) {
-        this.count_delete = count_delete;
     }
 }
