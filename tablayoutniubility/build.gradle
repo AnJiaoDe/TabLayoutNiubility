@@ -33,7 +33,6 @@ dependencies {
     testImplementation 'junit:junit:+'
     androidTestImplementation 'androidx.test.ext:junit:+'
     androidTestImplementation 'androidx.test.espresso:espresso-core:+'
-    compileOnly 'androidx.recyclerview:recyclerview:1.1.0'
     compileOnly 'androidx.viewpager2:viewpager2:1.0.0'
 }
 //---------------------------------------------下面的必加,加上下面的作用是在上传后会带上注释,不然会发现没有注释
