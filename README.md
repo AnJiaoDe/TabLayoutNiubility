@@ -76,6 +76,8 @@ UML类图如下
 
 ## [GitHub:https://github.com/AnJiaoDe/TabLayoutNiubility](https://github.com/AnJiaoDe/TabLayoutNiubility)
 
+## [CSDN:https://blog.csdn.net/confusing_awakening/article/details/107635695](https://blog.csdn.net/confusing_awakening/article/details/107635695)
+
 ## 该轮子特异功能如下：
 
 Tab均分不滑动(ViewPager、ViewPager2均支持)
