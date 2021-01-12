@@ -2,6 +2,8 @@
 
 GitHub:https://github.com/AnJiaoDe/TabLayoutNiubility
 
+CSDN:https://blog.csdn.net/confusing_awakening/article/details/107635695
+
 该轮子特异功能如下：
 
 使用方法
