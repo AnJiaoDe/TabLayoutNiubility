@@ -2017,16 +2017,16 @@ public class TabLayoutMediatorVp2<T> {
 
 Github:[https://github.com/AnJiaoDe](https://github.com/AnJiaoDe)
 
-简书：[https://www.jianshu.com/u/b8159d455c69](https://www.jianshu.com/u/b8159d455c69)
-
 CSDN：[https://blog.csdn.net/confusing_awakening](https://blog.csdn.net/confusing_awakening)
 
-ffmpeg入门教程:[https://www.jianshu.com/p/042c7847bd8a](https://www.jianshu.com/p/042c7847bd8a)
+
+ffmpeg入门教程:[https://blog.csdn.net/confusing_awakening/article/details/102007792](https://blog.csdn.net/confusing_awakening/article/details/102007792)
 
  微信公众号
- ![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWZjZmJiNDUxNzVmOTlkZTA)
+ ![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWZjZmJiNDUxNzVmOTlkZTA#pic_center)
 
 QQ群
 
-![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWEzMWZmNDBhYzY4NTBhNmQ)
+![这里写图片描述](https://imgconvert.csdnimg.cn/aHR0cDovL3VwbG9hZC1pbWFnZXMuamlhbnNodS5pby91cGxvYWRfaW1hZ2VzLzExODY2MDc4LWEzMWZmNDBhYzY4NTBhNmQ#pic_center)
+
 
