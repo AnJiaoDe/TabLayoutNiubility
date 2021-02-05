@@ -28,17 +28,17 @@ public abstract class BaseContainerPageAdapterVp<T, V extends IViewHolder> exten
         sparseArray_container = new SparseArray<>();
         sparseArray_resume = new SparseArray<>();
 
-        viewPager.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-            @Override
-            public void onViewAttachedToWindow(View v) {
-
-            }
-
-            @Override
-            public void onViewDetachedFromWindow(View v) {
-                clear();
-            }
-        });
+//        viewPager.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+//            @Override
+//            public void onViewAttachedToWindow(View v) {
+//
+//            }
+//
+//            @Override
+//            public void onViewDetachedFromWindow(View v) {
+//                clear();
+//            }
+//        });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
