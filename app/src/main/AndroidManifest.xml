@@ -9,16 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TabLayoutVp2FragCustomActivity"></activity>
-        <activity android:name=".TabLayoutVpNestCustomActivity" />
-        <activity android:name=".TabLayoutVpFragCustomActivity" />
         <activity android:name=".PageAdapterActivity" />
         <activity android:name=".TabLayoutVPActivity" />
         <activity android:name=".TabLayoutMultiActivity" />
         <activity android:name=".TabLayoutMainActivity" />
         <activity android:name=".TabLayoutVP2ItemCenterActivity" />
-        <activity android:name=".ViewPagerRVActivity" />
-        <activity android:name=".TabLayoutVp2NestActivity" />
         <activity android:name=".TabLayoutVpNestActivity" />
         <activity android:name=".TabTriangleVP2Activity" />
         <activity android:name=".TabLayoutVP2GradientActivity" />

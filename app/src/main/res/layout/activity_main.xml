@@ -70,21 +70,6 @@
             android:layout_height="wrap_content"
             android:text="tablayout_multi_viewPager2" />
         <Button
-            android:id="@+id/btn_tab_vp2_frag_custom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tablayout_vp2_frag_custom" />
-        <Button
-            android:id="@+id/btn_tab_vp_frag_custom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tablayout_vp_frag_custom" />
-        <Button
-            android:id="@+id/btn_tab_nest_viewPager_custom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="tablayout_nest_viewPager_custom" />
-        <Button
             android:id="@+id/btn_pagerAdapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
