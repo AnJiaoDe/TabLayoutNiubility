@@ -49,7 +49,7 @@ public class TabLayoutNoScroll extends FrameLayout implements ITabLayout {
     }
 
     private void addTab() {
-        addView(tabNoScrollView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        addView(tabNoScrollView, 1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     @Override

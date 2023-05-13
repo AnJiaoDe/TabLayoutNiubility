@@ -64,7 +64,7 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     }
 
     private void addTab() {
-        addView(horizontalRecyclerView, 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        addView(horizontalRecyclerView, 1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     @Override
