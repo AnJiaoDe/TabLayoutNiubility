@@ -14,13 +14,32 @@ import android.view.View;
  */
 public class Indicator {
     private int height_indicator, width_indicator_selected, width_indicator, width_indicator_max;
+    private boolean isMax2Width=false;
+    private boolean isMax2Height=false;
     private Paint paint_indicator;
     private int progress;
     private View viewIndicator;
-
     public Indicator(View viewIndicator) {
         this.viewIndicator = viewIndicator;
         paint_indicator=new Paint();
+    }
+
+    public boolean isMax2Width() {
+        return isMax2Width;
+    }
+
+    public Indicator setMax2Width(boolean max2Width) {
+        isMax2Width = max2Width;
+        return this;
+    }
+
+    public boolean isMax2Height() {
+        return isMax2Height;
+    }
+
+    public Indicator setMax2Height(boolean max2Height) {
+        isMax2Height = max2Height;
+        return this;
     }
 
     /**
@@ -104,7 +123,7 @@ public class Indicator {
      * @return
      */
     public Indicator setWidth_indicator(int width_indicator) {
-        this.width_indicator = Math.min(width_indicator_max, width_indicator);
+        this.width_indicator = isMax2Width?width_indicator:Math.min(width_indicator_max, width_indicator);
         return  this;
     }
     public Indicator invalidate(){

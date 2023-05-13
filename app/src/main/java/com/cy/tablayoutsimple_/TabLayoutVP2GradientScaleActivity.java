@@ -43,7 +43,7 @@ public class TabLayoutVP2GradientScaleActivity extends AppCompatActivity {
                 if (isSelected) {
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                     textView.setTextColor(0xffe45540);
-                    textView.setTextSize(spAdapt(TabLayoutVP2GradientScaleActivity.this,26));
+                    textView.setTextSize(spAdapt(TabLayoutVP2GradientScaleActivity.this,20));
                 } else {
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                     textView.setTextColor(0xff444444);
@@ -64,9 +64,9 @@ public class TabLayoutVP2GradientScaleActivity extends AppCompatActivity {
                 TextView textView2= holder2.getView(R.id.tv);
                 LogUtils.log("onTabScrolled");
 
-                textViewCurrent.setTextSize(Math.max(spAdapt(TabLayoutVP2GradientScaleActivity.this,26)*positionOffsetCurrent,
+                textViewCurrent.setTextSize(Math.max(spAdapt(TabLayoutVP2GradientScaleActivity.this,20)*positionOffsetCurrent,
                         spAdapt(TabLayoutVP2GradientScaleActivity.this,16)));
-                textView2.setTextSize(Math.max(spAdapt(TabLayoutVP2GradientScaleActivity.this,26)*positionOffset2,
+                textView2.setTextSize(Math.max(spAdapt(TabLayoutVP2GradientScaleActivity.this,20)*positionOffset2,
                         spAdapt(TabLayoutVP2GradientScaleActivity.this,16)));
             }
         };
@@ -77,7 +77,37 @@ public class TabLayoutVP2GradientScaleActivity extends AppCompatActivity {
         list.add("关注");
         list.add("推荐");
         list.add("视频");
-        list.add("新闻");
+        list.add("抗疫");
+        list.add("深圳");
+        list.add("热榜");
+        list.add("小视频");
+        list.add("软件");
+        list.add("探索");
+        list.add("手机");
+        list.add("动漫");
+        list.add("通信");
+        list.add("影视");
+        list.add("互联网");
+        list.add("设计");
+        list.add("家电");
+        list.add("平板");
+        list.add("网球");
+        list.add("军事");
+        list.add("羽毛球");
+        list.add("奢侈品");
+        list.add("美食");
+        list.add("瘦身");
+        list.add("幸福里");
+        list.add("棋牌");
+        list.add("奇闻");
+        list.add("艺术");
+        list.add("减肥");
+        list.add("电玩");
+        list.add("台球");
+        list.add("八卦");
+        list.add("酷玩");
+        list.add("彩票");
+        list.add("漫画");
         fragmentPageAdapter.add(list);
         tabAdapter.add(list);
     }

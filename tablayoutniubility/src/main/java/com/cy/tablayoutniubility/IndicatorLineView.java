@@ -21,6 +21,7 @@ public class IndicatorLineView extends View implements IIndicatorView {
     protected int height;
     protected int radius_indicator;
     private Indicator indicator;
+    private boolean isIndicatorCenter=false;
 
     public IndicatorLineView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -33,6 +34,9 @@ public class IndicatorLineView extends View implements IIndicatorView {
         indicator.setWidth_indicator_max(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_width_indicator_max, ScreenUtils.dpAdapt(context,60)));
         indicator.setHeight_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_height_indicator, ScreenUtils.dpAdapt(context,3)));
         indicator.setColor_indicator(typedArray.getColor(R.styleable.IndicatorLineView_cy_color_indicator, 0xffe45540));
+        indicator.setMax2Width(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Width,false));
+        indicator.setMax2Height(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Height,false));
+        isIndicatorCenter=typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isIndicatorCenter,isIndicatorCenter);
         setRadius_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_radius_indicator, ScreenUtils.dpAdapt(context,2)));
 
         indicator.setWidth_indicator(0);
@@ -50,7 +54,9 @@ public class IndicatorLineView extends View implements IIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRoundRect(indicator.getProgress(), height - indicator.getHeight_indicator(), indicator.getProgress() + indicator.getWidth_indicator(), height,
+        int top= isIndicatorCenter? (int) ((height - indicator.getHeight_indicator()) * 0.5f) :height - indicator.getHeight_indicator();
+        canvas.drawRoundRect(indicator.getProgress(), top,
+                indicator.getProgress() + indicator.getWidth_indicator(), top+indicator.getHeight_indicator(),
                 radius_indicator, radius_indicator, indicator.getPaint_indicator());
     }
 

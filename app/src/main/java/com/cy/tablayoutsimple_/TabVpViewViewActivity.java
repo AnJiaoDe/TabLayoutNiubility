@@ -1,5 +1,6 @@
 package com.cy.tablayoutsimple_;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.cy.tablayoutniubility.FragPageAdapterVp;
+import com.cy.tablayoutniubility.IndicatorLineView;
+import com.cy.tablayoutniubility.ScreenUtils;
 import com.cy.tablayoutniubility.SimplePageAdapter;
 import com.cy.tablayoutniubility.TabAdapter;
 import com.cy.tablayoutniubility.TabLayoutScroll;
@@ -48,6 +51,7 @@ public class TabVpViewViewActivity extends AppCompatActivity {
                         return R.layout.item_tv;
                     }
 
+
                     @Override
                     public void bindDataToView(ViewPagerHolder holder, int position, String bean) {
                         holder.setText(R.id.tv, bean);
@@ -75,10 +79,23 @@ public class TabVpViewViewActivity extends AppCompatActivity {
 
                 List<String> list = new ArrayList<>();
                 list.add(bean + 0);
-                list.add(bean + 1);
-                list.add(bean + 2);
+                list.add(bean + 323);
+                list.add(bean + 33333);
                 list.add(bean + 3);
+                list.add(bean + 4545);
                 list.add(bean + 4);
+                list.add(bean + 4);
+                list.add(bean + 5767);
+                list.add(bean + 6765887);
+                list.add(bean + 4);
+                list.add(bean + 677);
+                list.add(bean + 45);
+                list.add(bean + 8);
+                list.add(bean + 2);
+                list.add(bean + 5);
+                list.add(bean + 57);
+                list.add(bean + 30);
+                list.add(bean + 3454);
                 simplePageAdapter.add(list);
                 tabAdapter.add(list);
             }

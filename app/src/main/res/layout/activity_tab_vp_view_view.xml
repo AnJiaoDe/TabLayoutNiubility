@@ -13,6 +13,7 @@
 
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
+            android:id="@+id/IndicatorLineView"
             android:layout_height="wrap_content" />
     </com.cy.tablayoutniubility.TabLayoutScroll>
 

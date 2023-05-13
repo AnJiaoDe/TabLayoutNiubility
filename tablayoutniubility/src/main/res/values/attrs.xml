@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="cy_height_indicator" format="dimension|reference" />
-    <attr name="cy_width_indicator_selected" format="dimension|reference"/>
-    <attr name="cy_width_indicator_max" format="dimension|reference"/>
-    <attr name="cy_color_indicator" format="color|reference"/>
+    <attr name="cy_width_indicator_selected" format="dimension|reference" />
+    <attr name="cy_width_indicator_max" format="dimension|reference" />
+    <attr name="cy_color_indicator" format="color|reference" />
 
-    <attr name="cy_space_vertical" format="dimension|reference"/>
-    <attr name="cy_space_horizontal" format="dimension|reference"/>
+    <attr name="cy_space_vertical" format="dimension|reference" />
+    <attr name="cy_space_horizontal" format="dimension|reference" />
 
 
     <declare-styleable name="TabGradientTextView">
         <attr name="cy_textColorNormal" format="color|reference" />
-        <attr name="cy_textColorSelected" format="color|reference"/>
+        <attr name="cy_textColorSelected" format="color|reference" />
     </declare-styleable>
     <declare-styleable name="TabLayoutScroll">
         <attr name="cy_space_vertical" />
@@ -24,15 +24,18 @@
     </declare-styleable>
     <declare-styleable name="IndicatorLineView">
         <attr name="cy_height_indicator" />
-        <attr name="cy_width_indicator_selected"/>
-        <attr name="cy_width_indicator_max"/>
-        <attr name="cy_radius_indicator" format="dimension|reference"/>
+        <attr name="cy_width_indicator_selected" />
+        <attr name="cy_width_indicator_max" />
+        <attr name="cy_radius_indicator" format="dimension|reference" />
         <attr name="cy_color_indicator" />
+        <attr name="cy_isMax2Width" format="boolean" />
+        <attr name="cy_isMax2Height" format="boolean" />
+        <attr name="cy_isIndicatorCenter" format="boolean" />
     </declare-styleable>
     <declare-styleable name="IndicatorTriangleView">
         <attr name="cy_height_indicator" />
-        <attr name="cy_width_indicator_selected"/>
-        <attr name="cy_width_indicator_max"/>
+        <attr name="cy_width_indicator_selected" />
+        <attr name="cy_width_indicator_max" />
         <attr name="cy_color_indicator" />
     </declare-styleable>
 </resources>

@@ -6,20 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends PagerAdapter  implements IBaseTabPageAdapter<T, V> {
-    protected List<T> list_bean ;
+public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends PagerAdapter implements IBaseTabPageAdapter<T, V> {
+    protected List<T> list_bean;
     protected int position_selected_last = -1;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
+
     public BaseSimplePageAdapter() {
         list_bean = new ArrayList<>();
         sparseArrayViewPagerHolder = new SparseArray<>();
     }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
@@ -67,13 +70,16 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
 
     public abstract int getItemLayoutID(int position, T bean);
 
-    public  void onPageSelected(ViewPagerHolder holder, int position, @NonNull T bean){}
+    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull T bean) {
+    }
 
-    public  void onViewRecycled(int position, @NonNull T bean){}
+    public void onViewRecycled(int position, @NonNull T bean) {
+    }
 
     public abstract void bindDataToView(ViewPagerHolder holder, int position, T bean);
 
-    public  void onItemClick(ViewPagerHolder holder, int position, T bean){}
+    public void onItemClick(ViewPagerHolder holder, int position, T bean) {
+    }
 
     @Override
     public int getCount() {
@@ -86,8 +92,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
     }
 
     @Override
-    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent, V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
-
+    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent,  V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
     }
 
     /**
@@ -298,12 +303,14 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         return (W) this;
 
     }
+
     @Override
     public <W extends IBaseTabPageAdapter<T, V>> W setNoNotify(int index, T bean) {
         list_bean.set(index, bean);
         return (W) this;
 
     }
+
     @Override
     public <W extends IBaseTabPageAdapter<T, V>> W set(int index, T bean) {
         setNoNotify(index, bean);

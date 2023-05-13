@@ -40,15 +40,17 @@ public class TabLayoutMulti extends FrameLayout {
         int count = getChildCount();
         if (count > 2)
             throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
-        try {
-            indicatorView = (IIndicatorView) getChildAt(1);
-            removeView(indicatorView.getView());
-            tabLayout.setIndicatorView(indicatorView);
-        } catch (Exception e) {
-            throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
+        for (int i = 0; i < count; i++) {
+            try {
+                indicatorView = (IIndicatorView) getChildAt(i);
+            } catch (Exception e) {
+                continue;
+            }
+            break;
         }
-        removeView(tabLayout.getView());
-        addView(tabLayout.getView(), 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        if (indicatorView == null)
+            throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
+        addTab();
     }
 
     public boolean isScrollable() {
@@ -57,17 +59,23 @@ public class TabLayoutMulti extends FrameLayout {
 
     public TabLayoutMulti setScrollable(boolean scrollable) {
         this.scrollable = scrollable;
-        if(tabLayout!=null)removeView(tabLayout.getView());
+        if (tabLayout != null) removeView(tabLayout.getView());
         tabLayout = scrollable ? new TabLayoutScroll(getContext()) : new TabLayoutNoScroll(getContext());
-        addView(tabLayout.getView(), 0, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        if (indicatorView != null) {
-            removeView(indicatorView.getView());
-            ViewGroup parent= (ViewGroup) indicatorView.getView().getParent();
-            if(parent!=null)parent.removeView(indicatorView.getView());
-            tabLayout.setIndicatorView(indicatorView);
-        }
+        addTab();
         return this;
     }
+
+    private void addTab() {
+        if (indicatorView != null) {
+            removeView(indicatorView.getView());
+            ViewGroup parent = (ViewGroup) indicatorView.getView().getParent();
+            if (parent != null) parent.removeView(indicatorView.getView());
+            tabLayout.setIndicatorView(indicatorView);
+        }
+        removeView(tabLayout.getView());
+        addView(tabLayout.getView(), getChildCount(), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+    }
+
 
     public TabLayoutMulti setSpace_vertical(int space_vertical) {
         if (scrollable)
@@ -102,6 +110,7 @@ public class TabLayoutMulti extends FrameLayout {
             return (T) tabLayoutNoScroll;
         }
     }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

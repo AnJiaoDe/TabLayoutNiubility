@@ -1,5 +1,7 @@
 package com.cy.tablayoutniubility;
 
+import androidx.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -20,9 +22,8 @@ public interface IBaseTabPageAdapter<T,V extends IViewHolder> {
     public void onTabClick(V holder, int position, T bean);
 
     public void onTabScrolled(V holderCurrent, int positionCurrent,
-                              boolean fromLeft2RightCurrent, float positionOffsetCurrent,
-                              V holder2, int position2,
-                              boolean fromLeft2Right2, float positionOffset2);
+                                 boolean fromLeft2RightCurrent, float positionOffsetCurrent, V holder2, int position2,
+                                 boolean fromLeft2Right2, float positionOffset2);
 
     public <W extends IBaseTabPageAdapter<T,V>> W setList_bean(List<T> list_bean) ;
 

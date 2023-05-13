@@ -108,10 +108,30 @@ public class TabMediatorVp2NoScroll<T> implements ITabMediator {
                     }
                     op_click_last = false;
                 }
-                //计算Width_indicator,Width_indicator由小变大再变小，2个item中间时最大
-                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(Math.max(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected(),
-                        (int) (tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected() +
-                                (positionOffset == 0 ? 0 : tabLayout.getIndicatorView().getIndicator().getWidth_indicator_max() * (0.5 - Math.abs(0.5 - positionOffset))))))
+                //如果是isMax2Width(),计算Width_indicator,Width_indicator由小变大，或者是由大变小
+                int w1 = viewHolder_behind != null ?
+                        (int) (viewHolder.itemView.getWidth() +
+                                (viewHolder.itemView.getWidth() > viewHolder_behind.itemView.getWidth() ? -1 : 1)
+                                        * Math.abs(viewHolder_behind.itemView.getWidth()-viewHolder.itemView.getWidth()) * positionOffset)
+                        : 0;
+                int w2 = viewHolder_behind != null ?
+                        (int) (viewHolder_behind.itemView.getWidth() +
+                                (viewHolder_behind.itemView.getWidth() > viewHolder.itemView.getWidth() ? -1 : 1)
+                                        * Math.abs(viewHolder_behind.itemView.getWidth()-viewHolder.itemView.getWidth()) * (1-positionOffset))
+                        : 0;
+                int w = positionOffset == 0 ? viewHolder.itemView.getWidth() : (position_scroll_last <= position ? w1 : w2);
+
+                //如果是!isMax2Width(),计算Width_indicator,Width_indicator由小变大再变小，2个item中间时最大
+                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(
+                                tabLayout.getIndicatorView().getIndicator().isMax2Width() ?
+                                        w :
+                                        Math.max(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected(),
+                                                (int) (tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected() +
+                                                        (positionOffset == 0 ? 0 : tabLayout.getIndicatorView().getIndicator().getWidth_indicator_max() * (0.5 - Math.abs(0.5 - positionOffset))))))
+                        .setHeight_indicator(
+                                tabLayout.getIndicatorView().getIndicator().isMax2Height() ?
+                                        viewHolder.itemView.getHeight()
+                                        : tabLayout.getIndicatorView().getIndicator().getHeight_indicator())
                         .setProgress((int) (left
                                 + width_half
                                 - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2
@@ -162,7 +182,14 @@ public class TabMediatorVp2NoScroll<T> implements ITabMediator {
                 viewPager2.setCurrentItem(position);
                 //让indicator立马指向currentItem
                 TabNoScrollViewHolder viewHolder = tabLayout.getTabNoScrollView().getViewHolder(viewPager2.getCurrentItem());
-                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
+                tabLayout.getIndicatorView().getIndicator().setWidth_indicator(
+                                tabLayout.getIndicatorView().getIndicator().isMax2Width() ?
+                                        viewHolder.itemView.getWidth()
+                                        : tabLayout.getIndicatorView().getIndicator().getWidth_indicator_selected())
+                        .setHeight_indicator(
+                                tabLayout.getIndicatorView().getIndicator().isMax2Height() ?
+                                        viewHolder.itemView.getHeight()
+                                        : tabLayout.getIndicatorView().getIndicator().getHeight_indicator())
                         .setProgress((int) (viewHolder.itemView.getLeft()
                                 + viewHolder.itemView.getWidth() * 1f / 2
                                 - tabLayout.getIndicatorView().getIndicator().getWidth_indicator() / 2));

@@ -1,6 +1,7 @@
 package com.cy.tablayoutniubility;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -62,8 +63,7 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Cy
     }
 
     @Override
-    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent, V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
-
+    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent,  V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
     }
 
     /**
@@ -225,7 +225,7 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Cy
     /**
      * 先清空后添加List,并且notify
      */
-   @Override
+    @Override
     public <W extends IBaseTabPageAdapter<T, V>> W clearAdd(List<T> beans) {
         clearAddNoNotify(beans);
         notifyDataSetChanged();
@@ -274,12 +274,14 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Cy
         return (W) this;
 
     }
+
     @Override
     public <W extends IBaseTabPageAdapter<T, V>> W setNoNotify(int index, T bean) {
         list_bean.set(index, bean);
         return (W) this;
 
     }
+
     @Override
     public <W extends IBaseTabPageAdapter<T, V>> W set(int index, T bean) {
         setNoNotify(index, bean);

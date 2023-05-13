@@ -53,18 +53,23 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         int count = getChildCount();
-        if (count > 1)
+        if (count > 2)
             throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
-        try {
-            indicatorView = (IIndicatorView) getChildAt(0);
-        } catch (Exception e) {
-            throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
+        for (int i = 0; i < count; i++) {
+            try {
+                indicatorView = (IIndicatorView) getChildAt(i);
+            } catch (Exception e) {
+                continue;
+            }
+            break;
         }
+        if (indicatorView == null)
+            throw new RuntimeException("Exception:You must add only one IndicatorView type of IIndicatorView in " + getClass().getName());
         addTab();
     }
 
     private void addTab() {
-        addView(horizontalRecyclerView, 1, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        addView(horizontalRecyclerView, getChildCount(), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -81,7 +86,7 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
         if (this.indicatorView != null) removeView(this.indicatorView.getView());
         removeView(indicatorView.getView());
         this.indicatorView = indicatorView;
-        addView(indicatorView.getView());
+        addView(indicatorView.getView(),0);
         return (T) this;
     }
 

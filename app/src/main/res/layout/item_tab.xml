@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:textSize="16sp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     android:textColor="#444444"
     android:id="@+id/tv">
 
