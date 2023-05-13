@@ -1,6 +1,7 @@
 package com.cy.tablayoutsimple_;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import android.content.Intent;
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, PageAdapterActivity.class));
+            }
+        });
+        findViewById(R.id.btn_tab_viewPager_view_view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TabVpViewViewActivity.class));
             }
         });
 //        findViewById(R.id.btn_tab_vp_nest2).setOnClickListener(new View.OnClickListener() {

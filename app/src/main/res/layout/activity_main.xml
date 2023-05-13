@@ -75,7 +75,11 @@
             android:layout_height="wrap_content"
             android:text="pagerAdapter" />
 
-
+        <Button
+            android:id="@+id/btn_tab_viewPager_view_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="tablayout_viewPager_view双层嵌套适合图片编辑菜单" />
 
     </LinearLayout>
 </ScrollView>
