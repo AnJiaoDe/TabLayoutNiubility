@@ -11,26 +11,9 @@
         android:layout_height="40dp"
         android:background="#fff">
 
-<!--        <com.cy.tablayoutniubility.IndicatorLineView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:id="@+id/IndicatorLineView"-->
-<!--            app:cy_isMax2Width="true"-->
-<!--            app:cy_isIndicatorCenter="true"-->
-<!--            app:cy_color_indicator="#eee"-->
-<!--            app:cy_radius_indicator="20dp"-->
-
-<!--            app:cy_height_indicator="30dp"-->
-<!--            android:layout_height="wrap_content" />-->
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             android:id="@+id/IndicatorLineView"
-            app:cy_isMax2Width="true"
-            app:cy_isIndicatorCenter="true"
-            app:cy_color_indicator="#eee"
-            app:cy_radius_indicator="20dp"
-            app:cy_paint_style="STROKE"
-
-            app:cy_height_indicator="30dp"
             android:layout_height="wrap_content" />
     </com.cy.tablayoutniubility.TabLayoutScroll>
 

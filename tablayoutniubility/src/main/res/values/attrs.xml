@@ -8,6 +8,12 @@
     <attr name="cy_space_vertical" format="dimension|reference" />
     <attr name="cy_space_horizontal" format="dimension|reference" />
 
+    <attr name="cy_paint_style">
+        <enum name="FILL" value="0" />
+        <enum name="STROKE" value="1" />
+        <enum name="FILL_AND_STROKE" value="2" />
+    </attr>
+    <attr name="cy_paint_stroke_width" format="dimension|reference"/>
 
     <declare-styleable name="TabGradientTextView">
         <attr name="cy_textColorNormal" format="color|reference" />
@@ -31,6 +37,8 @@
         <attr name="cy_isMax2Width" format="boolean" />
         <attr name="cy_isMax2Height" format="boolean" />
         <attr name="cy_isIndicatorCenter" format="boolean" />
+        <attr name="cy_paint_style" />
+        <attr name="cy_paint_stroke_width" />
     </declare-styleable>
     <declare-styleable name="IndicatorTriangleView">
         <attr name="cy_height_indicator" />

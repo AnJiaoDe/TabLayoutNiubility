@@ -22,8 +22,17 @@ public class Indicator {
     public Indicator(View viewIndicator) {
         this.viewIndicator = viewIndicator;
         paint_indicator=new Paint();
+        paint_indicator.setAntiAlias(true);
     }
 
+    public Indicator setPaintStyle(Paint.Style style){
+        paint_indicator.setStyle(style);
+        return this;
+    }
+    public Indicator setPaintStrokeWidth(float width){
+        paint_indicator.setStrokeWidth(width);
+        return this;
+    }
     public boolean isMax2Width() {
         return isMax2Width;
     }

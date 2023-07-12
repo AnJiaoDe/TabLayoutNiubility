@@ -8,30 +8,18 @@
     <com.cy.tablayoutniubility.TabLayoutScroll
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff">
+        android:layout_height="70dp"
+        android:background="#eee">
 
-<!--        <com.cy.tablayoutniubility.IndicatorLineView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:id="@+id/IndicatorLineView"-->
-<!--            app:cy_isMax2Width="true"-->
-<!--            app:cy_isIndicatorCenter="true"-->
-<!--            app:cy_color_indicator="#eee"-->
-<!--            app:cy_radius_indicator="20dp"-->
-
-<!--            app:cy_height_indicator="30dp"-->
-<!--            android:layout_height="wrap_content" />-->
         <com.cy.tablayoutniubility.IndicatorLineView
             android:layout_width="match_parent"
             android:id="@+id/IndicatorLineView"
             app:cy_isMax2Width="true"
             app:cy_isIndicatorCenter="true"
-            app:cy_color_indicator="#eee"
-            app:cy_radius_indicator="20dp"
-            app:cy_paint_style="STROKE"
-
-            app:cy_height_indicator="30dp"
-            android:layout_height="wrap_content" />
+            app:cy_color_indicator="#f00"
+            app:cy_radius_indicator="25dp"
+            app:cy_height_indicator="70dp"
+            android:layout_height="match_parent" />
     </com.cy.tablayoutniubility.TabLayoutScroll>
 
     <androidx.viewpager.widget.ViewPager
