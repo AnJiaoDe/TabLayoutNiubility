@@ -1,5 +1,6 @@
 package com.cy.tablayoutsimple_;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -35,7 +36,7 @@ public class TabVpViewViewActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        simplePageAdapter = new SimplePageAdapter<String>() {
+        simplePageAdapter = new SimplePageAdapter<String>(viewPager) {
             @Override
             public int getItemLayoutID(int position, String bean) {
                 return R.layout.item_view_2;
@@ -45,12 +46,16 @@ public class TabVpViewViewActivity extends AppCompatActivity {
             public void bindDataToView(ViewPagerHolder holder, int position, String bean) {
                 ViewPager viewPager = holder.getView(R.id.view_pager);
                 TabLayoutScroll tabLayoutLine = holder.getView(R.id.tablayout);
-                SimplePageAdapter<String> simplePageAdapter = new SimplePageAdapter<String>() {
+                SimplePageAdapter<String> simplePageAdapter = new SimplePageAdapter<String>(viewPager) {
                     @Override
                     public int getItemLayoutID(int position, String bean) {
                         return R.layout.item_tv;
                     }
 
+                    @Override
+                    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull String bean) {
+                        LogUtils.log("onPageSelected",position);
+                    }
 
                     @Override
                     public void bindDataToView(ViewPagerHolder holder, int position, String bean) {
@@ -69,6 +74,7 @@ public class TabVpViewViewActivity extends AppCompatActivity {
                         }
                         textView.setText(bean);
                     }
+
 
                     @Override
                     public int getTabLayoutID(int position, String bean) {

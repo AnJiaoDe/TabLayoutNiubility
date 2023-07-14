@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 
 import java.util.ArrayList;
@@ -18,9 +19,27 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
     protected int position_selected_last = -1;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
 
-    public BaseSimplePageAdapter() {
+    public BaseSimplePageAdapter(ViewPager viewPager) {
         list_bean = new ArrayList<>();
         sparseArrayViewPagerHolder = new SparseArray<>();
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                BaseSimplePageAdapter.this.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+                if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
+                    BaseSimplePageAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                BaseSimplePageAdapter.this.onPageScrollStateChanged(state);
+            }
+        });
     }
 
     @NonNull
@@ -70,15 +89,26 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
 
     public abstract int getItemLayoutID(int position, T bean);
 
-    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull T bean) {
+    public ViewPagerHolder getViewPagerHolderFromPosition(int position) {
+        return sparseArrayViewPagerHolder.get(position);
     }
-
     public void onViewRecycled(int position, @NonNull T bean) {
     }
 
     public abstract void bindDataToView(ViewPagerHolder holder, int position, T bean);
 
     public void onItemClick(ViewPagerHolder holder, int position, T bean) {
+    }
+
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
     }
 
     @Override

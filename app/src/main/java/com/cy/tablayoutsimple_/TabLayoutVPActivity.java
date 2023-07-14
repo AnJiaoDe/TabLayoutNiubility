@@ -38,7 +38,8 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
 
-            @Override
+
+          @Override
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
@@ -51,7 +52,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 textView.setText(bean);
             }
 
-            @Override
+          @Override
             public int getTabLayoutID(int position, String bean) {
                 if (position == 0) {
                     return R.layout.item_tab_msg;
