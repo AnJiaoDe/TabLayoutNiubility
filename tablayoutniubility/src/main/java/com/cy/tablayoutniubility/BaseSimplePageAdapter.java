@@ -17,11 +17,11 @@ import java.util.List;
 
 public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends PagerAdapter implements IBaseTabPageAdapter<T, V> {
     protected List<T> list_bean;
-    protected boolean haveSelected = false;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
     protected ViewPager viewPager;
     //    protected ViewPager viewPagerParent;
     protected int positionParent;
+    protected int positionSelected=-1;
     protected SparseArray<BaseSimplePageAdapter> sparseArrayChildAdapter;
     protected BaseSimplePageAdapter adapterParent;
 
@@ -48,7 +48,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
                 ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
                 if (viewPagerHolder != null && position >= 0 && position < list_bean.size()) {
 //                    LogUtils.log("onPageSelected自己",position);
-                    haveSelected = true;
+                    positionSelected=position;
                     BaseSimplePageAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
                     BaseSimplePageAdapter adapterChild = sparseArrayChildAdapter.get(position);
                     if (adapterChild != null) {
@@ -79,9 +79,9 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         });
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
-        if (!haveSelected && (adapterParent == null || adapterParent.getCurrentItem() == positionParent)) {
-//            LogUtils.log("onPageSelected自己instanti",position);
-            haveSelected = true;
+        if (positionSelected==-1 && (adapterParent == null || adapterParent.getPositionSelected() == positionParent)) {
+//            LogUtils.log("onPageSelected自己instanti",position+":"+positionParent);
+            positionSelected = position;
             onPageSelected(viewPagerHolder, position, list_bean.get(position));
         }
         return view;
@@ -141,16 +141,23 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         sparseArrayChildAdapter.put(position, adapter);
     }
 
-
+    public int getPositionSelected() {
+        return positionSelected;
+    }
     public int getCurrentItem() {
         return viewPager.getCurrentItem();
     }
-
     public void notifyPageSelected(int position) {
         ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
         if (viewPagerHolder != null && position >= 0 && position < list_bean.size()){
-            haveSelected = true;
+            positionSelected=position;
             onPageSelected(viewPagerHolder, position, list_bean.get(position));
+            //这里必须通知儿子，多因为层嵌套，有可能不止2层，可能会是3层
+            BaseSimplePageAdapter adapterChild = sparseArrayChildAdapter.get(position);
+            if (adapterChild != null) {
+//                        LogUtils.log("onPageSelected父通知子",position);
+                adapterChild.notifyPageSelected(adapterChild.getCurrentItem());
+            }
         }
     }
 

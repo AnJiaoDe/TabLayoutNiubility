@@ -19,12 +19,12 @@
 //    public static void logI(Object tag, Object content) {
 //        if(DEBUG==false)return;
 //        if (tag == null) tag = "LOG_I";
-//        Log.i(String.valueOf(tag), "----------------------------------->>>>" + content);
+//        Log.i(String.valueOf(tag), "--------->>>>" + content);
 //    }
 //    public static void logE(Object tag, Object content) {
 //        if(DEBUG==false)return;
 //        if (tag == null) tag = "LOG_E";
-//        Log.e(String.valueOf(tag), "----------------------------------->>>>" + content);
+//        Log.e(String.valueOf(tag), "--------->>>>>>>" + content);
 //    }
 //
 //
