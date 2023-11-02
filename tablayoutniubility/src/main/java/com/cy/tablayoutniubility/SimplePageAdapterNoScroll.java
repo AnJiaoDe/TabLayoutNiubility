@@ -8,6 +8,10 @@ public abstract class SimplePageAdapterNoScroll<T> extends BaseSimplePageAdapter
         super(viewPager);
     }
 
+    public SimplePageAdapterNoScroll(ViewPager viewPager, BaseSimplePageAdapter adapterParent, int positionParent) {
+        super(viewPager, adapterParent, positionParent);
+    }
+
     @Override
     public <W extends PagerAdapter> W getPageAdapter() {
         return (W) this;
