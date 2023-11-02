@@ -9,6 +9,10 @@ public abstract class SimplePageAdapter<T> extends BaseSimplePageAdapter<T, TabV
         super(viewPager);
     }
 
+    public SimplePageAdapter(ViewPager viewPager, BaseSimplePageAdapter adapterParent, int positionParent) {
+        super(viewPager, adapterParent, positionParent);
+    }
+
     @Override
     public <W extends PagerAdapter> W getPageAdapter() {
         return (W) this;

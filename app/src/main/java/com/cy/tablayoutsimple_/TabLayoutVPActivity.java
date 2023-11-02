@@ -29,17 +29,16 @@ public class TabLayoutVPActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.view_pager);
         final TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-      final  FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
+        final FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override
             public Fragment createFragment(String bean, int position) {
-                LogUtils.log("createFragmenteeee",position);
+                LogUtils.log("createFragmenteeee", position);
                 return FragmentTab2.newInstance(FragmentTab2.TAB_NAME2, getList_bean().get(position));
             }
 
-
-          @Override
+            @Override
             public void bindDataToTab(TabViewHolder holder, int position, String bean, boolean isSelected) {
                 TextView textView = holder.getView(R.id.tv);
                 if (isSelected) {
@@ -52,7 +51,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 textView.setText(bean);
             }
 
-          @Override
+            @Override
             public int getTabLayoutID(int position, String bean) {
                 if (position == 0) {
                     return R.layout.item_tab_msg;
@@ -61,7 +60,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
             }
         };
 
-        final TabMediatorVp<String> tabMediatorVp=new TabMediatorVp<String>(tabLayoutLine, viewPager);
+        final TabMediatorVp<String> tabMediatorVp = new TabMediatorVp<String>(tabLayoutLine, viewPager);
         final TabAdapter<String> tabAdapter = tabMediatorVp.setAdapter(fragmentPageAdapter);
 
         List<String> list = new ArrayList<>();

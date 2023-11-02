@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
@@ -16,12 +17,26 @@ import java.util.List;
 
 public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends PagerAdapter implements IBaseTabPageAdapter<T, V> {
     protected List<T> list_bean;
-    protected int position_selected_last = -1;
+    protected boolean haveSelected = false;
     protected SparseArray<ViewPagerHolder> sparseArrayViewPagerHolder;
+    protected ViewPager viewPager;
+    //    protected ViewPager viewPagerParent;
+    protected int positionParent;
+    protected SparseArray<BaseSimplePageAdapter> sparseArrayChildAdapter;
+    protected BaseSimplePageAdapter adapterParent;
 
     public BaseSimplePageAdapter(ViewPager viewPager) {
+        this(viewPager, null, 0);
+    }
+
+    public BaseSimplePageAdapter(final ViewPager viewPager, final BaseSimplePageAdapter adapterParent, final int positionParent) {
+        this.viewPager = viewPager;
+        this.adapterParent = adapterParent;
+        this.positionParent = positionParent;
         list_bean = new ArrayList<>();
         sparseArrayViewPagerHolder = new SparseArray<>();
+        sparseArrayChildAdapter = new SparseArray<>();
+        if (adapterParent != null) adapterParent.putChildAdapter(positionParent, this);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -31,8 +46,16 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
             @Override
             public void onPageSelected(int position) {
                 ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
-                if (viewPagerHolder != null && position >= 0 && position < list_bean.size())
+                if (viewPagerHolder != null && position >= 0 && position < list_bean.size()) {
+//                    LogUtils.log("onPageSelected自己",position);
+                    haveSelected = true;
                     BaseSimplePageAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
+                    BaseSimplePageAdapter adapterChild = sparseArrayChildAdapter.get(position);
+                    if (adapterChild != null) {
+//                        LogUtils.log("onPageSelected父通知子",position);
+                        adapterChild.notifyPageSelected(adapterChild.getCurrentItem());
+                    }
+                }
             }
 
             @Override
@@ -56,8 +79,9 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         });
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
-        if (position_selected_last == -1) {
-            position_selected_last = position;
+        if (!haveSelected && (adapterParent == null || adapterParent.getCurrentItem() == positionParent)) {
+//            LogUtils.log("onPageSelected自己instanti",position);
+            haveSelected = true;
             onPageSelected(viewPagerHolder, position, list_bean.get(position));
         }
         return view;
@@ -75,6 +99,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         container.removeView((View) object);
         sparseArrayViewPagerHolder.remove(position);
         if (position < 0 || position >= list_bean.size()) return;
+        sparseArrayChildAdapter.remove(position);
         onViewRecycled(position, list_bean.get(position));
     }
 
@@ -92,6 +117,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
     public ViewPagerHolder getViewPagerHolderFromPosition(int position) {
         return sparseArrayViewPagerHolder.get(position);
     }
+
     public void onViewRecycled(int position, @NonNull T bean) {
     }
 
@@ -111,6 +137,23 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
     public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
     }
 
+    public void putChildAdapter(int position, BaseSimplePageAdapter adapter) {
+        sparseArrayChildAdapter.put(position, adapter);
+    }
+
+
+    public int getCurrentItem() {
+        return viewPager.getCurrentItem();
+    }
+
+    public void notifyPageSelected(int position) {
+        ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
+        if (viewPagerHolder != null && position >= 0 && position < list_bean.size()){
+            haveSelected = true;
+            onPageSelected(viewPagerHolder, position, list_bean.get(position));
+        }
+    }
+
     @Override
     public int getCount() {
         return list_bean.size();
@@ -122,7 +165,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
     }
 
     @Override
-    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent,  V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
+    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent, V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
     }
 
     /**

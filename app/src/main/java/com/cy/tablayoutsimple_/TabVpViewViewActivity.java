@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.cy.tablayoutniubility.FragPageAdapterVp;
@@ -43,23 +44,62 @@ public class TabVpViewViewActivity extends AppCompatActivity {
             }
 
             @Override
-            public void bindDataToView(ViewPagerHolder holder, int position, String bean) {
-                ViewPager viewPager = holder.getView(R.id.view_pager);
+            public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull String bean) {
+                LogUtils.log("onPageSelected父", position);
+            }
+
+            @Override
+            public void bindDataToView(ViewPagerHolder holder, int position, final String bean) {
+               final ViewPager viewPagerChild = holder.getView(R.id.view_pager);
                 TabLayoutScroll tabLayoutLine = holder.getView(R.id.tablayout);
-                SimplePageAdapter<String> simplePageAdapter = new SimplePageAdapter<String>(viewPager) {
+
+                holder.setOnClickListener(R.id.btn_child0, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerChild.setCurrentItem(0);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_child1, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerChild.setCurrentItem(1);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_child2, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerChild.setCurrentItem(2);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_child3, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerChild.setCurrentItem(3);
+                    }
+                });
+                holder.setOnClickListener(R.id.btn_child4, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        viewPagerChild.setCurrentItem(4);
+                    }
+                });
+
+                SimplePageAdapter<String> simplePageAdapterChild = new SimplePageAdapter<String>(
+                        viewPagerChild, simplePageAdapter, position) {
                     @Override
                     public int getItemLayoutID(int position, String bean) {
                         return R.layout.item_tv;
                     }
 
                     @Override
-                    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull String bean) {
-                        LogUtils.log("onPageSelected",position);
+                    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull String bean1) {
+                        LogUtils.log(bean + "onPageSelected子", position);
                     }
 
                     @Override
                     public void bindDataToView(ViewPagerHolder holder, int position, String bean) {
                         holder.setText(R.id.tv, bean);
+//                        LogUtils.log(bean + "onPageSelected 子bin"+hashCode(), position);
                     }
 
                     @Override
@@ -81,7 +121,7 @@ public class TabVpViewViewActivity extends AppCompatActivity {
                         return R.layout.item_tab;
                     }
                 };
-                TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPager).setAdapter(simplePageAdapter);
+                TabAdapter<String> tabAdapter = new TabMediatorVp<String>(tabLayoutLine, viewPagerChild).setAdapter(simplePageAdapterChild);
 
                 List<String> list = new ArrayList<>();
                 list.add(bean + 0);
@@ -89,21 +129,23 @@ public class TabVpViewViewActivity extends AppCompatActivity {
                 list.add(bean + 33333);
                 list.add(bean + 3);
                 list.add(bean + 4545);
-                list.add(bean + 4);
-                list.add(bean + 4);
-                list.add(bean + 5767);
-                list.add(bean + 6765887);
-                list.add(bean + 4);
-                list.add(bean + 677);
-                list.add(bean + 45);
-                list.add(bean + 8);
-                list.add(bean + 2);
-                list.add(bean + 5);
-                list.add(bean + 57);
-                list.add(bean + 30);
-                list.add(bean + 3454);
-                simplePageAdapter.add(list);
+//                list.add(bean + 4);
+//                list.add(bean + 4);
+//                list.add(bean + 5767);
+//                list.add(bean + 6765887);
+//                list.add(bean + 4);
+//                list.add(bean + 677);
+//                list.add(bean + 45);
+//                list.add(bean + 8);
+//                list.add(bean + 2);
+//                list.add(bean + 5);
+//                list.add(bean + 57);
+//                list.add(bean + 30);
+//                list.add(bean + 3454);
+                simplePageAdapterChild.add(list);
                 tabAdapter.add(list);
+
+//                viewPagerChild.setCurrentItem(2);
             }
 
             @Override
@@ -137,5 +179,42 @@ public class TabVpViewViewActivity extends AppCompatActivity {
         simplePageAdapter.add(list);
         tabAdapter.add(list);
 
+        findViewById(R.id.btn_parent0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+            }
+        });
+        findViewById(R.id.btn_parent1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+        findViewById(R.id.btn_parent2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+        findViewById(R.id.btn_parent3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(3);
+            }
+        });
+        findViewById(R.id.btn_parent4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(4);
+            }
+        });
+        findViewById(R.id.btn_parent5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(5);
+            }
+        });
+        viewPager.setCurrentItem(3);
     }
 }

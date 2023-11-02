@@ -29,7 +29,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'androidx.appcompat:appcompat:+'
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
     compileOnly 'androidx.viewpager2:viewpager2:1.0.0'
 }
 //---------------------------------------------下面的必加,加上下面的作用是在上传后会带上注释,不然会发现没有注释
