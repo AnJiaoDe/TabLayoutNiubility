@@ -48,7 +48,7 @@ public class IndicatorLineView extends View implements IIndicatorView {
                 indicator.setPaintStyle(Paint.Style.FILL_AND_STROKE);
                 break;
         }
-        indicator.setPaintStrokeWidth(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_paint_stroke_width, ScreenUtils.dpAdapt(context, 1)));
+        indicator.setPaintStrokeWidth(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_paint_stroke_width, 0));
 
         indicator.setMax2Width(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Width, false));
         indicator.setMax2Height(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Height, false));
@@ -58,7 +58,6 @@ public class IndicatorLineView extends View implements IIndicatorView {
         indicator.setWidth_indicator(0);
 
         typedArray.recycle();
-
     }
 
     @Override
@@ -70,13 +69,13 @@ public class IndicatorLineView extends View implements IIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int top = 0;
+        int top = (int) indicator.getPaint_indicator().getStrokeWidth();
         switch (indicator_style) {
             case 0:
-                top = height - indicator.getHeight_indicator();
+                top = (int) (height - indicator.getHeight_indicator()-indicator.getPaint_indicator().getStrokeWidth());
                 break;
             case 1:
-                top = (int) ((height - indicator.getHeight_indicator()) * 0.5f);
+                top = (int) ((height - indicator.getHeight_indicator()+indicator.getPaint_indicator().getStrokeWidth()) * 0.5f);
                 break;
         }
         canvas.drawRoundRect(indicator.getProgress(), top,
