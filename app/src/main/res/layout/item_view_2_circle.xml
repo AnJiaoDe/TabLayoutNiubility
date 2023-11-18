@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:id="@+id/IndicatorLineView"
             app:cy_isMax2Width="true"
-            app:cy_isIndicatorCenter="true"
+            app:cy_indicator_style="center"
             app:cy_color_indicator="#f00"
             app:cy_radius_indicator="25dp"
             app:cy_height_indicator="70dp"

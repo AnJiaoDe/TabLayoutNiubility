@@ -8,6 +8,12 @@
     <attr name="cy_space_vertical" format="dimension|reference" />
     <attr name="cy_space_horizontal" format="dimension|reference" />
 
+    <attr name="cy_indicator_style">
+        <enum name="bottom" value="0" />
+        <enum name="center" value="1" />
+        <enum name="top" value="2" />
+    </attr>
+
     <attr name="cy_paint_style">
         <enum name="FILL" value="0" />
         <enum name="STROKE" value="1" />
@@ -28,6 +34,7 @@
         <attr name="cy_space_horizontal" />
         <attr name="cy_scrollable" format="boolean" />
     </declare-styleable>
+
     <declare-styleable name="IndicatorLineView">
         <attr name="cy_height_indicator" />
         <attr name="cy_width_indicator_selected" />
@@ -36,8 +43,9 @@
         <attr name="cy_color_indicator" />
         <attr name="cy_isMax2Width" format="boolean" />
         <attr name="cy_isMax2Height" format="boolean" />
-        <attr name="cy_isIndicatorCenter" format="boolean" />
+<!--        <attr name="cy_isIndicatorCenter" format="boolean" />-->
         <attr name="cy_paint_style" />
+        <attr name="cy_indicator_style" />
         <attr name="cy_paint_stroke_width" />
     </declare-styleable>
     <declare-styleable name="IndicatorTriangleView">

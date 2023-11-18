@@ -22,7 +22,7 @@ public class IndicatorLineView extends View implements IIndicatorView {
     protected int height;
     protected int radius_indicator;
     private Indicator indicator;
-    private boolean isIndicatorCenter = false;
+    private int indicator_style = 0;
 
     public IndicatorLineView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -52,7 +52,7 @@ public class IndicatorLineView extends View implements IIndicatorView {
 
         indicator.setMax2Width(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Width, false));
         indicator.setMax2Height(typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isMax2Height, false));
-        isIndicatorCenter = typedArray.getBoolean(R.styleable.IndicatorLineView_cy_isIndicatorCenter, isIndicatorCenter);
+        indicator_style = typedArray.getInt(R.styleable.IndicatorLineView_cy_indicator_style, indicator_style);
         setRadius_indicator(typedArray.getDimensionPixelSize(R.styleable.IndicatorLineView_cy_radius_indicator, ScreenUtils.dpAdapt(context, 2)));
 
         indicator.setWidth_indicator(0);
@@ -70,7 +70,15 @@ public class IndicatorLineView extends View implements IIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int top = isIndicatorCenter ? (int) ((height - indicator.getHeight_indicator()) * 0.5f) : height - indicator.getHeight_indicator();
+        int top = 0;
+        switch (indicator_style) {
+            case 0:
+                top = height - indicator.getHeight_indicator();
+                break;
+            case 1:
+                top = (int) ((height - indicator.getHeight_indicator()) * 0.5f);
+                break;
+        }
         canvas.drawRoundRect(indicator.getProgress(), top,
                 indicator.getProgress() + indicator.getWidth_indicator(), top + indicator.getHeight_indicator(),
                 radius_indicator, radius_indicator, indicator.getPaint_indicator());
