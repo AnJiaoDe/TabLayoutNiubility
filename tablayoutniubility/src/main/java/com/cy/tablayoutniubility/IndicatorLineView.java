@@ -69,13 +69,13 @@ public class IndicatorLineView extends View implements IIndicatorView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int top = (int) indicator.getPaint_indicator().getStrokeWidth();
+        int top = (int) (indicator.getPaint_indicator().getStrokeWidth()*0.5f);
         switch (indicator_style) {
             case 0:
-                top = (int) (height - indicator.getHeight_indicator()-indicator.getPaint_indicator().getStrokeWidth());
+                top = (int) (height - indicator.getHeight_indicator()-indicator.getPaint_indicator().getStrokeWidth()*0.5f);
                 break;
             case 1:
-                top = (int) ((height - indicator.getHeight_indicator()+indicator.getPaint_indicator().getStrokeWidth()) * 0.5f);
+                top = (int) ((height - indicator.getHeight_indicator()) * 0.5f);
                 break;
         }
         canvas.drawRoundRect(indicator.getProgress(), top,

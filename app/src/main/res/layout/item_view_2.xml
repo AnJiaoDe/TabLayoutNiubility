@@ -64,11 +64,13 @@
             android:id="@+id/IndicatorLineView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cy_color_indicator="#aa4545"
+            app:cy_color_indicator="#fff"
             app:cy_height_indicator="30dp"
             app:cy_indicator_style="center"
             app:cy_isMax2Width="true"
-            app:cy_paint_stroke_width="2dp"
+            android:background="#cccccc"
+            app:cy_isMax2Height="true"
+            app:cy_paint_stroke_width="6dp"
             app:cy_paint_style="STROKE"
             app:cy_radius_indicator="20dp" />
     </com.cy.tablayoutniubility.TabLayoutScroll>
