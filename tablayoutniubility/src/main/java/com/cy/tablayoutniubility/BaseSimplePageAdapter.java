@@ -134,7 +134,7 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
 
     }
 
-    public void onPageSelected(ViewPagerHolder viewPagerHolder, int position, @NonNull T bean) {
+    public void onPageSelected(ViewPagerHolder holder, int position, @NonNull T bean) {
     }
 
     public void putChildAdapter(int position, BaseSimplePageAdapter adapter) {
