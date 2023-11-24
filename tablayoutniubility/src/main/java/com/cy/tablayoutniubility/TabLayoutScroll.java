@@ -38,12 +38,12 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabLayoutScroll);
             setSpace_horizontal(typedArray.getDimensionPixelSize(R.styleable.TabLayoutScroll_cy_space_horizontal,
-                    ScreenUtils.dpAdapt(context, 30)));
+                    ScreenUtils.dpAdapt(context, 20)));
             setSpace_vertical(typedArray.getDimensionPixelSize(R.styleable.TabLayoutScroll_cy_space_vertical,
                     ScreenUtils.dpAdapt(context, 8)));
             typedArray.recycle();
         } else {
-            setSpace_horizontal(ScreenUtils.dpAdapt(context, 30));
+            setSpace_horizontal(ScreenUtils.dpAdapt(context, 20));
             setSpace_vertical(ScreenUtils.dpAdapt(context, 8));
             addTab();
         }
