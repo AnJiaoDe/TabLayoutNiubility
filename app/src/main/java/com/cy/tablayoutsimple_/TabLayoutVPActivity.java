@@ -144,6 +144,8 @@ public class TabLayoutVPActivity extends AppCompatActivity {
                 list.add("漫画");
                 fragmentPageAdapter.clearAdd(list);
                 tabAdapter.clearAdd(list);
+                viewPager.setCurrentItem(0);
+                tabAdapter.setPositionSelected(0);
             }
         });
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DialogActivity">
+    <com.cy.tablayoutniubility.TabLayoutScroll
+        android:id="@+id/TabLayoutScroll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.cy.tablayoutniubility.IndicatorLineView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cy_height_indicator="0dp" />
+    </com.cy.tablayoutniubility.TabLayoutScroll>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:overScrollMode="never" />
+    <Button
+        android:layout_width="match_parent"
+        android:text="dialog"
+        android:id="@+id/btn_dialog"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

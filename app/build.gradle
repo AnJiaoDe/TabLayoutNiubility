@@ -36,5 +36,5 @@ dependencies {
     api 'androidx.viewpager2:viewpager2:1.0.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
     api 'com.github.AnJiaoDe:AndroidView:V1.4.0'
-
+    api 'com.github.AnJiaoDe:BaseDialog:V1.2.1'
 }

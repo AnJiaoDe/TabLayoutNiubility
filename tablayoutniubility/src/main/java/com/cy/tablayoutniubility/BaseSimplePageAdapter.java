@@ -45,9 +45,10 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
 
             @Override
             public void onPageSelected(int position) {
+                //注意：dialog中的VP，如果dialog dismiss后再次show,然后第一次点击tab,会导致onPageSelected先于instantiateItem回调
+                //真是麻雀啄了牛屁股，故而必须判断viewPagerHolder，并且这个时候需要positionSelected赋值为负数，否则GG
                 ViewPagerHolder viewPagerHolder = getViewPagerHolderFromPosition(position);
                 if (viewPagerHolder != null && position >= 0 && position < list_bean.size()) {
-//                    LogUtils.log("onPageSelected自己",position);
                     positionSelected=position;
                     BaseSimplePageAdapter.this.onPageSelected(viewPagerHolder, position, list_bean.get(position));
                     BaseSimplePageAdapter adapterChild = sparseArrayChildAdapter.get(position);
@@ -55,6 +56,8 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
 //                        LogUtils.log("onPageSelected父通知子",position);
                         adapterChild.notifyPageSelected(adapterChild.getCurrentItem());
                     }
+                }else{
+                    positionSelected=-1;
                 }
             }
 
@@ -79,10 +82,10 @@ public abstract class BaseSimplePageAdapter<T, V extends IViewHolder> extends Pa
         });
         sparseArrayViewPagerHolder.put(position, viewPagerHolder);
         bindDataToView(viewPagerHolder, position, list_bean.get(position));
-        if (positionSelected==-1 && (adapterParent == null || adapterParent.getPositionSelected() == positionParent)) {
+        if (positionSelected<0 && (adapterParent == null || adapterParent.getPositionSelected() == positionParent)) {
 //            LogUtils.log("onPageSelected自己instanti",position+":"+positionParent);
-            positionSelected = position;
-            onPageSelected(viewPagerHolder, position, list_bean.get(position));
+            positionSelected = viewPager.getCurrentItem();
+            onPageSelected(viewPagerHolder, positionSelected, list_bean.get(positionSelected));
         }
         return view;
     }
