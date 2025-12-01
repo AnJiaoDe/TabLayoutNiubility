@@ -61,6 +61,8 @@ public class TabMediatorVpNoScroll<T> implements ITabMediator {
                  * 手指左右滑动Viewpager，触发下面所有代码
                  */
                 TabNoScrollViewHolder viewHolder = tabLayout.getTabNoScrollView().getViewHolder(position);
+                //出现过崩溃
+                if(viewHolder==null)return;
                 int width_half = (int) (viewHolder.itemView.getWidth() * 1f / 2);
                 int left = viewHolder.itemView.getLeft();
                 TabNoScrollViewHolder viewHolder_behind = tabLayout.getTabNoScrollView().getViewHolder(position + 1);

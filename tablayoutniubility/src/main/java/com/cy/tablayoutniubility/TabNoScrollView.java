@@ -65,6 +65,7 @@ class TabNoScrollView extends LinearLayout {
     public TabAdapterNoScroll getAdapter() {
         return tabNoScrollAdapter;
     }
+    @Nullable
     public TabNoScrollViewHolder getViewHolder(int position){
         return sparseArrayViewHolder.get(position);
     }
