@@ -11,16 +11,28 @@
         android:layout_height="wrap_content"
         android:text="refresh" />
 
-    <com.cy.tablayoutniubility.TabLayoutScroll
-        android:id="@+id/tablayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#fff">
-
-        <com.cy.tablayoutniubility.IndicatorLineView
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.cy.tablayoutniubility.TabLayoutScroll
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.cy.tablayoutniubility.TabLayoutScroll>
+            android:layout_height="40dp"
+            android:background="#fff">
+
+            <com.cy.tablayoutniubility.IndicatorLineView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.cy.tablayoutniubility.TabLayoutScroll>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="#f00"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

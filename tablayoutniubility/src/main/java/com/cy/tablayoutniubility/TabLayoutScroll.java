@@ -69,8 +69,49 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
     }
 
     private void addTab() {
-        addView(horizontalRecyclerView, getChildCount(), new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        addView(horizontalRecyclerView, getChildCount(), new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // 只让 RecyclerView 决定 TabLayout 的 wrap_content 宽度
+        measureChild(horizontalRecyclerView, widthMeasureSpec, heightMeasureSpec);
+        int width = resolveSize(horizontalRecyclerView.getMeasuredWidth(), widthMeasureSpec);
+        int height = resolveSize(horizontalRecyclerView.getMeasuredHeight(), heightMeasureSpec);
+        setMeasuredDimension(width, height);
+        // Indicator 直接跟随最终的 TabLayout 尺寸
+        if (indicatorView != null) {
+            View indicator = indicatorView.getView();
+            indicator.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+        }
+    }
+
+//    @Override
+//    protected void onLayout(
+//            boolean changed,
+//            int left,
+//            int top,
+//            int right,
+//            int bottom
+//    ) {
+//        // RecyclerView
+//        horizontalRecyclerView.layout(
+//                0,
+//                0,
+//                horizontalRecyclerView.getMeasuredWidth(),
+//                horizontalRecyclerView.getMeasuredHeight()
+//        );
+//        // Indicator 覆盖整个 TabLayout
+//        if (indicatorView != null) {
+//            View indicator = indicatorView.getView();
+//            indicator.layout(
+//                    0,
+//                    0,
+//                    getWidth(),
+//                    getHeight()
+//            );
+//        }
+//    }
 
     @Override
     public <T extends View> T getView() {
@@ -86,7 +127,7 @@ public class TabLayoutScroll extends FrameLayout implements ITabLayout {
         if (this.indicatorView != null) removeView(this.indicatorView.getView());
         removeView(indicatorView.getView());
         this.indicatorView = indicatorView;
-        addView(indicatorView.getView(),0);
+        addView(indicatorView.getView(), 0);
         return (T) this;
     }
 
