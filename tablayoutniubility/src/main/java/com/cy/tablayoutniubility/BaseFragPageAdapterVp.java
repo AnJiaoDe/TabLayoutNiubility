@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends CyFragStatePageAdapterVp
+public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends FragmentStatePagerAdapter
         implements IBaseTabPageAdapter<T, V> {
     private List<T> list_bean = new ArrayList<>();
 

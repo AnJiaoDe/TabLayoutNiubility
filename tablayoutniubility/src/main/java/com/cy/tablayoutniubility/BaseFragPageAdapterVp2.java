@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.Lifecycle;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class BaseFragPageAdapterVp2<T, V extends IViewHolder> extends CyFragStatePageAdapterVp2
+public abstract class BaseFragPageAdapterVp2<T, V extends IViewHolder> extends FragmentStateAdapter
         implements IBaseTabPageAdapter<T, V> {
     private List<T> list_bean = new ArrayList<>();
 
