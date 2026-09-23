@@ -33,7 +33,7 @@ public class TabLayoutVpNestActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
+        fragmentPageAdapter = new FragPageAdapterVp<String>(viewPager,getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {

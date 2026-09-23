@@ -29,7 +29,7 @@ public class TabLayoutVPActivity extends AppCompatActivity {
         final ViewPager viewPager = findViewById(R.id.view_pager);
         final TabLayoutScroll tabLayoutLine = findViewById(R.id.tablayout);
 //        tabLayoutLine.setSpace_horizontal(dpAdapt(20)).setSpace_vertical(dpAdapt(8));
-        final FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getSupportFragmentManager(),
+        final FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(viewPager,getSupportFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
             @Override

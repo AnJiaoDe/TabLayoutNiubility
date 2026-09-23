@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,11 @@ import java.util.List;
 public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends FragmentStatePagerAdapter
         implements IBaseTabPageAdapter<T, V> {
     private List<T> list_bean = new ArrayList<>();
+    private int scrollState = ViewPager.SCROLL_STATE_IDLE;
 
     //    private FragmentManager.FragmentLifecycleCallbacks fragmentLifecycleCallbacks;
 //    private ILifecycleCallback lifecycleCallback;
-    public BaseFragPageAdapterVp(@NonNull FragmentManager fm, int behavior) {
+    public BaseFragPageAdapterVp(@NonNull ViewPager viewPager, @NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
 //        fragmentLifecycleCallbacks=new FragmentManager.FragmentLifecycleCallbacks() {
 //            @Override
@@ -37,6 +39,22 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Fr
 //                }
 //            }
 //        };
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                scrollState = state;
+            }
+        });
     }
 
 //    public void setLifecycleCallback(ILifecycleCallback lifecycleCallback) {
@@ -64,7 +82,11 @@ public abstract class BaseFragPageAdapterVp<T, V extends IViewHolder> extends Fr
     }
 
     @Override
-    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent,  V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
+    public void onTabScrolled(V holderCurrent, int positionCurrent, boolean fromLeft2RightCurrent, float positionOffsetCurrent, V holder2, int position2, boolean fromLeft2Right2, float positionOffset2) {
+    }
+
+    public int getScrollState() {
+        return scrollState;
     }
 
     /**

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  * @UpdateRemark:
  * @Version:
  */
-public abstract class FragPageAdapterVp<T> extends BaseFragPageAdapterVp<T,TabViewHolder> implements ITabPageAdapterVp<T> {
+public abstract class FragPageAdapterVp<T> extends BaseFragPageAdapterVp<T, TabViewHolder> implements ITabPageAdapterVp<T> {
 
-    public FragPageAdapterVp(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    public FragPageAdapterVp(@NonNull ViewPager viewPager, @NonNull FragmentManager fm, int behavior) {
+        super(viewPager, fm, behavior);
     }
 
     @Override

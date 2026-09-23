@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ import java.util.List;
 public abstract class FragPageAdapterVpNoScroll<T> extends BaseFragPageAdapterVp<T, TabNoScrollViewHolder>
         implements ITabPageAdapterVpNoScroll<T> {
 
-    public FragPageAdapterVpNoScroll(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    public FragPageAdapterVpNoScroll(@NonNull ViewPager viewPager, @NonNull FragmentManager fm, int behavior) {
+        super(viewPager, fm, behavior);
     }
 
     @Override

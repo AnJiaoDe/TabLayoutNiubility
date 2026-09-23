@@ -52,7 +52,7 @@ public class FragmentTab1 extends Fragment {
         LogUtils.log("onCreateView");
         viewPager = view.findViewById(R.id.view_pager);
         tabLayoutLine = view.findViewById(R.id.tablayout);
-        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(getChildFragmentManager(),
+        FragPageAdapterVp<String> fragmentPageAdapter = new FragPageAdapterVp<String>(viewPager,getChildFragmentManager(),
                 FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public Fragment createFragment(String bean, int position) {
